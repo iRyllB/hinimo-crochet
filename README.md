@@ -1,224 +1,69 @@
-# 🧶 Hinimo Crochet
+# HINIMO CROCHET
 
-Welcome to the Hinimo Crochet project!
+Welcome to our project! This application is built using a modern, high-performance web stack. Follow the instructions below to get your local development environment set up so we can start building together.
 
-This README will guide you through installing, setting up, and running the project on your computer so we can all collaborate.
+## 🚀 Tech Stack
+- **Framework:** React 19 (using the new React Compiler)
+- **Build Tool:** Vite (for lightning-fast server starts and hot-reloading)
+- **Language:** TypeScript (for static typing and catching errors early)
+- **Linter:** ESLint (to enforce code quality and best practices)
 
-## 📋 Prerequisites
+## 💻 Prerequisites
+Before you begin, make sure you have the following installed on your computer:
+- [Node.js](https://nodejs.org/en/) (v18 or higher recommended)
+- [Git](https://git-scm.com/)
+- [Visual Studio Code](https://code.visualstudio.com/) (Highly recommended for TypeScript support)
 
-Before starting, make sure you have the following installed:
+## 🛠️ Setup Instructions
 
-*   [Node.js](https://nodejs.org/) (which includes npm)
-*   [Git](https://git-scm.com/)
-*   [Visual Studio Code](https://code.visualstudio.com/) (recommended)
-
-### Check Node.js and npm
-
-Open PowerShell, Command Prompt, or the VS Code terminal and run:
-
+**1. Clone the repository**
+Open your terminal and clone this project to your local machine:
 ```bash
-node --version
-npm --version
+git clone https://github.com/iRyllB/hinimo-crochet.git
 ```
 
-You should see version numbers. If you get an error such as `'npm' is not recognized` or `'npx' is not recognized`, you need to install Node.js from [nodejs.org](https://nodejs.org/). After installing, close and reopen your terminal, then check again.
-
----
-
-## 🚀 Installation
-
-### 1. Clone the Repository
-
-Open PowerShell or the VS Code terminal, and clone the repository:
-
+**2. Navigate to the project directory**
 ```bash
-git clone [https://github.com/iRyllB/hinimo-crochet.git](https://github.com/iRyllB/hinimo-crochet.git)
+cd <insert-project-folder-name>
 ```
 
-Then, enter the project folder:
-
-```bash
-cd hinimo-crochet
-```
-
-### 2. Install Dependencies
-
-Inside the `hinimo-crochet` folder, run:
-
+**3. Install dependencies**
+Download all the required packages (React, Vite, TypeScript, etc.):
 ```bash
 npm install
 ```
 
-This installs all the packages required by the project. Wait for the installation to finish before continuing.
-
-### 3. Start the Development Server
-
-Run:
-
+**4. Start the development server**
+Spin up the local environment:
 ```bash
 npm run dev
 ```
+The terminal will provide a local link (usually `http://localhost:5173`). `Ctrl + Click` (or `Cmd + Click`) the link to open the app in your browser!
 
-You should see something similar to:
+## 📂 Project Structure
+- `/src`: This is where we will do almost all of our work. 
+  - `App.tsx`: The main React component and starting point of the app.
+  - `main.tsx`: The entry point that mounts our React app to the HTML file.
+- `/public`: Static assets (like the favicon) that don't need to be processed by Vite.
+- `index.html`: The main HTML template.
+- `vite.config.ts`: Configuration settings for Vite and the React Compiler.
 
-```text
-▲ Next.js
-- Local: http://localhost:3000
-```
+## 🧰 Available Scripts
+- `npm run dev`: Starts the local development server.
+- `npm run build`: Compiles the TypeScript and builds the app for production.
+- `npm run lint`: Runs ESLint to check for code errors or formatting issues.
 
-Open your browser and visit: **http://localhost:3000**. The Hinimo Crochet website should now be running!
+## ⚠️ Troubleshooting
 
----
+**Windows PowerShell Error when running npm/npx commands?**
+If you get a red error stating *"...cannot be loaded because running scripts is disabled on this system"* (SecurityError / PSSecurityException), it means Windows is blocking the Node scripts. 
 
-## 🛑 Stopping the Server
+**How to fix it:**
+1. Open PowerShell as Administrator (or use your VS Code terminal).
+2. Run this command to allow local scripts to run:
+   ```powershell
+   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+   ```
+3. Type `Y` and press Enter when prompted.
 
-To stop the development server, go back to your terminal and press `Ctrl + C`.
-
-## 🔄 Running the Project Again
-
-After you have already installed the dependencies the first time, you don't need to run `npm install` every time. Simply open your terminal and run:
-
-```bash
-cd hinimo-crochet
-npm run dev
-```
-
----
-
-## 🐙 Git and GitHub Setup
-
-If you are contributing to the project, configure your Git identity first.
-
-**Set your name:**
-```bash
-git config --global user.name "Your Name"
-```
-
-**Set your GitHub email** (use the email address associated with your GitHub account):
-```bash
-git config --global user.email "your-email@example.com"
-```
-
-*Check your settings anytime with:*
-```bash
-git config --global user.name
-git config --global user.email
-```
-
-### Check the GitHub Repository Connection
-
-Inside the project folder, verify your connection:
-
-```bash
-git remote -v
-```
-
-You should see something similar to:
-
-```text
-origin  [https://github.com/iRyllB/hinimo-crochet.git](https://github.com/iRyllB/hinimo-crochet.git) (fetch)
-origin  [https://github.com/iRyllB/hinimo-crochet.git](https://github.com/iRyllB/hinimo-crochet.git) (push)
-```
-
-If nothing appears, add the GitHub repository manually:
-
-```bash
-git remote add origin [https://github.com/iRyllB/hinimo-crochet.git](https://github.com/iRyllB/hinimo-crochet.git)
-```
-
----
-
-## 📤 Pushing Changes to GitHub
-
-After making changes to the project, follow these steps to share them:
-
-**1. Check your changes**
-```bash
-git status
-```
-
-**2. Add your changes**
-```bash
-git add .
-```
-
-**3. Create a commit**
-```bash
-git commit -m "Describe your changes briefly"
-```
-*(Example: `git commit -m "Added crochet products page"`)*
-
-**4. Push to GitHub**
-```bash
-git push
-```
-*(If this is your first push to the repository, you might need to run: `git push -u origin develop`)*
-
----
-
-## 📥 Getting the Latest Changes
-
-Before working on the project each day, it's a good idea to get the latest changes from your classmates to avoid conflicts:
-
-```bash
-git pull
-```
-
-If your classmates have added new packages or dependencies, make sure to update your local files by running:
-
-```bash
-npm install
-```
-
----
-
-## 📁 Project Structure
-
-This project is built using Next.js. A typical structure looks like this:
-
-```text
-hinimo-crochet/
-│
-├── app/                  # Application pages, layouts, and Next.js code
-│   ├── page.tsx
-│   ├── layout.tsx
-│   └── ...
-│
-├── public/               # Static assets (images, icons, logos)
-│   └── ...
-│
-├── node_modules/         # Installed packages (DO NOT commit to GitHub)
-│
-├── package.json          # Project dependencies and npm scripts
-├── package-lock.json     # Exact dependency versions installed
-├── next.config.ts
-├── tsconfig.json
-└── README.md
-```
-
----
-
-## 🛠️ Common Problems
-
-### `'npx' or 'npm' is not recognized`
-
-If you see an error like:
-
-```text
-npx : The term 'npx' is not recognized...
-npm : The term 'npm' is not recognized...
-```
-
-Node.js is likely not installed, or it was not properly added to your system's PATH variable. 
-
-**Solution:**
-1. Download and install Node.js from [nodejs.org](https://nodejs.org/).
-2. Keep the default settings during installation (especially the option to add it to PATH).
-3. **Close your terminal** completely.
-4. Open a new PowerShell or VS Code terminal and check again:
-
-```bash
-node --version
-npm --version
-npx --version
-```
+Alternatively, you can just use **Command Prompt** or **Git Bash** instead of PowerShell.
