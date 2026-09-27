@@ -1,269 +1,224 @@
-🧶 Hinimo Crochet
+# 🧶 Hinimo Crochet
 
 Welcome to the Hinimo Crochet project!
 
-This guide will help you set up the project on your computer and run it locally.
+This README will guide you through installing, setting up, and running the project on your computer so we can all collaborate.
 
-📋 Prerequisites
+## 📋 Prerequisites
 
-Before installing the project, make sure you have:
+Before starting, make sure you have the following installed:
 
-Node.js installed
+*   [Node.js](https://nodejs.org/) (which includes npm)
+*   [Git](https://git-scm.com/)
+*   [Visual Studio Code](https://code.visualstudio.com/) (recommended)
 
-npm installed
-
-Git installed (if you're cloning the project from GitHub)
-
-A code editor such as Visual Studio Code
-
-Check Node.js and npm
+### Check Node.js and npm
 
 Open PowerShell, Command Prompt, or the VS Code terminal and run:
 
+```bash
 node --version
 npm --version
+```
 
+You should see version numbers. If you get an error such as `'npm' is not recognized` or `'npx' is not recognized`, you need to install Node.js from [nodejs.org](https://nodejs.org/). After installing, close and reopen your terminal, then check again.
 
-If both commands return version numbers, you're ready to continue.
+---
 
-If you get an error saying that node, npm, or npx is not recognized, install Node.js first:
+## 🚀 Installation
 
-Node.js: https://nodejs.org/
+### 1. Clone the Repository
 
-After installing Node.js, close and reopen your terminal before continuing.
+Open PowerShell or the VS Code terminal, and clone the repository:
 
-🚀 Installation
-1. Clone the Repository
+```bash
+git clone [https://github.com/iRyllB/hinimo-crochet.git](https://github.com/iRyllB/hinimo-crochet.git)
+```
 
-If you haven't downloaded the project yet, clone the repository using Git:
+Then, enter the project folder:
 
-git clone <REPOSITORY-URL>
-
-
-Then go into the project folder:
-
+```bash
 cd hinimo-crochet
+```
 
+### 2. Install Dependencies
 
-Replace <REPOSITORY-URL> with the actual GitHub repository URL.
+Inside the `hinimo-crochet` folder, run:
 
-2. Install Dependencies
-
-Once you're inside the project folder, run:
-
+```bash
 npm install
+```
 
+This installs all the packages required by the project. Wait for the installation to finish before continuing.
 
-This will install all the packages and dependencies required by the project.
-
-Wait for the installation to finish before proceeding.
-
-3. Start the Development Server
+### 3. Start the Development Server
 
 Run:
 
+```bash
 npm run dev
-
+```
 
 You should see something similar to:
 
+```text
 ▲ Next.js
 - Local: http://localhost:3000
+```
 
+Open your browser and visit: **http://localhost:3000**. The Hinimo Crochet website should now be running!
 
-Open your browser and go to:
+---
 
-http://localhost:3000
+## 🛑 Stopping the Server
 
-The Hinimo Crochet website should now be running.
+To stop the development server, go back to your terminal and press `Ctrl + C`.
 
-🛑 Stopping the Development Server
+## 🔄 Running the Project Again
 
-To stop the development server, go back to your terminal and press:
+After you have already installed the dependencies the first time, you don't need to run `npm install` every time. Simply open your terminal and run:
 
-Ctrl + C
-
-🔄 Running the Project Again
-
-Whenever you want to work on the project again:
-
-1. Open the project folder
+```bash
 cd hinimo-crochet
-
-2. Start the development server
 npm run dev
+```
 
+---
 
-Then open:
+## 🐙 Git and GitHub Setup
 
-http://localhost:3000
+If you are contributing to the project, configure your Git identity first.
 
-🛠️ Common Problems
-'npx' is not recognized
+**Set your name:**
+```bash
+git config --global user.name "Your Name"
+```
 
-If you see:
+**Set your GitHub email** (use the email address associated with your GitHub account):
+```bash
+git config --global user.email "your-email@example.com"
+```
 
-npx : The term 'npx' is not recognized...
+*Check your settings anytime with:*
+```bash
+git config --global user.name
+git config --global user.email
+```
 
+### Check the GitHub Repository Connection
 
-Node.js is probably not installed or has not been added to your system PATH.
+Inside the project folder, verify your connection:
 
-Solution
+```bash
+git remote -v
+```
 
-Install Node.js from:
+You should see something similar to:
 
-https://nodejs.org/
+```text
+origin  [https://github.com/iRyllB/hinimo-crochet.git](https://github.com/iRyllB/hinimo-crochet.git) (fetch)
+origin  [https://github.com/iRyllB/hinimo-crochet.git](https://github.com/iRyllB/hinimo-crochet.git) (push)
+```
 
-Restart your computer or close and reopen your terminal.
+If nothing appears, add the GitHub repository manually:
 
-Check again:
+```bash
+git remote add origin [https://github.com/iRyllB/hinimo-crochet.git](https://github.com/iRyllB/hinimo-crochet.git)
+```
 
-node --version
-npm --version
-npx --version
+---
 
-'npm' is not recognized
+## 📤 Pushing Changes to GitHub
 
-This usually means Node.js is not installed correctly or its PATH configuration is missing.
+After making changes to the project, follow these steps to share them:
 
-Reinstall Node.js and make sure the installer is allowed to add Node.js to your PATH.
+**1. Check your changes**
+```bash
+git status
+```
 
-After installation, restart your terminal.
+**2. Add your changes**
+```bash
+git add .
+```
 
-Port 3000 is already in use
+**3. Create a commit**
+```bash
+git commit -m "Describe your changes briefly"
+```
+*(Example: `git commit -m "Added crochet products page"`)*
 
-If another application is already using port 3000, Next.js may give you another local address, such as:
+**4. Push to GitHub**
+```bash
+git push
+```
+*(If this is your first push to the repository, you might need to run: `git push -u origin main`)*
 
-http://localhost:3001
+---
 
+## 📥 Getting the Latest Changes
 
-Use the URL shown in your terminal.
+Before working on the project each day, it's a good idea to get the latest changes from your classmates to avoid conflicts:
 
-You can also stop another running Next.js server with:
+```bash
+git pull
+```
 
-Ctrl + C
+If your classmates have added new packages or dependencies, make sure to update your local files by running:
 
-Dependencies are not working
-
-If you encounter dependency-related errors, try:
-
+```bash
 npm install
+```
 
+---
 
-Then start the project again:
+## 📁 Project Structure
 
-npm run dev
+This project is built using Next.js. A typical structure looks like this:
 
-
-If that doesn't work, you can reinstall the dependencies:
-
-Windows PowerShell
-Remove-Item -Recurse -Force node_modules
-Remove-Item package-lock.json
-npm install
-
-
-Then:
-
-npm run dev
-
-
-Only do this if npm install does not resolve the problem.
-
-📁 Project Structure
-
-The project uses Next.js.
-
-A typical project structure may look like:
-
+```text
 hinimo-crochet/
 │
-├── app/
+├── app/                  # Application pages, layouts, and Next.js code
 │   ├── page.tsx
 │   ├── layout.tsx
 │   └── ...
 │
-├── public/
+├── public/               # Static assets (images, icons, logos)
 │   └── ...
 │
-├── node_modules/
+├── node_modules/         # Installed packages (DO NOT commit to GitHub)
 │
-├── package.json
-├── package-lock.json
+├── package.json          # Project dependencies and npm scripts
+├── package-lock.json     # Exact dependency versions installed
 ├── next.config.ts
 ├── tsconfig.json
 └── README.md
+```
 
-Important folders
+---
 
-app/
+## 🛠️ Common Problems
 
-Contains the main pages and components of the Next.js application.
+### `'npx' or 'npm' is not recognized`
 
-public/
+If you see an error like:
 
-Contains static files such as images, icons, and other assets.
+```text
+npx : The term 'npx' is not recognized...
+npm : The term 'npm' is not recognized...
+```
 
-package.json
+Node.js is likely not installed, or it was not properly added to your system's PATH variable. 
 
-Contains the project's dependencies and available npm commands.
+**Solution:**
+1. Download and install Node.js from [nodejs.org](https://nodejs.org/).
+2. Keep the default settings during installation (especially the option to add it to PATH).
+3. **Close your terminal** completely.
+4. Open a new PowerShell or VS Code terminal and check again:
 
-node_modules/
-
-Contains installed packages.
-
-Do not manually edit or upload the node_modules folder to GitHub.
-
-👥 Working With Classmates
-
-Before starting your work, always make sure you have the latest version of the project.
-
-git pull
-
-
-After making changes:
-
-git add .
-git commit -m "Describe your changes"
-git push
-
-Example
-git add .
-git commit -m "Added crochet products page"
-git push
-
-
-When working with Git, communicate with your teammates before making changes to the same files to avoid merge conflicts.
-
-⚠️ Important Notes
-
-Do not commit the node_modules folder.
-
-Do not commit passwords, API keys, or other secrets.
-
-Run npm install after pulling the project if dependencies have changed.
-
-Make sure you're working on the correct Git branch before making major changes.
-
-Always test the website locally before pushing your changes.
-
-💻 Recommended Setup
-
-We recommend using:
-
-Node.js LTS
-
-Visual Studio Code
-
-Git
-
-Google Chrome or another modern browser
-
-🧶 Hinimo Crochet
-
-Project: Hinimo Crochet
-Framework: Next.js
-Language: TypeScript
-Package Manager: npm
-
-Happy coding! 🧶✨
+```bash
+node --version
+npm --version
+npx --version
+```
