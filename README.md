@@ -152,7 +152,7 @@ git commit -m "Describe your changes briefly"
 ```bash
 git push
 ```
-*(If this is your first push to the repository, you might need to run: `git push -u origin main`)*
+*(If this is your first push to the repository, you might need to run: `git push -u origin develop`)*
 
 ---
 
