@@ -24,7 +24,7 @@ git clone https://github.com/iRyllB/hinimo-crochet.git
 
 **2. Navigate to the project directory**
 ```bash
-cd <insert-project-folder-name>
+cd hinimo-crochet
 ```
 
 **3. Install dependencies**
