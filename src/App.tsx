@@ -1,51 +1,11 @@
-import { useEffect, useState } from 'react'
 import './App.css'
-
-const navLinks = ['Home', 'Shop', 'Worth', 'About', 'Contact']
+import Footer from './components/Footer'
+import Header from './components/Header'
 
 function App() {
-  const [isHeaderScrolled, setIsHeaderScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsHeaderScrolled(window.scrollY > 0)
-    }
-
-    handleScroll()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
-    <div className="site">
-      <header className={`site-header${isHeaderScrolled ? ' is-scrolled' : ''}`}>
-        <div className="header-frame">
-          <nav className="navigation" aria-label="Main navigation">
-            <a className="brand-link" href="/" aria-label="Cozy Loop Club home">
-              <span className="brand-mark" aria-hidden="true">
-                <span className="brand-loop brand-loop-one" />
-                <span className="brand-loop brand-loop-two" />
-              </span>
-              <span className="brand-name">BRANDNAME</span>
-            </a>
-
-            <div className="nav-actions">
-              <div className="nav-links">
-                {navLinks.map((link) => (
-                  <a
-                    className={link === 'Home' ? 'nav-link active' : 'nav-link'}
-                    href={link === 'Home' ? '/' : `/#${link.toLowerCase()}`}
-                    key={link}
-                  >
-                    {link}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </nav>
-        </div>
-      </header>
+    <div className="site" id="top">
+      <Header />
 
       <main className="hero-section">
         <div className="hero-content">
@@ -96,6 +56,7 @@ function App() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   )
 }
