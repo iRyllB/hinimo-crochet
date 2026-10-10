@@ -1,11 +1,25 @@
+import { useEffect, useState } from 'react'
 import './App.css'
 
 const navLinks = ['Home', 'Shop', 'Worth', 'About', 'Contact']
 
 function App() {
+  const [isHeaderScrolled, setIsHeaderScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsHeaderScrolled(window.scrollY > 0)
+    }
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <div className="site">
-      <header className="site-header">
+      <header className={`site-header${isHeaderScrolled ? ' is-scrolled' : ''}`}>
         <div className="header-frame">
           <nav className="navigation" aria-label="Main navigation">
             <a className="brand-link" href="/" aria-label="Cozy Loop Club home">

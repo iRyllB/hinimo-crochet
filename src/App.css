@@ -4,12 +4,23 @@
 }
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: 105px;
   background: #fff;
+  transition:
+    background-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.site-header.is-scrolled {
+  background: #ff5b27;
+  box-shadow: 0 2px 0 #171515;
 }
 
 .header-frame {
@@ -118,10 +129,19 @@
   color: #ff5b27;
 }
 
+.site-header.is-scrolled .nav-link.active {
+  color: #171515;
+}
+
 .nav-link:hover {
   color: #fff;
   background-color: #ff5b27;
   transform: translateY(-2px);
+}
+
+.site-header.is-scrolled .nav-link:hover {
+  color: #ff5b27;
+  background-color: #171515;
 }
 
 .nav-link:focus-visible,
