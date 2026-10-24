@@ -17,9 +17,9 @@ function MainPage() {
             <div className="hero-copy">
               <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> HAPPY TO SERVE YOU!</p>
               <h1>CROCHET<br />WITH COLOR.</h1>
-              <p className="hero-description">Make sweet little things with cozy yarn, happy hands, and a whole lot of color.</p>
+              <p className="hero-description">A handmade crochet portfolio and creative catalog. Browse the work, then reach out to discuss availability or a custom piece.</p>
               <div className="hero-actions">
-                <a className="hero-button hero-button-primary" href="#shop">MY ITEMS <span aria-hidden="true">→</span></a>
+                <a className="hero-button hero-button-primary" href="/listings">MY ITEMS <span aria-hidden="true">→</span></a>
               </div>
             </div>
             <HeroArtwork />
