@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import hinimoHeader from '../assets/hinimo header.png'
 
-const navLinks = ['Home', 'Shop', 'About', 'Contact']
+const navLinks = ['Home', 'About', 'Shop', 'Contact']
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false)

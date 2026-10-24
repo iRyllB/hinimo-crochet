@@ -55,17 +55,37 @@ function MainSections() {
             </article>
           ))}
         </div>
+        <div className="about-details">
+          <article>
+            <h3>LEARN THE LOOP</h3>
+            <p>Simple guides, playful experiments, and gentle encouragement for every level.</p>
+          </article>
+          <article>
+            <h3>MAKE IT YOURS</h3>
+            <p>Choose your colors, try a new texture, and let every project carry a little personality.</p>
+          </article>
+          <article>
+            <h3>SHARE THE JOY</h3>
+            <p>Finished something you love? Bring it to the community and cheer on another maker.</p>
+          </article>
+        </div>
       </section>
 
       <section className="content-section contact-section" id="contact">
         <div>
-          <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> COME SAY HI</p>
-          <h2>LET'S MAKE<br /><em>SOMETHING.</em></h2>
+          <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> SAY HI</p>
+          <h2>LEAVE A<br /><em>NOTE.</em></h2>
+          <p className="feedback-intro">Have a question, a workshop idea, or something kind to share? I’d love to hear from you.</p>
         </div>
-        <div className="contact-copy">
-          <p>Have a question, a custom idea, or just want to share some crochet joy?</p>
-          <a className="hero-button hero-button-primary" href="mailto:hello@hinimocrochet.com">SAY HELLO <span aria-hidden="true">→</span></a>
-        </div>
+        <form className="feedback-form" action="mailto:hello@hinimocrochet.com" method="post" encType="text/plain">
+          <label htmlFor="feedback-name">YOUR NAME</label>
+          <input id="feedback-name" name="name" type="text" placeholder="Your lovely name" required />
+          <label htmlFor="feedback-email">EMAIL ADDRESS</label>
+          <input id="feedback-email" name="email" type="email" placeholder="you@example.com" required />
+          <label htmlFor="feedback-message">YOUR MESSAGE</label>
+          <textarea id="feedback-message" name="message" placeholder="Tell me what's on your mind..." required />
+          <button className="hero-button hero-button-primary" type="submit">SEND A LITTLE NOTE <span aria-hidden="true">→</span></button>
+        </form>
       </section>
     </>
   )
