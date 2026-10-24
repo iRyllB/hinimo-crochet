@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react'
 import hinimoHeader from '../assets/hinimo header.png'
 
-const navLinks = ['Home', 'About', 'Shop', 'Contact']
+const navLinks = ['Home', 'Shop', 'About', 'Feedback']
 
-function Header() {
+type HeaderProps = {
+  onContact: () => void
+  onHome: () => void
+}
+
+function Header({ onContact, onHome }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
 
@@ -34,7 +39,7 @@ function Header() {
     <header className={`site-header${isScrolled ? ' is-scrolled' : ''}${isHidden ? ' is-hidden' : ''}`}>
       <div className="header-frame">
         <nav className="navigation" aria-label="Main navigation">
-          <a className="brand-link" href="/" aria-label="Hinimo Crochet home">
+          <a className="brand-link" href="/" onClick={(event) => { event.preventDefault(); onHome() }} aria-label="Hinimo Crochet home">
             <img className="brand-logo" src={hinimoHeader} alt="Hinimo Crochet" />
           </a>
 
@@ -43,16 +48,17 @@ function Header() {
               {navLinks.map((link) => (
                 <a
                   className={link === 'Home' ? 'nav-link active' : 'nav-link'}
-                  href={link === 'Home' ? '/' : `/#${link === 'About' ? 'about' : link.toLowerCase()}`}
+                  href={link === 'Home' ? '/' : `/#${link === 'About' ? 'about' : link === 'Feedback' ? 'contact' : link.toLowerCase()}`}
+                  onClick={link === 'Home' ? (event) => { event.preventDefault(); onHome() } : undefined}
                   key={link}
                 >
                   {link}
                 </a>
               ))}
             </div>
-            <a className="login-link" href="/#login">
-              LOG IN
-            </a>
+            <button className="login-link" type="button" onClick={onContact}>
+              CONTACT ME
+            </button>
           </div>
         </nav>
       </div>

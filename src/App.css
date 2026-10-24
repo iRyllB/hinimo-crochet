@@ -17,6 +17,17 @@
   background: var(--cream);
 }
 
+.soft-reveal {
+  opacity: 0.82;
+  transform: translateY(8px);
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+
+.soft-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -403,6 +414,12 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  transition: transform 500ms ease, filter 500ms ease;
+}
+
+.hero-art:hover .hero-art-image {
+  transform: scale(1.018);
+  filter: saturate(1.04);
 }
 
 .art-arch {
@@ -763,6 +780,11 @@
   border-radius: 26px;
   background: var(--cream);
   box-shadow: none;
+  transition: transform 220ms ease;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
 }
 
 .product-image {
@@ -856,6 +878,8 @@
   background: var(--orange);
   font-size: 11px;
   font-weight: 700;
+  cursor: pointer;
+  font-family: var(--body-font);
 }
 
 .product-contact:hover {
@@ -969,6 +993,7 @@
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 80px;
+  width: 100%;
   max-width: none;
   padding-right: max(24px, calc((100vw - 1180px) / 2));
   padding-left: max(24px, calc((100vw - 1180px) / 2));
@@ -994,6 +1019,12 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  transition: transform 500ms ease, filter 500ms ease;
+}
+
+.worth-art:hover .worth-art-image {
+  transform: scale(1.018);
+  filter: saturate(1.04);
 }
 
 .worth-copy > p:not(.eyebrow) {
@@ -1067,6 +1098,7 @@
   justify-content: space-between;
   gap: 40px;
   max-width: none;
+  width: 100%;
   padding-right: max(24px, calc((100vw - 1180px) / 2));
   padding-left: max(24px, calc((100vw - 1180px) / 2));
   background: var(--yellow);
@@ -1124,6 +1156,97 @@
   cursor: pointer;
 }
 
+.custom-work-note {
+  margin: 20px 0 14px;
+  font-weight: 700;
+}
+
+.contact-overlay {
+  position: fixed;
+  z-index: 30;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(23 21 21 / 72%);
+}
+
+.contact-modal {
+  position: relative;
+  width: min(100%, 560px);
+  padding: 42px;
+  border: 2px solid var(--navy);
+  border-radius: 24px;
+  background: var(--cream);
+  box-shadow: 8px 8px 0 var(--orange);
+}
+
+.contact-modal h2 {
+  margin: 18px 0;
+  font-family: var(--display-font);
+  font-size: clamp(42px, 7vw, 68px);
+  line-height: 0.86;
+}
+
+.contact-modal h2 em {
+  color: var(--orange);
+  font-style: normal;
+}
+
+.contact-modal > p:not(.eyebrow) {
+  max-width: 460px;
+  line-height: 1.6;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  border: 0;
+  color: var(--navy);
+  background: transparent;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.contact-details {
+  display: grid;
+  gap: 8px;
+  margin: 24px 0 18px;
+}
+
+.contact-details a {
+  color: var(--navy);
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
+.social-links {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+.social-links a {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 2px solid var(--navy);
+  border-radius: 50%;
+  color: var(--navy);
+  background: var(--pink);
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.social-links a:hover {
+  background: var(--yellow);
+}
+
 .admin-gate {
   display: grid;
   min-height: 100svh;
@@ -1168,6 +1291,20 @@
   .content-section {
     width: min(100% - 32px, 560px);
     padding: 80px 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .soft-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .hero-art-image,
+    .worth-art-image,
+    .product-card {
+      transition: none;
+    }
   }
 
   .product-grid,
@@ -1216,6 +1353,10 @@
   }
 
   .admin-gate-card {
+    padding: 36px 24px;
+  }
+
+  .contact-modal {
     padding: 36px 24px;
   }
 }
