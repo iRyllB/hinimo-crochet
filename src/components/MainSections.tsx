@@ -29,6 +29,17 @@ function MainSections() {
             <div className="product-info"><div><h3>Cozy Cup Sleeve</h3><p>For slow mornings</p></div><strong>$18</strong></div>
             <a className="product-contact" href="#contact">Interested? Contact me <span aria-hidden="true">+</span></a>
           </article>
+          <article className="product-card product-card-coral">
+            <div className="product-image"><span className="product-shape">✾</span></div>
+            <div className="product-info"><div><h3>Blooming Coasters</h3><p>Set of four</p></div><strong>$28</strong></div>
+            <a className="product-contact" href="#contact">Interested? Contact me <span aria-hidden="true">+</span></a>
+          </article>
+        </div>
+        <div className="shop-summary">
+          <div className="summary-label"><span className="eyebrow-dot" aria-hidden="true" /><span>YOUR LITTLE CART</span><strong>0 HANDMADE GOODIES</strong></div>
+          <p>Your cart is ready for something cozy.</p>
+          <div className="summary-total"><span>TOTAL</span><strong>$0.00</strong></div>
+          <a className="summary-button" href="#contact">CONTACT ME <span aria-hidden="true">→</span></a>
         </div>
       </section>
 
