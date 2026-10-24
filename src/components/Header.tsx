@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import hinimoHeader from '../assets/hinimo header.png'
 
-const navLinks = ['Home', 'Shop', 'Worth', 'About', 'Contact']
+const navLinks = ['Home', 'Shop', 'About', 'Contact']
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -30,7 +30,7 @@ function Header() {
               {navLinks.map((link) => (
                 <a
                   className={link === 'Home' ? 'nav-link active' : 'nav-link'}
-                  href={link === 'Home' ? '/' : `/#${link.toLowerCase()}`}
+                  href={link === 'Home' ? '/' : `/#${link === 'About' ? 'about' : link.toLowerCase()}`}
                   key={link}
                 >
                   {link}

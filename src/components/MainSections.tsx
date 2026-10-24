@@ -13,7 +13,6 @@ function MainSections() {
         <div className="section-heading">
           <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> GOOD THINGS, HANDMADE</p>
           <h2>THE TINY<br />SHOP.</h2>
-          <a className="text-link shop-all-link" href="#contact">VIEW ALL PIECES →</a>
         </div>
         <ProductListing products={[
           { name: 'Sunny Daisy Bag', description: 'Hand-crocheted tote', price: '$48', color: 'pink' },
@@ -28,18 +27,21 @@ function MainSections() {
         </div>
       </section>
 
-      <section className="content-section worth-section" id="worth">
-        <div className="worth-copy">
-          <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> WHAT WE BELIEVE</p>
-          <h2>MADE WITH<br /><em>HEART.</em></h2>
-          <p className="large-copy">Hinimo started at a kitchen table, with colorful yarn, patient hands, and a wish to make the everyday feel a little more joyful.</p>
-          <p>Now it is a soft little corner of the internet for slow craft, kind choices, and handmade things that feel like a warm hug.</p>
-          <a className="text-link" href="#about">READ OUR WHOLE STORY →</a>
+      <section className="content-section worth-section" id="about">
+        <div className="worth-art" aria-hidden="true">
+          <div className="worth-yarn-ball"><span className="worth-face">•⌣•</span></div>
+          <span className="worth-yarn-line" />
         </div>
-        <div className="worth-note"><span>TAKE IT<br />SLOW</span><strong>✿</strong></div>
+        <div className="worth-copy">
+          <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> HI, I'M MIA</p>
+          <h2>MADE WITH<br /><em>HEART.</em></h2>
+          <p className="large-copy">Hinimo started at my kitchen table, with one orange hook and an unruly pile of yarn.</p>
+          <p>Now it’s a soft little corner of the internet for makers who want to learn, play, and make things that feel like a hug. There are no perfect stitches here — just colorful experiments and friends who cheer you on.</p>
+          <a className="text-link" href="#contact">READ OUR WHOLE STORY</a>
+        </div>
       </section>
 
-      <section className="content-section about-section" id="about">
+      <section className="content-section about-section">
         <div className="section-heading centered">
           <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> THE HINIMO WAY</p>
           <h2>GOOD THINGS<br /><em>TAKE TIME.</em></h2>

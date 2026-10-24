@@ -710,10 +710,6 @@
   line-height: 1.6;
 }
 
-.shop-all-link {
-  margin-top: 2px;
-}
-
 .shop-section {
   border-top: 2px solid var(--navy);
 }
@@ -828,8 +824,7 @@
   font-weight: 700;
 }
 
-.product-contact:hover,
-.shop-all-link:hover {
+.product-contact:hover {
   text-decoration: underline;
 }
 
@@ -943,7 +938,47 @@
   max-width: none;
   padding-right: max(24px, calc((100vw - 1180px) / 2));
   padding-left: max(24px, calc((100vw - 1180px) / 2));
-  background: var(--coral);
+  background: #82916a;
+}
+
+.worth-art {
+  position: relative;
+  display: grid;
+  width: min(560px, 100%);
+  aspect-ratio: 1.3;
+  place-items: center;
+  border: 2px solid var(--navy);
+  border-radius: 42% 42% 18% 18%;
+  background: #ffc345;
+  overflow: hidden;
+}
+
+.worth-yarn-ball {
+  display: grid;
+  width: 58%;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 2px solid var(--navy);
+  border-radius: 42%;
+  background: #d57b57;
+}
+
+.worth-face {
+  color: var(--navy);
+  font-family: Arial, sans-serif;
+  font-size: clamp(28px, 4vw, 54px);
+  letter-spacing: 22px;
+}
+
+.worth-yarn-line {
+  position: absolute;
+  bottom: 22%;
+  left: 8%;
+  width: 55%;
+  height: 22px;
+  border-bottom: 8px solid #4b4d53;
+  border-radius: 50%;
+  transform: rotate(-8deg);
 }
 
 .worth-copy > p:not(.eyebrow) {
@@ -954,30 +989,6 @@
 .worth-copy .large-copy {
   font-size: 22px;
   line-height: 1.55;
-}
-
-.worth-note {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: min(360px, 80%);
-  aspect-ratio: 1;
-  margin: auto;
-  border: 2px solid var(--navy);
-  border-radius: 50%;
-  background: var(--pink);
-  color: var(--navy);
-  font-family: var(--display-font);
-  font-size: clamp(30px, 5vw, 62px);
-  line-height: 0.9;
-  text-align: center;
-  transform: rotate(-8deg);
-}
-
-.worth-note strong {
-  position: absolute;
-  margin: 170px 0 0 210px;
-  font-size: 55px;
 }
 
 .about-section {
@@ -1085,10 +1096,6 @@
     display: block;
   }
 
-  .shop-all-link {
-    margin-top: 22px;
-  }
-
   .shop-summary {
     grid-template-columns: 1fr;
     gap: 18px;
@@ -1106,8 +1113,8 @@
     padding-left: 24px;
   }
 
-  .worth-note {
-    width: min(320px, 90%);
+  .worth-art {
+    width: min(520px, 100%);
   }
 
   .contact-section {

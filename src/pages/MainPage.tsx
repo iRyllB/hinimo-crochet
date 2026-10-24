@@ -15,8 +15,7 @@ function MainPage() {
               <h1>CROCHET<br />WITH COLOR.</h1>
               <p className="hero-description">Make sweet little things with cozy yarn, happy hands, and a whole lot of color.</p>
               <div className="hero-actions">
-                <a className="hero-button hero-button-primary" href="#shop">START CROCHETING <span aria-hidden="true">→</span></a>
-                <a className="hero-button hero-button-secondary" href="#worth">DISCOVER OUR WORTH <span aria-hidden="true">→</span></a>
+                <a className="hero-button hero-button-primary" href="#shop">MY ITEMS <span aria-hidden="true">→</span></a>
               </div>
             </div>
             <HeroArtwork />
