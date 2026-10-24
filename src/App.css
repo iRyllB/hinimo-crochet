@@ -1,6 +1,18 @@
 .site {
+  --navy: #123e63;
+  --pink: #ec61a5;
+  --berry: #bf2e5b;
+  --coral: #f88f7d;
+  --orange: #f58a43;
+  --yellow: #ffb52f;
+  --cream: #fffaf5;
+  --tan: #c98a65;
+  --green: #8bc34a;
+}
+
+.site {
   min-height: 100svh;
-  background: #fff;
+  background: var(--cream);
 }
 
 .site-header {
@@ -12,15 +24,15 @@
   align-items: center;
   width: 100%;
   height: 105px;
-  background: #fff;
+  background: var(--cream);
   transition:
     background-color 220ms ease,
     box-shadow 220ms ease;
 }
 
 .site-header.is-scrolled {
-  background: #ff5b27;
-  box-shadow: 0 2px 0 #171515;
+  background: var(--orange);
+  box-shadow: 0 2px 0 var(--navy);
 }
 
 .header-frame {
@@ -44,8 +56,16 @@
   flex: 0 0 auto;
   align-items: center;
   gap: 9px;
-  color: #171515;
+  color: var(--navy);
   text-decoration: none;
+}
+
+.brand-logo {
+  display: block;
+  width: 118px;
+  height: 64px;
+  object-fit: contain;
+  object-position: center;
 }
 
 .brand-mark {
@@ -55,9 +75,9 @@
   width: 33px;
   height: 33px;
   flex: 0 0 33px;
-  border: 2px solid #171515;
+  border: 2px solid var(--navy);
   border-radius: 50%;
-  background: #ff98b5;
+  background: var(--pink);
 }
 
 .brand-loop {
@@ -65,7 +85,7 @@
   box-sizing: border-box;
   width: 24px;
   height: 11px;
-  border: 1px solid #171515;
+  border: 1px solid var(--navy);
   border-radius: 8px;
 }
 
@@ -83,7 +103,7 @@
 
 .brand-name {
   width: 87px;
-  color: #171515;
+  color: var(--navy);
   font-family: 'Fredoka', 'Trebuchet MS', sans-serif;
   font-size: 15px;
   font-weight: 700;
@@ -115,7 +135,7 @@
   min-height: 30px;
   padding: 6px 8px;
   border-radius: 6px;
-  color: #171515;
+  color: var(--navy);
   font-size: 13px;
   font-weight: 700;
   line-height: 17px;
@@ -126,27 +146,27 @@
 }
 
 .nav-link.active {
-  color: #ff5b27;
+  color: var(--orange);
 }
 
 .site-header.is-scrolled .nav-link.active {
-  color: #171515;
+  color: var(--navy);
 }
 
 .nav-link:hover {
-  color: #fff;
-  background-color: #ff5b27;
+  color: var(--cream);
+  background-color: var(--orange);
   transform: translateY(-2px);
 }
 
 .site-header.is-scrolled .nav-link:hover {
-  color: #ff5b27;
-  background-color: #171515;
+  color: var(--orange);
+  background-color: var(--navy);
 }
 
 .nav-link:focus-visible,
 .brand-link:focus-visible {
-  outline: 2px solid #171515;
+  outline: 2px solid var(--navy);
   outline-offset: 4px;
 }
 
@@ -154,7 +174,7 @@
   display: flex;
   justify-content: center;
   min-height: 681px;
-  border-top: 1px solid #171515;
+  border-top: 1px solid var(--navy);
   overflow: hidden;
 }
 
@@ -164,8 +184,8 @@
   box-sizing: border-box;
   min-height: 89px;
   padding: 27px 0;
-  border-top: 2px solid #171515;
-  background: #ff5b27;
+  border-top: 2px solid var(--navy);
+  background: var(--orange);
 }
 
 .footer-frame {
@@ -179,7 +199,7 @@
 
 .footer-copy,
 .back-to-top {
-  color: #171515;
+  color: var(--navy);
   font-family: 'DM Mono', 'Courier New', monospace;
   font-size: 10px;
   line-height: 13px;
@@ -194,7 +214,7 @@
 }
 
 .back-to-top:focus-visible {
-  outline: 2px solid #171515;
+  outline: 2px solid var(--navy);
   outline-offset: 4px;
 }
 
@@ -217,7 +237,7 @@
   align-items: center;
   gap: 7px;
   margin: 0;
-  color: #171515;
+  color: var(--navy);
   font-family: 'DM Mono', 'Courier New', monospace;
   font-size: 11px;
   font-weight: 500;
@@ -230,13 +250,13 @@
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background: #ff5b27;
+  background: var(--orange);
 }
 
 .hero-copy h1 {
   max-width: 557px;
   margin: 20px 0 0;
-  color: #171515;
+  color: var(--navy);
   font-family: 'Fredoka', 'Trebuchet MS', sans-serif;
   font-size: clamp(66px, 8vw, 115px);
   font-weight: 700;
@@ -247,7 +267,7 @@
 .hero-description {
   max-width: 420px;
   margin: 28px 0;
-  color: #171515;
+  color: var(--navy);
   font-family: 'DM Mono', 'Courier New', monospace;
   font-size: 15px;
   line-height: 24px;
@@ -268,10 +288,10 @@
   width: 206px;
   min-height: 55px;
   padding: 17px 25px;
-  border: 2px solid #171515;
+  border: 2px solid var(--navy);
   border-radius: 30px;
-  box-shadow: 3px 3px 0 #171515;
-  color: #171515;
+  box-shadow: 3px 3px 0 var(--navy);
+  color: var(--navy);
   font-family: 'DM Mono', 'Courier New', monospace;
   font-size: 13px;
   font-weight: 500;
@@ -284,24 +304,24 @@
 }
 
 .hero-button-primary {
-  background: #ff5b27;
+  background: var(--orange);
 }
 
 .hero-button-secondary {
-  background: #fff;
+  background: var(--cream);
 }
 
 .hero-button:hover {
   transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 #171515;
+  box-shadow: 1px 1px 0 var(--navy);
 }
 
 .hero-button-secondary:hover {
-  background: #ff98b5;
+  background: var(--pink);
 }
 
 .hero-button:focus-visible {
-  outline: 2px solid #171515;
+  outline: 2px solid var(--navy);
   outline-offset: 4px;
 }
 
@@ -319,15 +339,15 @@
   width: 455px;
   height: 440px;
   box-sizing: border-box;
-  border: 2px solid #171515;
+  border: 2px solid var(--navy);
   border-bottom: 0;
   border-radius: 260px 260px 0 0;
-  background: #ff98b5;
+  background: var(--pink);
 }
 
 .art-sun {
   position: absolute;
-  border: 2px solid #171515;
+  border: 2px solid var(--navy);
   border-radius: 50%;
 }
 
@@ -336,7 +356,7 @@
   right: 4px;
   width: 104px;
   height: 104px;
-  background: #ff5b27;
+  background: var(--orange);
   transform: rotate(12deg);
 }
 
@@ -345,7 +365,7 @@
   right: 20px;
   width: 60px;
   height: 60px;
-  background: #ffdf75;
+  background: var(--yellow);
 }
 
 .art-blanket {
@@ -354,9 +374,9 @@
   top: 317px;
   width: 508px;
   height: 150px;
-  border: 2px solid #171515;
+  border: 2px solid var(--navy);
   border-radius: 132px 144px 33px 39px;
-  background: #ff5b27;
+  background: var(--orange);
   transform: rotate(-3deg);
 }
 
@@ -374,8 +394,8 @@
 .bear-arm {
   position: absolute;
   box-sizing: border-box;
-  border: 2px solid #171515;
-  background: #e8ab72;
+  border: 2px solid var(--navy);
+  background: var(--tan);
 }
 
 .bear-head {
@@ -407,7 +427,7 @@
   width: 10px;
   height: 13px;
   border-radius: 50%;
-  background: #171515;
+  background: var(--navy);
 }
 
 .bear-eye-left {
@@ -428,10 +448,10 @@
   width: 57px;
   height: 43px;
   box-sizing: border-box;
-  border: 2px solid #171515;
+  border: 2px solid var(--navy);
   border-radius: 25px;
-  background: #f7d0a7;
-  color: #171515;
+  background: var(--coral);
+  color: var(--navy);
   font-family: 'DM Mono', monospace;
   font-size: 25px;
 }
@@ -465,9 +485,9 @@
   position: absolute;
   width: 36px;
   height: 65px;
-  border: 2px solid #171515;
+  border: 2px solid var(--navy);
   border-radius: 39px 2px;
-  background: #6b925e;
+  background: var(--green);
 }
 
 .art-leaf-one {
@@ -484,7 +504,7 @@
 
 .art-flower {
   position: absolute;
-  border: 2px solid #171515;
+  border: 2px solid var(--navy);
   border-radius: 50%;
 }
 
@@ -493,7 +513,7 @@
   bottom: 22px;
   width: 48px;
   height: 50px;
-  background: #76855d;
+  background: var(--green);
 }
 
 .art-flower-yellow {
@@ -501,13 +521,13 @@
   bottom: 0;
   width: 55px;
   height: 55px;
-  background: #ffc343;
+  background: var(--yellow);
 }
 
 .sparkle {
   position: absolute;
   z-index: 1;
-  color: #171515;
+  color: var(--navy);
   font-family: 'DM Mono', monospace;
   font-size: 35px;
 }
@@ -532,10 +552,10 @@
   justify-content: center;
   width: 104px;
   height: 104px;
-  border: 2px solid #171515;
+  border: 2px solid var(--navy);
   border-radius: 50%;
-  color: #171515;
-  background: #ff5b27;
+  color: var(--navy);
+  background: var(--orange);
   font-family: 'Fredoka', 'Trebuchet MS', sans-serif;
   font-size: 16px;
   font-weight: 700;

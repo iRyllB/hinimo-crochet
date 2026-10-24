@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import hinimoLogo from '../assets/hinimo.png'
 
 const navLinks = ['Home', 'Shop', 'Worth', 'About', 'Contact']
 
@@ -20,12 +21,8 @@ function Header() {
     <header className={`site-header${isScrolled ? ' is-scrolled' : ''}`}>
       <div className="header-frame">
         <nav className="navigation" aria-label="Main navigation">
-          <a className="brand-link" href="/" aria-label="Cozy Loop Club home">
-            <span className="brand-mark" aria-hidden="true">
-              <span className="brand-loop brand-loop-one" />
-              <span className="brand-loop brand-loop-two" />
-            </span>
-            <span className="brand-name">BRANDNAME</span>
+          <a className="brand-link" href="/" aria-label="Hinimo Crochet home">
+            <img className="brand-logo" src={hinimoLogo} alt="Hinimo Crochet" />
           </a>
 
           <div className="nav-actions">
