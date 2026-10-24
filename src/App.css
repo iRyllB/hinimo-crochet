@@ -969,6 +969,7 @@
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 80px;
+  width: 100%;
   max-width: none;
   padding-right: max(24px, calc((100vw - 1180px) / 2));
   padding-left: max(24px, calc((100vw - 1180px) / 2));
