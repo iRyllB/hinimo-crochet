@@ -5,9 +5,11 @@
   --coral: #f7d0a7;
   --orange: #ff5b27;
   --yellow: #ffdf75;
-  --cream: #ffffff;
+  --cream: #fff9e9;
   --tan: #e8ab72;
   --green: #6b925e;
+  --display-font: 'Arial Rounded MT Bold', 'Trebuchet MS', sans-serif;
+  --body-font: 'Trebuchet MS', Arial, sans-serif;
 }
 
 .site {
@@ -32,7 +34,6 @@
 
 .site-header.is-scrolled {
   background: var(--orange);
-  box-shadow: 0 2px 0 var(--navy);
 }
 
 .header-frame {
@@ -62,8 +63,8 @@
 
 .brand-logo {
   display: block;
-  width: 220px;
-  height: 76px;
+  width: 200px;
+  height: 68px;
   object-fit: contain;
   object-position: center;
 }
@@ -103,7 +104,7 @@
 
 .brand-name {
   color: var(--navy);
-  font-family: 'Fredoka', 'Trebuchet MS', sans-serif;
+  font-family: var(--display-font);
   font-size: 18px;
   font-weight: 700;
   line-height: 1;
@@ -126,7 +127,7 @@
 
 .nav-link,
 .login-link {
-  font-family: 'DM Mono', 'Courier New', monospace;
+  font-family: var(--body-font);
   text-decoration: none;
 }
 
@@ -236,7 +237,7 @@
 .footer-copy,
 .back-to-top {
   color: var(--navy);
-  font-family: 'DM Mono', 'Courier New', monospace;
+  font-family: var(--body-font);
   font-size: 10px;
   line-height: 13px;
 }
@@ -274,7 +275,7 @@
   gap: 7px;
   margin: 0;
   color: var(--navy);
-  font-family: 'DM Mono', 'Courier New', monospace;
+  font-family: var(--body-font);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.5px;
@@ -293,7 +294,7 @@
   max-width: 557px;
   margin: 20px 0 0;
   color: var(--navy);
-  font-family: 'Fredoka', 'Trebuchet MS', sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(66px, 8vw, 115px);
   font-weight: 700;
   letter-spacing: -2.5px;
@@ -304,7 +305,7 @@
   max-width: 420px;
   margin: 28px 0;
   color: var(--navy);
-  font-family: 'DM Mono', 'Courier New', monospace;
+  font-family: var(--body-font);
   font-size: 15px;
   line-height: 24px;
 }
@@ -328,7 +329,7 @@
   border-radius: 30px;
   box-shadow: 3px 3px 0 var(--navy);
   color: var(--navy);
-  font-family: 'DM Mono', 'Courier New', monospace;
+  font-family: var(--body-font);
   font-size: 13px;
   font-weight: 500;
   line-height: 17px;
@@ -344,7 +345,7 @@
 }
 
 .hero-button-secondary {
-  background: #ffffff;
+  background: var(--cream);
 }
 
 .hero-button:hover {
@@ -488,7 +489,7 @@
   border-radius: 25px;
   background: var(--coral);
   color: var(--navy);
-  font-family: 'DM Mono', monospace;
+  font-family: var(--body-font);
   font-size: 25px;
 }
 
@@ -564,7 +565,7 @@
   position: absolute;
   z-index: 1;
   color: var(--navy);
-  font-family: 'DM Mono', monospace;
+  font-family: var(--display-font);
   font-size: 35px;
 }
 
@@ -592,7 +593,7 @@
   border-radius: 50%;
   color: var(--navy);
   background: var(--orange);
-  font-family: 'Fredoka', 'Trebuchet MS', sans-serif;
+  font-family: var(--display-font);
   font-size: 16px;
   font-weight: 700;
   line-height: 14px;
