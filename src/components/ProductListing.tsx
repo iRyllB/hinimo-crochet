@@ -7,9 +7,10 @@ export type Product = {
 
 type ProductListingProps = {
   products: Product[]
+  onContact: () => void
 }
 
-function ProductListing({ products }: ProductListingProps) {
+function ProductListing({ products, onContact }: ProductListingProps) {
   return (
     <div className="product-grid">
       {products.map((product, index) => (
@@ -24,9 +25,9 @@ function ProductListing({ products }: ProductListingProps) {
             </div>
             <strong>{product.price}</strong>
           </div>
-          <a className="product-contact" href="#contact">
+          <button className="product-contact" type="button" onClick={onContact}>
             Interested? Contact me <span aria-hidden="true">+</span>
-          </a>
+          </button>
         </article>
       ))}
     </div>

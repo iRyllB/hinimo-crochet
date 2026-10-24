@@ -2,11 +2,15 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import HeroArtwork from '../components/HeroArtwork'
 import MainSections from '../components/MainSections'
+import ContactOverlay from '../components/ContactOverlay'
+import { useState } from 'react'
 
 function MainPage() {
+  const [isContactOpen, setIsContactOpen] = useState(false)
+
   return (
     <div className="site" id="top">
-      <Header />
+      <Header onContact={() => setIsContactOpen(true)} />
       <main>
         <section className="hero-section">
           <div className="hero-content">
@@ -21,9 +25,10 @@ function MainPage() {
             <HeroArtwork />
           </div>
         </section>
-        <MainSections />
+        <MainSections onContact={() => setIsContactOpen(true)} />
       </main>
       <Footer />
+      <ContactOverlay isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </div>
   )
 }

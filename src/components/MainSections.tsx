@@ -1,7 +1,11 @@
 import ProductListing from './ProductListing'
 import muffin from '../assets/muffin.png'
 
-function MainSections() {
+type MainSectionsProps = {
+  onContact: () => void
+}
+
+function MainSections({ onContact }: MainSectionsProps) {
   return (
     <>
       <section className="content-section shop-section" id="shop">
@@ -14,7 +18,7 @@ function MainSections() {
           { name: 'Berry Soft Bucket', description: 'Cloudy cotton yarn', price: '$36', color: 'yellow' },
           { name: 'Cozy Cup Sleeve', description: 'For slow mornings', price: '$18', color: 'green' },
           { name: 'Blooming Coasters', description: 'Set of four', price: '$28', color: 'coral' },
-        ]} />
+        ]} onContact={onContact} />
         <div className="shop-summary">
           <div className="summary-label"><span className="eyebrow-dot" aria-hidden="true" /><span>YOU LIKE IT?</span><strong>VIEW MORE AVAILABLE LISTINGS</strong></div>
           <p>More handmade pieces are waiting to be discovered.</p>
@@ -31,6 +35,8 @@ function MainSections() {
           <h2>MADE WITH<br /><em>HEART.</em></h2>
           <p className="large-copy">Hinimo started at my kitchen table, with one orange hook and an unruly pile of yarn.</p>
           <p>Now it’s a soft little corner of the internet for makers who want to learn, play, and make things that feel like a hug. There are no perfect stitches here — just colorful experiments and friends who cheer you on.</p>
+          <p className="custom-work-note">Looking for something made just for you? I also accept custom crochet requests.</p>
+          <button className="hero-button hero-button-primary" type="button" onClick={onContact}>ASK ABOUT CUSTOM WORK <span aria-hidden="true">→</span></button>
         </div>
       </section>
 

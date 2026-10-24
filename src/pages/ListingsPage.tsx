@@ -1,6 +1,8 @@
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import ProductListing, { type Product } from '../components/ProductListing'
+import ContactOverlay from '../components/ContactOverlay'
+import { useState } from 'react'
 
 const products: Product[] = [
   { name: 'Sunny Daisy Bag', description: 'Hand-crocheted tote', price: '$48', color: 'pink' },
@@ -18,9 +20,11 @@ const products: Product[] = [
 ]
 
 function ListingsPage() {
+  const [isContactOpen, setIsContactOpen] = useState(false)
+
   return (
     <div className="site listings-site" id="top">
-      <Header />
+      <Header onContact={() => setIsContactOpen(true)} />
       <main className="listings-page">
         <section className="content-section listings-heading">
           <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> GOOD THINGS, HANDMADE</p>
@@ -28,10 +32,11 @@ function ListingsPage() {
           <p>Browse the full collection of handmade crochet pieces. Found something you love? Contact me to ask about availability.</p>
         </section>
         <section className="content-section listings-section" id="contact">
-          <ProductListing products={products} />
+          <ProductListing products={products} onContact={() => setIsContactOpen(true)} />
         </section>
       </main>
       <Footer />
+      <ContactOverlay isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </div>
   )
 }

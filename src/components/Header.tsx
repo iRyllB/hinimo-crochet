@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react'
 import hinimoHeader from '../assets/hinimo header.png'
 
-const navLinks = ['Home', 'About', 'Shop']
+const navLinks = ['Home', 'Shop', 'About', 'Feedback']
 
-function Header() {
+type HeaderProps = {
+  onContact: () => void
+}
+
+function Header({ onContact }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
 
@@ -43,16 +47,16 @@ function Header() {
               {navLinks.map((link) => (
                 <a
                   className={link === 'Home' ? 'nav-link active' : 'nav-link'}
-                  href={link === 'Home' ? '/' : `/#${link === 'About' ? 'about' : link.toLowerCase()}`}
+                  href={link === 'Home' ? '/' : `/#${link === 'About' ? 'about' : link === 'Feedback' ? 'contact' : link.toLowerCase()}`}
                   key={link}
                 >
                   {link}
                 </a>
               ))}
             </div>
-            <a className="login-link" href="/#contact">
+            <button className="login-link" type="button" onClick={onContact}>
               CONTACT ME
-            </a>
+            </button>
           </div>
         </nav>
       </div>
