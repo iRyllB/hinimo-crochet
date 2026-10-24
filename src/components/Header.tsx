@@ -5,9 +5,10 @@ const navLinks = ['Home', 'Shop', 'About', 'Feedback']
 
 type HeaderProps = {
   onContact: () => void
+  onHome: () => void
 }
 
-function Header({ onContact }: HeaderProps) {
+function Header({ onContact, onHome }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
 
@@ -38,7 +39,7 @@ function Header({ onContact }: HeaderProps) {
     <header className={`site-header${isScrolled ? ' is-scrolled' : ''}${isHidden ? ' is-hidden' : ''}`}>
       <div className="header-frame">
         <nav className="navigation" aria-label="Main navigation">
-          <a className="brand-link" href="/" aria-label="Hinimo Crochet home">
+          <a className="brand-link" href="/" onClick={(event) => { event.preventDefault(); onHome() }} aria-label="Hinimo Crochet home">
             <img className="brand-logo" src={hinimoHeader} alt="Hinimo Crochet" />
           </a>
 
@@ -48,6 +49,7 @@ function Header({ onContact }: HeaderProps) {
                 <a
                   className={link === 'Home' ? 'nav-link active' : 'nav-link'}
                   href={link === 'Home' ? '/' : `/#${link === 'About' ? 'about' : link === 'Feedback' ? 'contact' : link.toLowerCase()}`}
+                  onClick={link === 'Home' ? (event) => { event.preventDefault(); onHome() } : undefined}
                   key={link}
                 >
                   {link}

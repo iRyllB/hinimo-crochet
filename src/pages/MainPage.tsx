@@ -25,7 +25,10 @@ function MainPage() {
 
   return (
     <div className="site" id="top">
-      <Header onContact={() => setIsContactOpen(true)} />
+      <Header
+        onContact={() => setIsContactOpen(true)}
+        onHome={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      />
       <main>
         <section className="hero-section">
           <div className="hero-content">

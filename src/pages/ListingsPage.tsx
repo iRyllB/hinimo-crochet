@@ -24,7 +24,10 @@ function ListingsPage() {
 
   return (
     <div className="site listings-site" id="top">
-      <Header onContact={() => setIsContactOpen(true)} />
+      <Header
+        onContact={() => setIsContactOpen(true)}
+        onHome={() => { window.location.href = '/' }}
+      />
       <main className="listings-page">
         <section className="content-section listings-heading">
           <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> GOOD THINGS, HANDMADE</p>
