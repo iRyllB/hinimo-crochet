@@ -324,9 +324,9 @@
   justify-content: space-between;
   gap: 14px;
   box-sizing: border-box;
-  width: 206px;
-  min-height: 55px;
-  padding: 17px 25px;
+  width: auto;
+  min-height: 48px;
+  padding: 13px 20px;
   border: 2px solid var(--navy);
   border-radius: 30px;
   box-shadow: 3px 3px 0 var(--navy);
@@ -369,6 +369,13 @@
   width: 584px;
   height: 500px;
   margin-top: 35px;
+}
+
+.hero-art-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .art-arch {
@@ -939,6 +946,8 @@
   padding-right: max(24px, calc((100vw - 1180px) / 2));
   padding-left: max(24px, calc((100vw - 1180px) / 2));
   background: #82916a;
+  padding-top: 82px;
+  padding-bottom: 82px;
 }
 
 .worth-art {
@@ -953,32 +962,11 @@
   overflow: hidden;
 }
 
-.worth-yarn-ball {
-  display: grid;
-  width: 58%;
-  aspect-ratio: 1;
-  place-items: center;
-  border: 2px solid var(--navy);
-  border-radius: 42%;
-  background: #d57b57;
-}
-
-.worth-face {
-  color: var(--navy);
-  font-family: Arial, sans-serif;
-  font-size: clamp(28px, 4vw, 54px);
-  letter-spacing: 22px;
-}
-
-.worth-yarn-line {
-  position: absolute;
-  bottom: 22%;
-  left: 8%;
-  width: 55%;
-  height: 22px;
-  border-bottom: 8px solid #4b4d53;
-  border-radius: 50%;
-  transform: rotate(-8deg);
+.worth-art-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .worth-copy > p:not(.eyebrow) {

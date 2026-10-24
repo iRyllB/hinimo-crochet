@@ -1,4 +1,5 @@
 import ProductListing from './ProductListing'
+import muffin from '../assets/muffin.png'
 
 const values = [
   ['HANDMADE', 'Every stitch is made with patience, care, and a little bit of joy.'],
@@ -29,8 +30,7 @@ function MainSections() {
 
       <section className="content-section worth-section" id="about">
         <div className="worth-art" aria-hidden="true">
-          <div className="worth-yarn-ball"><span className="worth-face">•⌣•</span></div>
-          <span className="worth-yarn-line" />
+          <img className="worth-art-image" src={muffin} alt="" />
         </div>
         <div className="worth-copy">
           <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> HI, I'M MIA</p>
