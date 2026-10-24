@@ -5,10 +5,23 @@ const navLinks = ['Home', 'About', 'Shop', 'Contact']
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isHidden, setIsHidden] = useState(false)
 
   useEffect(() => {
+    let previousScrollY = window.scrollY
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0)
+      const currentScrollY = window.scrollY
+      const scrollDelta = currentScrollY - previousScrollY
+
+      setIsScrolled(currentScrollY > 0)
+      if (currentScrollY <= 0) {
+        setIsHidden(false)
+      } else if (Math.abs(scrollDelta) >= 4) {
+        setIsHidden(scrollDelta < 0)
+      }
+
+      previousScrollY = currentScrollY
     }
 
     handleScroll()
@@ -18,7 +31,7 @@ function Header() {
   }, [])
 
   return (
-    <header className={`site-header${isScrolled ? ' is-scrolled' : ''}`}>
+    <header className={`site-header${isScrolled ? ' is-scrolled' : ''}${isHidden ? ' is-hidden' : ''}`}>
       <div className="header-frame">
         <nav className="navigation" aria-label="Main navigation">
           <a className="brand-link" href="/" aria-label="Hinimo Crochet home">
