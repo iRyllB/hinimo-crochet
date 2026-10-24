@@ -37,6 +37,9 @@ function Header() {
                 </a>
               ))}
             </div>
+            <a className="login-link" href="/#login">
+              LOG IN
+            </a>
           </div>
         </nav>
       </div>
