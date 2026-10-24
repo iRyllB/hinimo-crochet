@@ -8,7 +8,7 @@ type MainSectionsProps = {
 function MainSections({ onContact }: MainSectionsProps) {
   return (
     <>
-      <section className="content-section shop-section" id="shop">
+      <section className="content-section shop-section" id="shop" data-reveal>
         <div className="section-heading">
           <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> GOOD THINGS, HANDMADE</p>
           <h2>THE TINY<br />SHOP.</h2>
@@ -26,7 +26,7 @@ function MainSections({ onContact }: MainSectionsProps) {
         </div>
       </section>
 
-      <section className="content-section worth-section" id="about">
+      <section className="content-section worth-section" id="about" data-reveal>
         <div className="worth-art" aria-hidden="true">
           <img className="worth-art-image" src={muffin} alt="" />
         </div>
@@ -40,7 +40,7 @@ function MainSections({ onContact }: MainSectionsProps) {
         </div>
       </section>
 
-      <section className="content-section contact-section" id="contact">
+      <section className="content-section contact-section" id="contact" data-reveal>
         <div>
           <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> SAY HI</p>
           <h2>LEAVE A<br /><em>NOTE.</em></h2>

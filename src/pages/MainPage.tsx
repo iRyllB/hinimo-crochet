@@ -3,16 +3,34 @@ import Header from '../components/Header'
 import HeroArtwork from '../components/HeroArtwork'
 import MainSections from '../components/MainSections'
 import ContactOverlay from '../components/ContactOverlay'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function MainPage() {
   const [isContactOpen, setIsContactOpen] = useState(false)
+
+  useEffect(() => {
+    const revealTargets = document.querySelectorAll<HTMLElement>('[data-reveal]')
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.12 },
+    )
+
+    revealTargets.forEach((target) => observer.observe(target))
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div className="site" id="top">
       <Header onContact={() => setIsContactOpen(true)} />
       <main>
-        <section className="hero-section">
+        <section className="hero-section" data-reveal>
           <div className="hero-content">
             <div className="hero-copy">
               <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> HAPPY TO SERVE YOU!</p>
