@@ -663,6 +663,262 @@
   }
 }
 
+.content-section {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 120px 0;
+}
+
+.section-heading h2,
+.worth-copy h2,
+.contact-section h2 {
+  margin: 18px 0 22px;
+  color: var(--navy);
+  font-family: var(--display-font);
+  font-size: clamp(54px, 7vw, 94px);
+  line-height: 0.86;
+  letter-spacing: -2px;
+}
+
+.section-heading h2 em,
+.worth-copy h2 em,
+.contact-section h2 em {
+  color: var(--berry);
+  font-style: normal;
+}
+
+.section-heading > p:last-child {
+  max-width: 470px;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.shop-section {
+  border-top: 2px solid var(--navy);
+}
+
+.product-grid,
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 58px;
+}
+
+.product-card {
+  min-height: 315px;
+  padding: 28px;
+  border: 2px solid var(--navy);
+  border-radius: 26px;
+  box-shadow: 5px 5px 0 var(--navy);
+}
+
+.product-card-pink { background: var(--pink); }
+.product-card-yellow { background: var(--yellow); }
+.product-card-green { background: #b5d58b; }
+
+.product-shape {
+  display: block;
+  height: 120px;
+  color: var(--navy);
+  font-family: var(--display-font);
+  font-size: 108px;
+  line-height: 1;
+  text-align: center;
+}
+
+.product-card h3,
+.value-card h3 {
+  margin: 12px 0 8px;
+  font-family: var(--display-font);
+  font-size: 22px;
+}
+
+.product-card p,
+.value-card p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.product-card a,
+.text-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: var(--navy);
+  font-family: var(--body-font);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.worth-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 80px;
+  max-width: none;
+  padding-right: max(24px, calc((100vw - 1180px) / 2));
+  padding-left: max(24px, calc((100vw - 1180px) / 2));
+  background: var(--coral);
+}
+
+.worth-copy > p:not(.eyebrow) {
+  max-width: 470px;
+  line-height: 1.65;
+}
+
+.worth-copy .large-copy {
+  font-size: 22px;
+  line-height: 1.55;
+}
+
+.worth-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(360px, 80%);
+  aspect-ratio: 1;
+  margin: auto;
+  border: 2px solid var(--navy);
+  border-radius: 50%;
+  background: var(--pink);
+  color: var(--navy);
+  font-family: var(--display-font);
+  font-size: clamp(30px, 5vw, 62px);
+  line-height: 0.9;
+  text-align: center;
+  transform: rotate(-8deg);
+}
+
+.worth-note strong {
+  position: absolute;
+  margin: 170px 0 0 210px;
+  font-size: 55px;
+}
+
+.about-section {
+  padding-bottom: 130px;
+}
+
+.centered {
+  text-align: center;
+}
+
+.centered .eyebrow {
+  justify-content: center;
+}
+
+.values-grid {
+  margin-top: 70px;
+}
+
+.value-card {
+  padding-top: 20px;
+  border-top: 2px solid var(--navy);
+}
+
+.value-number {
+  color: var(--orange);
+  font-family: var(--display-font);
+  font-size: 26px;
+}
+
+.contact-section {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: none;
+  padding-right: max(24px, calc((100vw - 1180px) / 2));
+  padding-left: max(24px, calc((100vw - 1180px) / 2));
+  background: var(--yellow);
+}
+
+.contact-copy {
+  max-width: 330px;
+  padding-bottom: 12px;
+}
+
+.contact-copy p {
+  margin: 0 0 24px;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.admin-gate {
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  padding: 24px;
+  background: var(--navy);
+}
+
+.admin-gate-card {
+  width: min(100%, 520px);
+  padding: 52px;
+  border: 2px solid var(--navy);
+  border-radius: 28px;
+  background: var(--cream);
+  box-shadow: 8px 8px 0 var(--orange);
+  text-align: center;
+}
+
+.admin-gate-card h1 {
+  margin: 18px 0;
+  font-family: var(--display-font);
+  font-size: clamp(42px, 8vw, 72px);
+  line-height: 0.9;
+}
+
+.admin-gate-card > p:not(.eyebrow) {
+  margin: 0 auto 28px;
+  line-height: 1.6;
+}
+
+.admin-gate-card .hero-button {
+  width: auto;
+}
+
+.admin-lock {
+  display: block;
+  color: var(--orange);
+  font-size: 54px;
+}
+
+@media (max-width: 760px) {
+  .content-section {
+    width: min(100% - 32px, 560px);
+    padding: 80px 0;
+  }
+
+  .product-grid,
+  .values-grid,
+  .worth-section {
+    grid-template-columns: 1fr;
+  }
+
+  .worth-section,
+  .contact-section {
+    width: 100%;
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .worth-note {
+    width: min(320px, 90%);
+  }
+
+  .contact-section {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-gate-card {
+    padding: 36px 24px;
+  }
+}
+
 @media (max-width: 420px) {
   .nav-actions {
     align-items: flex-start;
