@@ -8,7 +8,7 @@ type MainSectionsProps = {
 function MainSections({ onContact }: MainSectionsProps) {
   return (
     <>
-      <section className="content-section shop-section" id="shop" data-reveal>
+      <section className="content-section shop-section" id="shop">
         <div className="section-heading">
           <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> GOOD THINGS, HANDMADE</p>
           <h2>THE TINY<br />SHOP.</h2>
@@ -26,8 +26,8 @@ function MainSections({ onContact }: MainSectionsProps) {
         </div>
       </section>
 
-      <section className="content-section worth-section" id="about" data-reveal>
-        <div className="worth-art" aria-hidden="true">
+      <section className="content-section worth-section" id="about">
+        <div className="worth-art soft-reveal" aria-hidden="true">
           <img className="worth-art-image" src={muffin} alt="" />
         </div>
         <div className="worth-copy">
@@ -40,13 +40,13 @@ function MainSections({ onContact }: MainSectionsProps) {
         </div>
       </section>
 
-      <section className="content-section contact-section" id="contact" data-reveal>
+      <section className="content-section contact-section" id="contact">
         <div>
           <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> SAY HI</p>
           <h2>LEAVE A<br /><em>NOTE.</em></h2>
           <p className="feedback-intro">Have a question, a workshop idea, or something kind to share? I’d love to hear from you.</p>
         </div>
-        <form className="feedback-form" action="mailto:hello@hinimocrochet.com" method="post" encType="text/plain">
+        <form className="feedback-form soft-reveal" action="mailto:hello@hinimocrochet.com" method="post" encType="text/plain">
           <label htmlFor="feedback-name">YOUR NAME</label>
           <input id="feedback-name" name="name" type="text" placeholder="Your lovely name" required />
           <label htmlFor="feedback-email">EMAIL ADDRESS</label>

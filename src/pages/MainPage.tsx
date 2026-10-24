@@ -9,17 +9,14 @@ function MainPage() {
   const [isContactOpen, setIsContactOpen] = useState(false)
 
   useEffect(() => {
-    const revealTargets = document.querySelectorAll<HTMLElement>('[data-reveal]')
+    const revealTargets = document.querySelectorAll<HTMLElement>('.soft-reveal')
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible')
-            observer.unobserve(entry.target)
-          }
+          entry.target.classList.toggle('is-visible', entry.isIntersecting)
         })
       },
-      { threshold: 0.12 },
+      { threshold: 0.12, rootMargin: '0px 0px -5% 0px' },
     )
 
     revealTargets.forEach((target) => observer.observe(target))
@@ -30,7 +27,7 @@ function MainPage() {
     <div className="site" id="top">
       <Header onContact={() => setIsContactOpen(true)} />
       <main>
-        <section className="hero-section" data-reveal>
+        <section className="hero-section">
           <div className="hero-content">
             <div className="hero-copy">
               <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> HAPPY TO SERVE YOU!</p>

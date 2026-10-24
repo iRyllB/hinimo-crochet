@@ -17,13 +17,13 @@
   background: var(--cream);
 }
 
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(26px);
-  transition: opacity 700ms ease, transform 700ms ease;
+.soft-reveal {
+  opacity: 0.82;
+  transform: translateY(8px);
+  transition: opacity 420ms ease, transform 420ms ease;
 }
 
-[data-reveal].is-visible {
+.soft-reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -418,8 +418,8 @@
 }
 
 .hero-art:hover .hero-art-image {
-  transform: scale(1.035) rotate(1deg);
-  filter: saturate(1.08);
+  transform: scale(1.018);
+  filter: saturate(1.04);
 }
 
 .art-arch {
@@ -784,7 +784,7 @@
 }
 
 .product-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-3px);
 }
 
 .product-image {
@@ -1023,8 +1023,8 @@
 }
 
 .worth-art:hover .worth-art-image {
-  transform: scale(1.04) rotate(-1deg);
-  filter: saturate(1.08);
+  transform: scale(1.018);
+  filter: saturate(1.04);
 }
 
 .worth-copy > p:not(.eyebrow) {
@@ -1294,7 +1294,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-reveal] {
+    .soft-reveal {
       opacity: 1;
       transform: none;
       transition: none;

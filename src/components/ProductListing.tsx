@@ -14,7 +14,7 @@ function ProductListing({ products, onContact }: ProductListingProps) {
   return (
     <div className="product-grid">
       {products.map((product, index) => (
-        <article className={`product-card product-card-${product.color}`} key={`${product.name}-${product.price}-${index}`}>
+        <article className={`product-card product-card-${product.color} soft-reveal`} key={`${product.name}-${product.price}-${index}`}>
           <div className="product-image">
             <span className="image-placeholder">IMAGE<br />PLACEHOLDER</span>
           </div>
