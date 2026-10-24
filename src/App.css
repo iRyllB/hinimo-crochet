@@ -178,10 +178,11 @@
   align-items: center;
   min-height: 30px;
   padding: 7px 14px;
-  border: 2px solid var(--orange);
+  border: 2px solid var(--navy);
   border-radius: 20px;
-  color: var(--orange);
-  background: transparent;
+  color: var(--navy);
+  background: var(--orange);
+  box-shadow: 3px 3px 0 var(--navy);
   font-size: 15px;
   font-weight: 700;
   line-height: 17px;
@@ -192,19 +193,20 @@
 }
 
 .login-link:hover {
-  color: var(--pink);
-  background-color: var(--orange);
-  transform: translateY(-2px);
+  color: var(--navy);
+  background-color: var(--yellow);
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--navy);
 }
 
 .site-header.is-scrolled .login-link {
-  border-color: var(--pink);
-  color: var(--pink);
+  border-color: var(--navy);
+  color: var(--navy);
 }
 
 .site-header.is-scrolled .login-link:hover {
-  color: var(--orange);
-  background-color: var(--pink);
+  color: var(--navy);
+  background-color: var(--yellow);
 }
 
 .hero-section {
@@ -694,6 +696,10 @@
   line-height: 1.6;
 }
 
+.shop-all-link {
+  margin-top: 2px;
+}
+
 .shop-section {
   border-top: 2px solid var(--navy);
 }
@@ -707,20 +713,28 @@
 }
 
 .product-card {
-  min-height: 315px;
-  padding: 28px;
-  border: 2px solid var(--navy);
+  min-height: 313px;
+  padding: 0;
+  border: 0;
   border-radius: 26px;
-  box-shadow: 5px 5px 0 var(--navy);
+  box-shadow: none;
 }
 
 .product-card-pink { background: var(--pink); }
 .product-card-yellow { background: var(--yellow); }
 .product-card-green { background: #b5d58b; }
 
+.product-image {
+  display: grid;
+  min-height: 212px;
+  place-items: center;
+  border: 2px solid var(--navy);
+  border-radius: 13px;
+}
+
 .product-shape {
   display: block;
-  height: 120px;
+  height: auto;
   color: var(--navy);
   font-family: var(--display-font);
   font-size: 108px;
@@ -735,20 +749,55 @@
   font-size: 22px;
 }
 
-.product-card p,
+.product-info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 65px;
+  padding: 13px 0 10px;
+}
+
+.product-info h3 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: -0.7px;
+}
+
+.product-info p,
 .value-card p {
   margin: 0;
   line-height: 1.5;
 }
 
-.product-card a,
+.product-info p {
+  padding-top: 4px;
+  font-size: 12px;
+}
+
+.product-info strong {
+  font-size: 14px;
+}
+
+.product-contact,
 .text-link {
   display: inline-block;
-  margin-top: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  padding-top: 10px;
+  border-top: 1px solid var(--navy);
   color: var(--navy);
   font-family: var(--body-font);
   font-size: 13px;
-  font-weight: 700;
+  text-decoration: none;
+}
+
+.product-contact {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-contact:hover,
+.shop-all-link:hover {
   text-decoration: underline;
 }
 

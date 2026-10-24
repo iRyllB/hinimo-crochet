@@ -9,14 +9,26 @@ function MainSections() {
     <>
       <section className="content-section shop-section" id="shop">
         <div className="section-heading">
-          <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> OUR LITTLE SHOP</p>
-          <h2>SMALL THINGS,<br /><em>BIG JOY.</em></h2>
-          <p>Find cozy handmade companions, cheerful accessories, and soft little gifts made to be loved for a long time.</p>
+          <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> GOOD THINGS, HANDMADE</p>
+          <h2>THE TINY<br />SHOP.</h2>
+          <a className="text-link shop-all-link" href="#contact">VIEW ALL PIECES →</a>
         </div>
         <div className="product-grid">
-          <article className="product-card product-card-pink"><span className="product-shape">✿</span><h3>COZY CHARMS</h3><p>Sweet crochet friends for your bag, shelf, or pocket.</p><a href="#contact">EXPLORE →</a></article>
-          <article className="product-card product-card-yellow"><span className="product-shape">♡</span><h3>SOFT ACCESSORIES</h3><p>Wearable pops of color that make ordinary days special.</p><a href="#contact">EXPLORE →</a></article>
-          <article className="product-card product-card-green"><span className="product-shape">✦</span><h3>GIFTABLE JOY</h3><p>Thoughtful handmade pieces for the people you love.</p><a href="#contact">EXPLORE →</a></article>
+          <article className="product-card product-card-pink">
+            <div className="product-image"><span className="product-shape">✿</span></div>
+            <div className="product-info"><div><h3>Sunny Daisy Bag</h3><p>Hand-crocheted tote</p></div><strong>$48</strong></div>
+            <a className="product-contact" href="#contact">Interested? Contact me <span aria-hidden="true">+</span></a>
+          </article>
+          <article className="product-card product-card-yellow">
+            <div className="product-image"><span className="product-shape">♡</span></div>
+            <div className="product-info"><div><h3>Berry Soft Bucket</h3><p>Cloudy cotton yarn</p></div><strong>$36</strong></div>
+            <a className="product-contact" href="#contact">Interested? Contact me <span aria-hidden="true">+</span></a>
+          </article>
+          <article className="product-card product-card-green">
+            <div className="product-image"><span className="product-shape">✦</span></div>
+            <div className="product-info"><div><h3>Cozy Cup Sleeve</h3><p>For slow mornings</p></div><strong>$18</strong></div>
+            <a className="product-contact" href="#contact">Interested? Contact me <span aria-hidden="true">+</span></a>
+          </article>
         </div>
       </section>
 
