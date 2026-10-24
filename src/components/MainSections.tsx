@@ -1,3 +1,5 @@
+import ProductListing from './ProductListing'
+
 const values = [
   ['HANDMADE', 'Every stitch is made with patience, care, and a little bit of joy.'],
   ['COLORFUL', 'Bright, playful pieces made to bring a soft spark to everyday life.'],
@@ -13,33 +15,16 @@ function MainSections() {
           <h2>THE TINY<br />SHOP.</h2>
           <a className="text-link shop-all-link" href="#contact">VIEW ALL PIECES →</a>
         </div>
-        <div className="product-grid">
-          <article className="product-card product-card-pink">
-            <div className="product-image"><span className="product-shape">✿</span></div>
-            <div className="product-info"><div><h3>Sunny Daisy Bag</h3><p>Hand-crocheted tote</p></div><strong>$48</strong></div>
-            <a className="product-contact" href="#contact">Interested? Contact me <span aria-hidden="true">+</span></a>
-          </article>
-          <article className="product-card product-card-yellow">
-            <div className="product-image"><span className="product-shape">♡</span></div>
-            <div className="product-info"><div><h3>Berry Soft Bucket</h3><p>Cloudy cotton yarn</p></div><strong>$36</strong></div>
-            <a className="product-contact" href="#contact">Interested? Contact me <span aria-hidden="true">+</span></a>
-          </article>
-          <article className="product-card product-card-green">
-            <div className="product-image"><span className="product-shape">✦</span></div>
-            <div className="product-info"><div><h3>Cozy Cup Sleeve</h3><p>For slow mornings</p></div><strong>$18</strong></div>
-            <a className="product-contact" href="#contact">Interested? Contact me <span aria-hidden="true">+</span></a>
-          </article>
-          <article className="product-card product-card-coral">
-            <div className="product-image"><span className="product-shape">✾</span></div>
-            <div className="product-info"><div><h3>Blooming Coasters</h3><p>Set of four</p></div><strong>$28</strong></div>
-            <a className="product-contact" href="#contact">Interested? Contact me <span aria-hidden="true">+</span></a>
-          </article>
-        </div>
+        <ProductListing products={[
+          { name: 'Sunny Daisy Bag', description: 'Hand-crocheted tote', price: '$48', color: 'pink' },
+          { name: 'Berry Soft Bucket', description: 'Cloudy cotton yarn', price: '$36', color: 'yellow' },
+          { name: 'Cozy Cup Sleeve', description: 'For slow mornings', price: '$18', color: 'green' },
+          { name: 'Blooming Coasters', description: 'Set of four', price: '$28', color: 'coral' },
+        ]} />
         <div className="shop-summary">
-          <div className="summary-label"><span className="eyebrow-dot" aria-hidden="true" /><span>YOUR LITTLE CART</span><strong>0 HANDMADE GOODIES</strong></div>
-          <p>Your cart is ready for something cozy.</p>
-          <div className="summary-total"><span>TOTAL</span><strong>$0.00</strong></div>
-          <a className="summary-button" href="#contact">CONTACT ME <span aria-hidden="true">→</span></a>
+          <div className="summary-label"><span className="eyebrow-dot" aria-hidden="true" /><span>YOU LIKE IT?</span><strong>VIEW MORE AVAILABLE LISTINGS</strong></div>
+          <p>More handmade pieces are waiting to be discovered.</p>
+          <a className="summary-button" href="/listings">VIEW MORE <span aria-hidden="true">→</span></a>
         </div>
       </section>
 
