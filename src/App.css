@@ -102,13 +102,13 @@
 }
 
 .brand-name {
-  width: 87px;
   color: var(--navy);
   font-family: 'Fredoka', 'Trebuchet MS', sans-serif;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 700;
-  line-height: 13px;
-  letter-spacing: -0.5px;
+  line-height: 1;
+  letter-spacing: -0.4px;
+  text-transform: uppercase;
 }
 
 .nav-actions {
@@ -177,9 +177,10 @@
   align-items: center;
   min-height: 30px;
   padding: 7px 14px;
-  border: 2px solid var(--navy);
+  border: 2px solid var(--orange);
   border-radius: 20px;
-  color: var(--navy);
+  color: var(--orange);
+  background: transparent;
   font-size: 15px;
   font-weight: 700;
   line-height: 17px;
@@ -190,16 +191,26 @@
 }
 
 .login-link:hover {
-  color: var(--cream);
-  background-color: var(--navy);
+  color: var(--pink);
+  background-color: var(--orange);
   transform: translateY(-2px);
+}
+
+.site-header.is-scrolled .login-link {
+  border-color: var(--pink);
+  color: var(--pink);
+}
+
+.site-header.is-scrolled .login-link:hover {
+  color: var(--orange);
+  background-color: var(--pink);
 }
 
 .hero-section {
   display: flex;
   justify-content: center;
   min-height: 681px;
-  border-top: 1px solid var(--navy);
+  border-top: 1px solid transparent;
   overflow: hidden;
 }
 

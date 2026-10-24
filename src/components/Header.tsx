@@ -23,6 +23,7 @@ function Header() {
         <nav className="navigation" aria-label="Main navigation">
           <a className="brand-link" href="/" aria-label="Hinimo Crochet home">
             <img className="brand-logo" src={hinimoLogo} alt="Hinimo Crochet" />
+            <span className="brand-name">Hinimo Crochet</span>
           </a>
 
           <div className="nav-actions">
