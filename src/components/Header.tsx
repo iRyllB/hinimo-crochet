@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import hinimoLogo from '../assets/hinimo.png'
+import hinimoHeader from '../assets/hinimo header.png'
 
 const navLinks = ['Home', 'Shop', 'Worth', 'About', 'Contact']
 
@@ -22,8 +22,7 @@ function Header() {
       <div className="header-frame">
         <nav className="navigation" aria-label="Main navigation">
           <a className="brand-link" href="/" aria-label="Hinimo Crochet home">
-            <img className="brand-logo" src={hinimoLogo} alt="Hinimo Crochet" />
-            <span className="brand-name">Hinimo Crochet</span>
+            <img className="brand-logo" src={hinimoHeader} alt="Hinimo Crochet" />
           </a>
 
           <div className="nav-actions">
