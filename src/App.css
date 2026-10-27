@@ -1369,6 +1369,17 @@
 }
 
 .admin-login-page {
+  --navy: #171515;
+  --pink: #ff98b5;
+  --berry: #bf2e5b;
+  --coral: #f7d0a7;
+  --orange: #ff5b27;
+  --yellow: #ffdf75;
+  --cream: #fff9e9;
+  --tan: #e8ab72;
+  --green: #6b925e;
+  --display-font: 'Arial Rounded MT Bold', 'Trebuchet MS', sans-serif;
+  --body-font: 'Trebuchet MS', Arial, sans-serif;
   display: grid;
   grid-template-columns: minmax(0, 560px) minmax(280px, 1fr);
   min-height: 100svh;
@@ -1439,7 +1450,7 @@
 
 .admin-login-form label {
   margin-top: 9px;
-  font-family: 'Courier New', monospace;
+  font-family: var(--body-font);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.7px;
@@ -1542,6 +1553,17 @@
 }
 
 .admin-layout {
+  --navy: #171515;
+  --pink: #ff98b5;
+  --berry: #bf2e5b;
+  --coral: #f7d0a7;
+  --orange: #ff5b27;
+  --yellow: #ffdf75;
+  --cream: #fff9e9;
+  --tan: #e8ab72;
+  --green: #6b925e;
+  --display-font: 'Arial Rounded MT Bold', 'Trebuchet MS', sans-serif;
+  --body-font: 'Trebuchet MS', Arial, sans-serif;
   display: flex;
   min-height: 100svh;
   background: #f6f0df;
@@ -1561,21 +1583,25 @@
 .admin-brand {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 10px 24px;
+  gap: 7px;
+  padding: 0 5px 24px;
   color: var(--navy);
   text-decoration: none;
 }
 
-.admin-brand-mark {
-  display: grid;
-  width: 31px;
-  height: 31px;
-  place-items: center;
-  border: 2px solid var(--navy);
-  border-radius: 50%;
+.admin-brand img {
+  display: block;
+  width: 132px;
+  height: 45px;
+  object-fit: contain;
+}
+
+.admin-brand > span {
+  padding: 4px 6px;
+  border-radius: 4px;
   background: var(--pink);
-  font-size: 17px;
+  font: 700 8px var(--body-font);
+  letter-spacing: 0.4px;
 }
 
 .admin-brand-name {
@@ -1604,15 +1630,28 @@
   border-radius: 7px;
   color: var(--navy);
   background: transparent;
-  font: 12px 'Courier New', monospace;
+  font: 12px var(--body-font);
   text-align: left;
   text-decoration: none;
   cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, color 180ms ease, background-color 180ms ease;
 }
 
-.admin-menu-item:hover,
+.admin-menu-item:hover {
+  transform: translate(2px, 2px);
+  color: var(--navy);
+  background: var(--orange);
+  box-shadow: 2px 2px 0 var(--navy);
+}
+
 .admin-menu-item.is-active {
-  background: var(--pink);
+  color: var(--navy);
+  background: var(--orange);
+  box-shadow: 3px 3px 0 var(--navy);
+}
+
+.admin-menu-item.is-active:hover {
+  background: var(--orange);
 }
 
 .admin-menu-item b {
@@ -1634,7 +1673,7 @@
 .admin-menu-group p {
   margin: 0 10px 7px;
   color: rgb(23 21 21 / 52%);
-  font: 9px 'Courier New', monospace;
+  font: 9px var(--body-font);
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
@@ -1663,7 +1702,7 @@
   flex: 1;
   flex-direction: column;
   gap: 2px;
-  font-family: 'Courier New', monospace;
+  font-family: var(--body-font);
   font-size: 10px;
 }
 
@@ -1692,7 +1731,7 @@
   padding: 0 38px;
   border-bottom: 2px solid var(--navy);
   background: #fffdf5;
-  font: 10px 'Courier New', monospace;
+  font: 10px var(--body-font);
 }
 
 .admin-search {
@@ -1773,7 +1812,7 @@
 .admin-table-head,
 .stock-item small,
 .workshop-item small {
-  font: 9px 'Courier New', monospace;
+  font: 9px var(--body-font);
   letter-spacing: 0.3px;
 }
 
@@ -1790,7 +1829,7 @@
 
 .admin-stat p {
   margin: 5px 0;
-  font: 9px 'Courier New', monospace;
+  font: 9px var(--body-font);
 }
 
 .admin-stat i {
@@ -1845,8 +1884,16 @@
 
 .admin-panel-heading a {
   color: var(--navy);
-  font: 9px 'Courier New', monospace;
+  font: 9px var(--body-font);
   text-decoration: none;
+  transition: transform 180ms ease, color 180ms ease;
+}
+
+.admin-panel-heading a:hover,
+.stock-item a:hover {
+  color: var(--berry);
+  transform: translateX(2px);
+  text-decoration: underline;
 }
 
 .admin-table-row {
@@ -1856,7 +1903,7 @@
   align-items: center;
   min-height: 28px;
   border-top: 1px solid rgb(23 21 21 / 17%);
-  font: 10px 'Courier New', monospace;
+  font: 10px var(--body-font);
 }
 
 .admin-table-head {
@@ -1883,7 +1930,7 @@
   gap: 9px;
   min-height: 37px;
   border-top: 1px solid rgb(23 21 21 / 17%);
-  font: 10px 'Courier New', monospace;
+  font: 10px var(--body-font);
 }
 
 .stock-dot {
@@ -1908,7 +1955,7 @@
 
 .stock-item a {
   color: var(--orange);
-  font: 9px 'Courier New', monospace;
+  font: 9px var(--body-font);
   text-decoration: none;
 }
 
@@ -1931,7 +1978,7 @@
   border: 1px solid var(--navy);
   border-radius: 10px;
   background: #b7cf8e;
-  font: 8px 'Courier New', monospace;
+  font: 8px var(--body-font);
   font-style: normal;
 }
 
@@ -1946,7 +1993,7 @@
 }
 
 .admin-message > small {
-  font: 9px 'Courier New', monospace;
+  font: 9px var(--body-font);
 }
 
 .admin-message button {
@@ -1957,8 +2004,15 @@
   border-radius: 16px;
   box-shadow: 2px 2px 0 var(--navy);
   background: var(--orange);
-  font: 9px 'Courier New', monospace;
+  font: 9px var(--body-font);
   cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.admin-message button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--navy);
+  background: var(--yellow);
 }
 
 @media (max-width: 900px) {

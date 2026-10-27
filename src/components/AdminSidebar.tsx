@@ -1,3 +1,5 @@
+import hinimoHeader from '../assets/hinimo header.png'
+
 type AdminSidebarProps = {
   activeMenu: string
   onSignOut: () => void
@@ -38,8 +40,8 @@ function AdminSidebar({ activeMenu, onSignOut }: AdminSidebarProps) {
   return (
     <aside className="admin-sidebar">
       <a className="admin-brand" href="/admin/dashboard" aria-label="Hinimo admin dashboard">
-        <span className="admin-brand-mark">✿</span>
-        <span className="admin-brand-name">HINIMO <em>ADMIN</em></span>
+        <img src={hinimoHeader} alt="Hinimo Crochet" />
+        <span>ADMIN</span>
       </a>
 
       <nav className="admin-menu" aria-label="Admin menu">
