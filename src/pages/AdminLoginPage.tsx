@@ -38,7 +38,6 @@ function AdminLoginPage() {
         </form>
         <a className="admin-back-link" href="/">← Back to Hinimo Crochet</a>
       </section>
-      <div className="admin-login-decoration" aria-hidden="true"><span>✿</span><strong>MAKE<br />SOMETHING<br /><em>LOVELY.</em></strong></div>
     </main>
   )
 }

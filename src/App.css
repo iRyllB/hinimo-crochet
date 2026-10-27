@@ -2102,3 +2102,69 @@
     min-width: 500px;
   }
 }
+
+.admin-login-page {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: #f6f0df;
+}
+
+.admin-login-page::before,
+.admin-login-page::after {
+  position: absolute;
+  z-index: -1;
+  display: block;
+  border: 2px solid var(--navy);
+  border-radius: 50%;
+  content: '';
+}
+
+.admin-login-page::before {
+  top: -190px;
+  left: -150px;
+  width: 540px;
+  height: 540px;
+  background: var(--pink);
+}
+
+.admin-login-page::after {
+  right: -170px;
+  bottom: -240px;
+  width: 620px;
+  height: 620px;
+  background: var(--orange);
+}
+
+.admin-login-card {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 40px, 430px);
+  margin: 40px auto;
+  padding: 38px 42px 32px;
+  border: 2px solid var(--navy);
+  border-radius: 18px;
+  background: #fffdf5;
+  box-shadow: 8px 8px 0 var(--navy);
+}
+
+.admin-login-brand {
+  margin-bottom: 38px;
+}
+
+.admin-login-decoration {
+  display: none;
+}
+
+.admin-login-form input {
+  background: var(--cream);
+}
+
+@media (max-width: 640px) {
+  .admin-login-card {
+    padding: 30px 24px 26px;
+  }
+}

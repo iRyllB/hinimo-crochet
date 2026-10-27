@@ -22,7 +22,6 @@ function AdminPage() {
     <div className="admin-layout">
       <AdminSidebar activeMenu="Dashboard" onSignOut={handleSignOut} />
       <main className="admin-main">
-        <header className="admin-topbar"><span>DASHBOARD</span><div className="admin-search">⌕&nbsp; Search anything...</div><span className="admin-top-arrow">↗</span></header>
         <div className="admin-content">
           <div className="admin-heading-row">
             <div><p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> SUNDAY, SEPTEMBER 14</p><h1>GOOD MORNING,<br /><em>MIA!</em></h1></div>
