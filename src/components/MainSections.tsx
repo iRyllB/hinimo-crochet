@@ -59,7 +59,7 @@ function MainSections({ onContact }: MainSectionsProps) {
           <img className="worth-art-image" src={muffin} alt="" />
         </div>
         <div className="worth-copy">
-          <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> HI, I'M MIA</p>
+          <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> HI, I'M MISSY</p>
           <h2>MADE WITH<br /><em>HEART.</em></h2>
           <p className="large-copy">Hinimo started at my kitchen table, with one orange hook and an unruly pile of yarn.</p>
           <p>Now it’s a soft little corner of the internet for makers who want to learn, play, and make things that feel like a hug. There are no perfect stitches here — just colorful experiments and friends who cheer you on.</p>
