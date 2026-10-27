@@ -18,12 +18,13 @@ export class AdminAccessPolicy {
     return Boolean(data.session)
   }
 
-  async signIn(email: string, password: string): Promise<boolean> {
+  async signIn(email: string, password: string): Promise<{ success: boolean; message?: string }> {
     const { error } = await supabase.auth.signInWithPassword({
       email: email.trim(),
       password,
     })
-    return !error
+    if (error) return { success: false, message: error.message }
+    return { success: true }
   }
 
   async signOut(): Promise<void> {

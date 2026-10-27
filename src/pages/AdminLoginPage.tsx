@@ -12,9 +12,11 @@ function AdminLoginPage() {
     event.preventDefault()
     setError('')
     const accessPolicy = new AdminAccessPolicy()
-    const isValid = await accessPolicy.signIn(email, password)
-    if (!isValid) {
-      setError('That email or password does not match. Please try again.')
+    const result = await accessPolicy.signIn(email, password)
+    if (!result.success) {
+      setError(result.message === 'Invalid login credentials'
+        ? 'That email or password does not match. Please try again.'
+        : result.message ?? 'Login could not be completed. Please try again.')
       return
     }
     window.location.href = '/admin/dashboard'
