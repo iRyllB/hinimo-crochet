@@ -26,7 +26,7 @@ function AdminLoginPage() {
           <span>ADMIN</span>
         </a>
         <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> PRIVATE WORKSPACE</p>
-        <h1 id="admin-login-title">WELCOME<br /><em>BACK.</em></h1>
+        <h1 id="admin-login-title">WELCOME</h1>
         <p className="admin-login-intro">Sign in to manage your handmade shop, orders, and creative studio.</p>
         <form className="admin-login-form" onSubmit={handleSubmit}>
           <label htmlFor="admin-email">EMAIL ADDRESS</label>
