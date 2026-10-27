@@ -2069,15 +2069,20 @@
 
 .admin-inbox-message-heading {
   display: flex;
+  min-width: 0;
   align-items: flex-start;
   justify-content: space-between;
   gap: 10px;
 }
 
 .admin-inbox-message h2 {
+  min-width: 0;
   margin: 0;
   font: 700 21px var(--display-font);
   line-height: 1;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  text-overflow: ellipsis;
 }
 
 .admin-message-status {
@@ -2090,6 +2095,7 @@
 }
 
 .admin-inbox-message > p {
+  overflow-wrap: anywhere;
   margin: 10px 0 16px;
   font: 11px var(--body-font);
 }
@@ -2139,6 +2145,8 @@
 .admin-message-dialog {
   position: relative;
   width: min(100%, 560px);
+  max-height: calc(100svh - 48px);
+  overflow-y: auto;
   padding: 32px;
   border: 2px solid var(--navy);
   border-radius: 18px;
@@ -2164,6 +2172,7 @@
 
 .admin-message-dialog-heading {
   display: flex;
+  min-width: 0;
   align-items: flex-start;
   justify-content: space-between;
   gap: 18px;
@@ -2171,13 +2180,17 @@
 }
 
 .admin-message-dialog-heading h2 {
+  min-width: 0;
   margin: 0;
   font: 700 34px var(--display-font);
+  overflow-wrap: anywhere;
 }
 
 .admin-message-dialog-email {
   display: inline-block;
+  max-width: 100%;
   margin-top: 7px;
+  overflow-wrap: anywhere;
   color: var(--berry);
   font: 13px var(--body-font);
 }
@@ -2188,6 +2201,10 @@
 }
 
 .admin-message-dialog blockquote {
+  max-height: min(300px, 42svh);
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
   margin: 28px 0;
   padding: 18px;
   border: 2px solid var(--navy);
