@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import AdminSidebar from '../components/AdminSidebar'
 import { AdminAccessPolicy } from '../domain/SiteRouter'
 import { getContactMessages, updateContactMessageStatus, type ContactMessage } from '../lib/supabase'
+import AdminMessageOverlay from '../components/AdminMessageOverlay'
 
 const accessPolicy = new AdminAccessPolicy()
 
@@ -10,6 +11,7 @@ function AdminInboxPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [error, setError] = useState('')
+  const [selectedMessage, setSelectedMessage] = useState<ContactMessage | null>(null)
 
   useEffect(() => {
     accessPolicy.canAccess().then((authorized) => {
@@ -32,6 +34,7 @@ function AdminInboxPage() {
     try {
       await updateContactMessageStatus(message.id, 'read')
       setMessages((current) => current.map((item) => item.id === message.id ? { ...item, status: 'read' } : item))
+      setSelectedMessage((current) => current?.id === message.id ? { ...current, status: 'read' } : current)
     } catch {
       setError('The message could not be updated.')
     }
@@ -56,12 +59,13 @@ function AdminInboxPage() {
               <article className={`admin-inbox-message${message.status === 'unread' ? ' is-unread' : ''}`} key={message.id}>
                 <div className="admin-inbox-message-heading"><h2>{message.message.length > 42 ? `${message.message.slice(0, 42)}...` : message.message}</h2><span className="admin-message-status">{message.status === 'unread' ? 'NEW' : 'READ'}</span></div>
                 <p>From {message.name} · <a href={`mailto:${message.email}`}>{message.email}</a></p>
-                <div className="admin-inbox-message-footer"><span>{new Date(message.created_at).toLocaleString()}</span><button type="button" onClick={() => markAsRead(message)}>{message.status === 'unread' ? 'MARK READ' : 'OPEN'} →</button></div>
+                <div className="admin-inbox-message-footer"><span>{new Date(message.created_at).toLocaleString()}</span><button type="button" onClick={() => setSelectedMessage(message)}>OPEN →</button></div>
               </article>
             ))}
           </section>
         </div>
       </main>
+      {selectedMessage && <AdminMessageOverlay message={selectedMessage} onClose={() => setSelectedMessage(null)} onMarkAsRead={() => markAsRead(selectedMessage)} />}
     </div>
   )
 }

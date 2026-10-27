@@ -2044,8 +2044,9 @@
 
 .admin-message-list {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
-  max-width: 540px;
+  max-width: 1100px;
 }
 
 .admin-inbox-message {
@@ -2123,6 +2124,117 @@
 
 .admin-feedback-error {
   color: var(--berry);
+}
+
+.admin-message-overlay {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(23 21 21 / 62%);
+}
+
+.admin-message-dialog {
+  position: relative;
+  width: min(100%, 560px);
+  padding: 32px;
+  border: 2px solid var(--navy);
+  border-radius: 18px;
+  background: var(--cream);
+  box-shadow: 8px 8px 0 var(--navy);
+  animation: admin-dialog-in 180ms ease-out;
+}
+
+.admin-message-dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--navy);
+  border-radius: 50%;
+  color: var(--navy);
+  background: var(--pink);
+  font: 20px var(--body-font);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.admin-message-dialog-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.admin-message-dialog-heading h2 {
+  margin: 0;
+  font: 700 34px var(--display-font);
+}
+
+.admin-message-dialog-email {
+  display: inline-block;
+  margin-top: 7px;
+  color: var(--berry);
+  font: 13px var(--body-font);
+}
+
+.admin-message-dialog-date {
+  margin: 8px 0 0;
+  font-size: 11px;
+}
+
+.admin-message-dialog blockquote {
+  margin: 28px 0;
+  padding: 18px;
+  border: 2px solid var(--navy);
+  border-radius: 10px;
+  background: var(--pink);
+  font: 18px var(--body-font);
+  line-height: 1.4;
+}
+
+.admin-message-dialog-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.admin-message-dialog-actions .hero-button {
+  width: auto;
+  min-height: 42px;
+  padding: 10px 15px;
+  font-size: 11px;
+}
+
+.admin-message-read-button {
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 2px solid var(--navy);
+  color: var(--navy);
+  background: transparent;
+  font: 700 11px var(--body-font);
+  cursor: pointer;
+}
+
+.admin-message-read-button:hover {
+  color: var(--berry);
+}
+
+@keyframes admin-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @media (max-width: 900px) {
@@ -2204,12 +2316,24 @@
     grid-template-columns: 1fr;
   }
 
+  .admin-message-list {
+    grid-template-columns: 1fr;
+  }
+
   .admin-table {
     overflow-x: auto;
   }
 
   .admin-table-row {
     min-width: 500px;
+  }
+
+  .admin-message-dialog {
+    padding: 26px 20px;
+  }
+
+  .admin-message-dialog-heading h2 {
+    font-size: 28px;
   }
 }
 
