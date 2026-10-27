@@ -1149,6 +1149,25 @@
   border-bottom-color: var(--orange);
 }
 
+.feedback-form button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.feedback-status {
+  margin: 4px 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.feedback-status-success {
+  color: var(--green);
+}
+
+.feedback-status-error {
+  color: var(--berry);
+}
+
 .feedback-form .hero-button {
   align-self: flex-start;
   margin-top: 14px;
@@ -1997,23 +2016,113 @@
   font: 9px var(--body-font);
 }
 
-.admin-message button {
+.admin-message-button {
   display: block;
+  width: fit-content;
   margin-top: 14px;
   padding: 7px 10px;
   border: 2px solid var(--navy);
   border-radius: 16px;
   box-shadow: 2px 2px 0 var(--navy);
+  color: var(--navy);
   background: var(--orange);
   font: 9px var(--body-font);
   cursor: pointer;
+  text-decoration: none;
   transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
 }
 
-.admin-message button:hover {
+.admin-message-button:hover {
   transform: translate(2px, 2px);
   box-shadow: 1px 1px 0 var(--navy);
   background: var(--yellow);
+}
+
+.admin-inbox-content {
+  max-width: 1100px;
+}
+
+.admin-message-list {
+  display: grid;
+  gap: 12px;
+  max-width: 540px;
+}
+
+.admin-inbox-message {
+  padding: 16px;
+  border: 2px solid var(--navy);
+  border-radius: 12px;
+  background: #fffdf5;
+  box-shadow: 3px 3px 0 transparent;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.admin-inbox-message:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--navy);
+}
+
+.admin-inbox-message.is-unread {
+  background: var(--pink);
+}
+
+.admin-inbox-message-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.admin-inbox-message h2 {
+  margin: 0;
+  font: 700 21px var(--display-font);
+  line-height: 1;
+}
+
+.admin-message-status {
+  flex: 0 0 auto;
+  padding: 4px 7px;
+  border: 1px solid var(--navy);
+  border-radius: 10px;
+  background: var(--coral);
+  font: 9px var(--body-font);
+}
+
+.admin-inbox-message > p {
+  margin: 10px 0 16px;
+  font: 11px var(--body-font);
+}
+
+.admin-inbox-message > p a {
+  color: var(--navy);
+}
+
+.admin-inbox-message-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding-top: 11px;
+  border-top: 1px solid rgb(23 21 21 / 25%);
+  font-size: 10px;
+}
+
+.admin-inbox-message-footer button {
+  border: 0;
+  border-bottom: 1px solid var(--navy);
+  color: var(--navy);
+  background: transparent;
+  font: 10px var(--body-font);
+  cursor: pointer;
+}
+
+.admin-feedback {
+  margin: 24px 0;
+  font: 12px var(--body-font);
+}
+
+.admin-feedback-error {
+  color: var(--berry);
 }
 
 @media (max-width: 900px) {

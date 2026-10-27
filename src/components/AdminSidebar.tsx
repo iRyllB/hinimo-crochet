@@ -5,7 +5,14 @@ type AdminSidebarProps = {
   onSignOut: () => void
 }
 
-const menuGroups = [
+type MenuItem = {
+  label: string
+  icon: string
+  badge?: string
+  href?: string
+}
+
+const menuGroups: { label: string; items: MenuItem[] }[] = [
   {
     label: 'Sell',
     items: [
@@ -24,7 +31,7 @@ const menuGroups = [
   },
   {
     label: 'Community',
-    items: [{ label: 'Contact inbox', icon: '▱', badge: '4' }],
+    items: [{ label: 'Contact inbox', icon: '▱', badge: '4', href: '/admin/inbox' }],
   },
   {
     label: 'Studio',
@@ -52,11 +59,17 @@ function AdminSidebar({ activeMenu, onSignOut }: AdminSidebarProps) {
           <div className="admin-menu-group" key={group.label}>
             <p>{group.label}</p>
             {group.items.map((item) => (
-              <button className="admin-menu-item" type="button" key={item.label} onClick={() => undefined}>
-                <span aria-hidden="true">{item.icon}</span>
-                {item.label}
-                {item.badge && <b>{item.badge}</b>}
-              </button>
+              item.href
+                ? <a className={`admin-menu-item${activeMenu === item.label ? ' is-active' : ''}`} href={item.href} key={item.label}>
+                    <span aria-hidden="true">{item.icon}</span>
+                    {item.label}
+                    {item.badge && <b>{item.badge}</b>}
+                  </a>
+                : <button className="admin-menu-item" type="button" key={item.label} onClick={() => undefined}>
+                    <span aria-hidden="true">{item.icon}</span>
+                    {item.label}
+                    {item.badge && <b>{item.badge}</b>}
+                  </button>
             ))}
           </div>
         ))}

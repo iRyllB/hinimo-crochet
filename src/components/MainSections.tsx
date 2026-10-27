@@ -1,11 +1,39 @@
 import ProductListing from './ProductListing'
 import muffin from '../assets/muffin.png'
+import { useState } from 'react'
+import type { FormEvent } from 'react'
+import { submitContactMessage } from '../lib/supabase'
 
 type MainSectionsProps = {
   onContact: () => void
 }
 
 function MainSections({ onContact }: MainSectionsProps) {
+  const [isSending, setIsSending] = useState(false)
+  const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+
+  const handleFeedbackSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setIsSending(true)
+    setFeedback(null)
+    const form = event.currentTarget
+    const formData = new FormData(form)
+
+    try {
+      await submitContactMessage({
+        name: String(formData.get('name') ?? '').trim(),
+        email: String(formData.get('email') ?? '').trim(),
+        message: String(formData.get('message') ?? '').trim(),
+      })
+      form.reset()
+      setFeedback({ type: 'success', message: 'Your little note is on its way. Thank you!' })
+    } catch {
+      setFeedback({ type: 'error', message: 'Your note could not be sent. Please try again in a moment.' })
+    } finally {
+      setIsSending(false)
+    }
+  }
+
   return (
     <>
       <section className="content-section shop-section" id="shop">
@@ -46,14 +74,15 @@ function MainSections({ onContact }: MainSectionsProps) {
           <h2>LEAVE A<br /><em>NOTE.</em></h2>
           <p className="feedback-intro">Have a question, a workshop idea, or something kind to share? I’d love to hear from you.</p>
         </div>
-        <form className="feedback-form soft-reveal" action="mailto:hello@hinimocrochet.com" method="post" encType="text/plain">
+        <form className="feedback-form soft-reveal" onSubmit={handleFeedbackSubmit}>
           <label htmlFor="feedback-name">YOUR NAME</label>
           <input id="feedback-name" name="name" type="text" placeholder="Your lovely name" required />
           <label htmlFor="feedback-email">EMAIL ADDRESS</label>
           <input id="feedback-email" name="email" type="email" placeholder="you@example.com" required />
           <label htmlFor="feedback-message">YOUR MESSAGE</label>
           <textarea id="feedback-message" name="message" placeholder="Tell me what's on your mind..." required />
-          <button className="hero-button hero-button-primary" type="submit">SEND A LITTLE NOTE <span aria-hidden="true">→</span></button>
+          {feedback && <p className={`feedback-status feedback-status-${feedback.type}`} role={feedback.type === 'error' ? 'alert' : 'status'}>{feedback.message}</p>}
+          <button className="hero-button hero-button-primary" type="submit" disabled={isSending}>{isSending ? 'SENDING...' : 'SEND A LITTLE NOTE'} <span aria-hidden="true">→</span></button>
         </form>
       </section>
     </>

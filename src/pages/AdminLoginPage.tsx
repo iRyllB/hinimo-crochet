@@ -8,10 +8,12 @@ function AdminLoginPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setError('')
     const accessPolicy = new AdminAccessPolicy()
-    if (!accessPolicy.signIn(email, password)) {
+    const isValid = await accessPolicy.signIn(email, password)
+    if (!isValid) {
       setError('That email or password does not match. Please try again.')
       return
     }
