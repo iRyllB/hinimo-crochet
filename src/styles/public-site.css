@@ -210,6 +210,19 @@
   display: none;
 }
 
+@media (min-width: 761px) {
+  .site {
+    padding-top: 88px;
+  }
+
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+}
+
 @media (max-width: 1024px) {
   .header-frame,
   .hero-content,
@@ -691,6 +704,7 @@
   .site-header {
     height: 72px;
     min-height: 72px;
+    z-index: 90;
   }
 
   .header-frame,
@@ -711,7 +725,7 @@
 
   .floating-mobile-menu {
     position: fixed;
-    z-index: 50;
+    z-index: 100;
     display: block;
     width: 0;
     height: 0;
@@ -757,7 +771,6 @@
 
   .floating-mobile-menu-panel {
     position: absolute;
-    bottom: 52px;
     display: grid;
     width: 190px;
     gap: 7px;
@@ -774,6 +787,14 @@
 
   .floating-mobile-menu-right .floating-mobile-menu-panel {
     right: 0;
+  }
+
+  .floating-mobile-menu-above .floating-mobile-menu-panel {
+    bottom: 52px;
+  }
+
+  .floating-mobile-menu-below .floating-mobile-menu-panel {
+    top: 52px;
   }
 
   .floating-mobile-menu-panel a,

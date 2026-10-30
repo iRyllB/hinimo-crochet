@@ -14,6 +14,7 @@ const positionStorageKey = 'hinimo-floating-menu-position'
 const hintStorageKey = 'hinimo-floating-menu-hint-seen'
 const indicatorSize = 40
 const edgeGap = 16
+const menuHeight = 330
 
 function getDefaultPosition(): MenuPosition {
   return {
@@ -107,9 +108,15 @@ function FloatingMobileMenu({ onContact, onHome }: FloatingMobileMenuProps) {
   }
 
   const menuSide = position.left + indicatorSize / 2 < window.innerWidth / 2 ? 'left' : 'right'
+  const menuVerticalSide = position.top > window.innerHeight - menuHeight - edgeGap ? 'above' : 'below'
 
   return (
-    <div className={`floating-mobile-menu floating-mobile-menu-${menuSide}${isOpen ? ' is-open' : ''}`} style={{ left: position.left, top: position.top }}>
+    <div
+      className={`floating-mobile-menu floating-mobile-menu-${menuSide} floating-mobile-menu-${menuVerticalSide}${isOpen ? ' is-open' : ''}`}
+      style={{ left: position.left, top: position.top }}
+      onPointerDown={(event) => event.stopPropagation()}
+      onClick={(event) => event.stopPropagation()}
+    >
       {showHint && !isOpen && (
         <p className="floating-mobile-menu-hint" role="status">
           Open menu here
