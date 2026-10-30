@@ -100,7 +100,7 @@ function AdminProductsPage() {
             <div className="admin-product-form-heading"><strong>{editingId ? 'EDIT PRODUCT' : 'ADD A PRODUCT'}</strong><span>Changes appear on the public catalog.</span></div>
             <label>PRODUCT NAME<input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} required /></label>
             <label>DETAILS<input value={form.description} onChange={(event) => setForm({ ...form, description: event.target.value })} required /></label>
-            <label>PRICE<input type="number" min="0" step="0.01" value={form.price} onChange={(event) => setForm({ ...form, price: Number(event.target.value) })} required /></label>
+            <label>PRICE (PHP)<input type="number" min="0" step="0.01" value={form.price} onChange={(event) => setForm({ ...form, price: Number(event.target.value) })} required /></label>
             <label>COLOR<select value={form.color} onChange={(event) => setForm({ ...form, color: event.target.value as Product['color'] })}><option value="pink">Pink</option><option value="yellow">Yellow</option><option value="green">Green</option><option value="coral">Coral</option></select></label>
             <label>IMAGE<input type="file" accept="image/*" onChange={(event) => handleImageChange(event.target.files?.[0])} /></label>
             <div className="admin-product-form-actions"><button className="admin-login-submit" type="submit" disabled={isSaving}>{isSaving ? 'SAVING...' : editingId ? 'UPDATE PRODUCT' : 'ADD PRODUCT'} <span>→</span></button>{editingId && <button className="admin-message-read-button" type="button" onClick={() => { setEditingId(null); setForm(emptyForm) }}>CANCEL</button>}</div>
@@ -109,7 +109,7 @@ function AdminProductsPage() {
             {products.map((product) => (
               <article className={`admin-catalog-item admin-catalog-item-${product.color}`} key={product.id}>
                 <div className="admin-catalog-item-image">{product.image_url ? <img src={product.image_url} alt="" /> : <span>H</span>}</div>
-                <div className="admin-catalog-item-info"><h2>{product.name}</h2><p>{product.description}</p><strong>${product.price.toFixed(2)}</strong></div>
+                <div className="admin-catalog-item-info"><h2>{product.name}</h2><p>{product.description}</p><strong>₱{product.price.toFixed(2)}</strong></div>
                 <div className="admin-catalog-item-actions"><button className="admin-message-button admin-message-open-button" type="button" onClick={() => { setEditingId(product.id); setForm({ name: product.name, description: product.description, price: product.price, color: product.color, image_url: product.image_url }) }}>EDIT</button><button className="admin-message-button admin-message-delete-button" type="button" onClick={() => handleDelete(product)}>DELETE</button></div>
               </article>
             ))}

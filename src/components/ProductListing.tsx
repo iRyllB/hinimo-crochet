@@ -19,7 +19,7 @@ function ProductListing({ products, onContact }: ProductListingProps) {
               <h3>{product.name}</h3>
               <p>{product.description}</p>
             </div>
-            <strong>${product.price.toFixed(2)}</strong>
+            <strong>₱{product.price.toFixed(2)}</strong>
           </div>
           <button className="product-contact" type="button" onClick={onContact}>
             Interested? Contact me <span aria-hidden="true">+</span>
