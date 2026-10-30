@@ -4,9 +4,11 @@ type AdminMessageOverlayProps = {
   message: ContactMessage
   onClose: () => void
   onMarkAsRead: () => void
+  onDelete?: () => void
+  isDeleting?: boolean
 }
 
-function AdminMessageOverlay({ message, onClose, onMarkAsRead }: AdminMessageOverlayProps) {
+function AdminMessageOverlay({ message, onClose, onMarkAsRead, onDelete, isDeleting }: AdminMessageOverlayProps) {
   return (
     <div className="admin-message-overlay" role="presentation" onClick={onClose}>
       <section
@@ -28,6 +30,7 @@ function AdminMessageOverlay({ message, onClose, onMarkAsRead }: AdminMessageOve
         <div className="admin-message-dialog-actions">
           <a className="hero-button hero-button-primary" href={`mailto:${message.email}`}>REPLY BY EMAIL <span aria-hidden="true">→</span></a>
           {message.status === 'unread' && <button className="admin-message-read-button" type="button" onClick={onMarkAsRead}>MARK AS READ</button>}
+          {onDelete && <button className="admin-message-delete-button" type="button" onClick={onDelete} disabled={isDeleting}>{isDeleting ? 'DELETING...' : 'DELETE MESSAGE'}</button>}
         </div>
       </section>
     </div>

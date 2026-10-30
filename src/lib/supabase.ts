@@ -39,3 +39,16 @@ export async function updateContactMessageStatus(id: string, status: ContactMess
   const { error } = await supabase.from('contact_messages').update({ status }).eq('id', id)
   if (error) throw error
 }
+
+export async function deleteContactMessage(id: string) {
+  const { data, error } = await supabase
+    .from('contact_messages')
+    .delete()
+    .eq('id', id)
+    .select('id')
+
+  if (error) throw error
+  if (!data || data.length === 0) {
+    throw new Error('No contact message was deleted. Check the Supabase DELETE policy and user session.')
+  }
+}

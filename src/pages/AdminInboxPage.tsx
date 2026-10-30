@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import AdminSidebar from '../components/AdminSidebar'
 import { AdminAccessPolicy } from '../domain/SiteRouter'
-import { getContactMessages, updateContactMessageStatus, type ContactMessage } from '../lib/supabase'
+import { deleteContactMessage, getContactMessages, updateContactMessageStatus, type ContactMessage } from '../lib/supabase'
 import AdminMessageOverlay from '../components/AdminMessageOverlay'
 
 const accessPolicy = new AdminAccessPolicy()
@@ -12,6 +12,7 @@ function AdminInboxPage() {
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [error, setError] = useState('')
   const [selectedMessage, setSelectedMessage] = useState<ContactMessage | null>(null)
+  const [deletingMessageId, setDeletingMessageId] = useState<string | null>(null)
 
   useEffect(() => {
     accessPolicy.canAccess().then((authorized) => {
@@ -40,6 +41,22 @@ function AdminInboxPage() {
     }
   }
 
+  const deleteMessage = async (message: ContactMessage) => {
+    if (!window.confirm(`Delete the message from ${message.name}? This cannot be undone.`)) return
+
+    setError('')
+    setDeletingMessageId(message.id)
+    try {
+      await deleteContactMessage(message.id)
+      setMessages((current) => current.filter((item) => item.id !== message.id))
+      setSelectedMessage((current) => current?.id === message.id ? null : current)
+    } catch {
+      setError('The message could not be deleted. Check your Supabase delete policy.')
+    } finally {
+      setDeletingMessageId(null)
+    }
+  }
+
   if (isLoading || !isAuthorized) return null
 
   return (
@@ -49,7 +66,6 @@ function AdminInboxPage() {
         <div className="admin-content admin-inbox-content">
           <div className="admin-heading-row">
             <div><p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> SAY HI BACK</p><h1>CONTACT<br /><em>INBOX.</em></h1></div>
-            <button className="admin-add-button" type="button">REPLY TEMPLATES →</button>
           </div>
           {isLoading && <p className="admin-feedback">LOADING NOTES...</p>}
           {error && <p className="admin-feedback admin-feedback-error" role="alert">{error}</p>}
@@ -59,13 +75,26 @@ function AdminInboxPage() {
               <article className={`admin-inbox-message${message.status === 'unread' ? ' is-unread' : ''}`} key={message.id}>
                 <div className="admin-inbox-message-heading"><h2>{message.message.length > 42 ? `${message.message.slice(0, 42)}...` : message.message}</h2><span className="admin-message-status">{message.status === 'unread' ? 'NEW' : 'READ'}</span></div>
                 <p>From {message.name} · <a href={`mailto:${message.email}`}>{message.email}</a></p>
-                <div className="admin-inbox-message-footer"><span>{new Date(message.created_at).toLocaleString()}</span><button type="button" onClick={() => setSelectedMessage(message)}>OPEN →</button></div>
+                <div className="admin-inbox-message-footer">
+                  <span>{new Date(message.created_at).toLocaleString()}</span>
+                  <div className="admin-inbox-message-actions">
+                    <button type="button" onClick={() => setSelectedMessage(message)}>OPEN →</button>
+                    <button
+                      className="admin-delete-button"
+                      type="button"
+                      onClick={() => deleteMessage(message)}
+                      disabled={deletingMessageId === message.id}
+                    >
+                      {deletingMessageId === message.id ? 'DELETING...' : 'DELETE'}
+                    </button>
+                  </div>
+                </div>
               </article>
             ))}
           </section>
         </div>
       </main>
-      {selectedMessage && <AdminMessageOverlay message={selectedMessage} onClose={() => setSelectedMessage(null)} onMarkAsRead={() => markAsRead(selectedMessage)} />}
+      {selectedMessage && <AdminMessageOverlay message={selectedMessage} onClose={() => setSelectedMessage(null)} onMarkAsRead={() => markAsRead(selectedMessage)} onDelete={() => deleteMessage(selectedMessage)} isDeleting={deletingMessageId === selectedMessage.id} />}
     </div>
   )
 }
