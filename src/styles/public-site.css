@@ -210,6 +210,10 @@
   display: none;
 }
 
+.mobile-return-to-top {
+  display: none;
+}
+
 @media (min-width: 761px) {
   .site {
     padding-top: 88px;
@@ -729,6 +733,34 @@
     display: block;
     width: 0;
     height: 0;
+  }
+
+  .mobile-return-to-top {
+    position: fixed;
+    right: 16px;
+    bottom: 76px;
+    z-index: 99;
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    padding: 0;
+    border: 2px solid var(--navy);
+    border-radius: 50%;
+    box-shadow: 2px 2px 0 rgb(23 21 21 / 55%);
+    color: var(--navy);
+    background: rgb(255 255 255 / 72%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font: 700 20px/34px var(--body-font);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 180ms ease, background-color 180ms ease;
+  }
+
+  .mobile-return-to-top:hover {
+    background: var(--yellow);
+    transform: translateY(-2px);
   }
 
   .floating-mobile-menu-toggle {
