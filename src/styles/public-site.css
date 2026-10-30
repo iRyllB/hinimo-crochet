@@ -679,7 +679,7 @@
   }
 
   .navigation {
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
     gap: 20px;
   }
@@ -702,6 +702,11 @@
   .brand-logo {
     width: 165px;
     height: 56px;
+  }
+
+  .brand-link {
+    justify-content: center;
+    width: 100%;
   }
 
   .floating-mobile-menu {
@@ -810,12 +815,31 @@
     font: 700 11px/1.3 var(--body-font);
   }
 
+  .floating-mobile-menu-hint::after {
+    position: absolute;
+    bottom: -9px;
+    width: 18px;
+    height: 10px;
+    border-bottom: 2px solid var(--navy);
+    content: '';
+    transform: rotate(28deg);
+  }
+
   .floating-mobile-menu-left .floating-mobile-menu-hint {
     left: 52px;
   }
 
+  .floating-mobile-menu-left .floating-mobile-menu-hint::after {
+    left: 10px;
+    transform: rotate(-28deg);
+  }
+
   .floating-mobile-menu-right .floating-mobile-menu-hint {
     right: 52px;
+  }
+
+  .floating-mobile-menu-right .floating-mobile-menu-hint::after {
+    right: 10px;
   }
 
   .floating-mobile-menu-hint button {
@@ -855,7 +879,7 @@
   .hero-art {
     align-self: center;
     width: min(584px, 100%);
-    height: min(500px, 86vw);
+    height: min(500px, calc((100vw - 32px) * 0.856));
     margin-top: 0;
     transform: scale(min(1, calc((100vw - 32px) / 584)));
     transform-origin: top center;

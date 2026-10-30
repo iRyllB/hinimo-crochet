@@ -18,14 +18,16 @@ const edgeGap = 16
 function getDefaultPosition(): MenuPosition {
   return {
     left: Math.max(edgeGap, window.innerWidth - indicatorSize - edgeGap),
-    top: Math.max(edgeGap, window.innerHeight * 0.48),
+    top: Math.max(edgeGap, window.innerHeight - indicatorSize - 96),
   }
 }
 
 function clampPosition(position: MenuPosition): MenuPosition {
+  const safeLeft = Number.isFinite(position.left) ? position.left : getDefaultPosition().left
+  const safeTop = Number.isFinite(position.top) ? position.top : getDefaultPosition().top
   return {
-    left: Math.min(Math.max(edgeGap, position.left), window.innerWidth - indicatorSize - edgeGap),
-    top: Math.min(Math.max(edgeGap, position.top), window.innerHeight - indicatorSize - edgeGap),
+    left: Math.min(Math.max(edgeGap, safeLeft), Math.max(edgeGap, window.innerWidth - indicatorSize - edgeGap)),
+    top: Math.min(Math.max(edgeGap, safeTop), Math.max(edgeGap, window.innerHeight - indicatorSize - edgeGap)),
   }
 }
 
@@ -51,8 +53,15 @@ function FloatingMobileMenu({ onContact, onHome }: FloatingMobileMenuProps) {
     }
 
     const handleResize = () => setPosition((currentPosition) => clampPosition(currentPosition))
+    const handleScroll = () => {
+      if (window.scrollY > 120) setShowHint(false)
+    }
     window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [showHint])
 
   const handlePointerDown = (event: React.PointerEvent<HTMLButtonElement>) => {
@@ -86,7 +95,10 @@ function FloatingMobileMenu({ onContact, onHome }: FloatingMobileMenuProps) {
     dragState.current = null
     event.currentTarget.releasePointerCapture(event.pointerId)
     window.localStorage.setItem(positionStorageKey, JSON.stringify(position))
-    if (!currentDrag.moved) setIsOpen((open) => !open)
+    if (!currentDrag.moved) {
+      setShowHint(false)
+      setIsOpen((open) => !open)
+    }
   }
 
   const handleNavigation = (action: () => void) => {
@@ -100,7 +112,7 @@ function FloatingMobileMenu({ onContact, onHome }: FloatingMobileMenuProps) {
     <div className={`floating-mobile-menu floating-mobile-menu-${menuSide}${isOpen ? ' is-open' : ''}`} style={{ left: position.left, top: position.top }}>
       {showHint && !isOpen && (
         <p className="floating-mobile-menu-hint" role="status">
-          Tap this menu to open navigation
+          Open menu here
           <button type="button" onClick={() => setShowHint(false)} aria-label="Dismiss menu hint">×</button>
         </p>
       )}
