@@ -3,6 +3,7 @@ import hinimoHeader from '../assets/hinimo header.png'
 type AdminSidebarProps = {
   activeMenu: string
   onSignOut: () => void
+  unreadMessageCount: number
 }
 
 type MenuItem = {
@@ -43,7 +44,7 @@ const menuGroups: { label: string; items: MenuItem[] }[] = [
   },
 ]
 
-function AdminSidebar({ activeMenu, onSignOut }: AdminSidebarProps) {
+function AdminSidebar({ activeMenu, onSignOut, unreadMessageCount }: AdminSidebarProps) {
   return (
     <aside className="admin-sidebar">
       <a className="admin-brand" href="/admin/dashboard" aria-label="Hinimo admin dashboard">
@@ -63,7 +64,9 @@ function AdminSidebar({ activeMenu, onSignOut }: AdminSidebarProps) {
                 ? <a className={`admin-menu-item${activeMenu === item.label ? ' is-active' : ''}`} href={item.href} key={item.label}>
                     <span aria-hidden="true">{item.icon}</span>
                     {item.label}
-                    {item.badge && <b>{item.badge}</b>}
+                    {item.label === 'Contact inbox'
+                      ? unreadMessageCount > 0 && <b>{unreadMessageCount}</b>
+                      : item.badge && <b>{item.badge}</b>}
                   </a>
                 : <button className="admin-menu-item" type="button" key={item.label} onClick={() => undefined}>
                     <span aria-hidden="true">{item.icon}</span>

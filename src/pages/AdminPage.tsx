@@ -7,6 +7,7 @@ const accessPolicy = new AdminAccessPolicy()
 
 function AdminPage() {
   const [latestMessage, setLatestMessage] = useState<ContactMessage | null>(null)
+  const [unreadMessageCount, setUnreadMessageCount] = useState(0)
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [isCheckingAccess, setIsCheckingAccess] = useState(true)
 
@@ -17,7 +18,10 @@ function AdminPage() {
         return
       }
       setIsAuthorized(true)
-      return getContactMessages().then((messages) => setLatestMessage(messages[0] ?? null))
+      return getContactMessages().then((messages) => {
+        setLatestMessage(messages[0] ?? null)
+        setUnreadMessageCount(messages.filter((message) => message.status === 'unread').length)
+      })
     }).catch(() => {
       window.location.href = '/admin/login'
     }).finally(() => setIsCheckingAccess(false))
@@ -32,7 +36,7 @@ function AdminPage() {
 
   return (
     <div className="admin-layout">
-      <AdminSidebar activeMenu="Dashboard" onSignOut={handleSignOut} />
+      <AdminSidebar activeMenu="Dashboard" onSignOut={handleSignOut} unreadMessageCount={unreadMessageCount} />
       <main className="admin-main">
         <div className="admin-content">
           <div className="admin-heading-row">
@@ -43,7 +47,7 @@ function AdminPage() {
             <article className="admin-stat admin-stat-orange"><span>SALES THIS MONTH</span><strong>$4,280<small>.50</small></strong><p>Up 18% from August</p><i aria-hidden="true">▥</i></article>
             <article className="admin-stat admin-stat-pink"><span>WORKSHOP BOOKINGS</span><strong>42<small>/56</small></strong><p>14 lovely seats left</p><i aria-hidden="true">◌</i></article>
             <article className="admin-stat admin-stat-green"><span>CALCULATOR PROJECTS</span><strong>128</strong><p>Up 31% this week</p><i aria-hidden="true">〰</i></article>
-            <article className="admin-stat admin-stat-yellow"><span>NEW MESSAGES</span><strong>04</strong><p>2 need a reply today</p><i aria-hidden="true">▢</i></article>
+            <article className="admin-stat admin-stat-yellow"><span>NEW MESSAGES</span><strong>{String(unreadMessageCount).padStart(2, '0')}</strong><p>{unreadMessageCount === 1 ? '1 needs a reply today' : `${unreadMessageCount} need a reply today`}</p><i aria-hidden="true">▢</i></article>
           </section>
           <section className="admin-panels">
             <article className="admin-panel admin-orders"><div className="admin-panel-heading"><span><i /> LATEST<h2>NEW ORDERS</h2></span><a href="/admin/dashboard">VIEW ALL →</a></div><div className="admin-table"><div className="admin-table-row admin-table-head"><span>ORDER</span><span>CUSTOMER</span><span>ITEMS</span><span>STATUS</span><span>TOTAL</span></div>{[['#CL-2048', 'Aria Park', '2 items', 'PACKING', '$76.00'], ['#CL-2047', 'Jamie Liu', '1 item', 'PAID', '$48.00'], ['#CL-2046', 'Vera Flores', '3 items', 'CUSTOM', '$145.00']].map((order) => <div className="admin-table-row" key={order[0]}>{order.map((cell, index) => <span className={index === 3 ? `status-${cell.toLowerCase()}` : ''} key={cell}>{cell}</span>)}</div>)}</div></article>

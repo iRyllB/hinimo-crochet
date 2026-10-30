@@ -206,6 +206,37 @@
   background-color: var(--yellow);
 }
 
+.floating-mobile-menu {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .header-frame,
+  .hero-content,
+  .footer-frame,
+  .content-section {
+    width: min(100% - 40px, 920px);
+  }
+
+  .hero-content {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .hero-art {
+    width: 100%;
+  }
+
+  .product-grid,
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .worth-section {
+    gap: 40px;
+  }
+}
+
 .hero-section {
   display: flex;
   justify-content: center;
@@ -654,14 +685,120 @@
   }
 
   .nav-actions {
-    width: 100%;
-    justify-content: space-between;
-    gap: 16px;
+    display: none;
   }
 
-  .nav-links {
-    flex-wrap: wrap;
-    gap: 10px 16px;
+  .site-header {
+    height: 72px;
+    min-height: 72px;
+  }
+
+  .header-frame,
+  .navigation {
+    height: 72px;
+    min-height: 72px;
+  }
+
+  .brand-logo {
+    width: 165px;
+    height: 56px;
+  }
+
+  .floating-mobile-menu {
+    position: fixed;
+    z-index: 50;
+    display: block;
+    width: 0;
+    height: 0;
+  }
+
+  .floating-mobile-menu-toggle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: grid;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    padding: 0;
+    border: 2px solid var(--navy);
+    border-radius: 50%;
+    box-shadow: 3px 3px 0 var(--navy);
+    color: var(--navy);
+    background: var(--orange);
+    font: 700 24px var(--body-font);
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+  }
+
+  .floating-mobile-menu-toggle:active {
+    cursor: grabbing;
+  }
+
+  .floating-mobile-menu-panel {
+    position: absolute;
+    right: 0;
+    bottom: 60px;
+    display: grid;
+    width: 190px;
+    gap: 7px;
+    padding: 12px;
+    border: 2px solid var(--navy);
+    border-radius: 18px;
+    box-shadow: 5px 5px 0 var(--navy);
+    background: var(--cream);
+  }
+
+  .floating-mobile-menu-panel a,
+  .floating-mobile-menu-panel button {
+    display: flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 8px 11px;
+    border: 2px solid var(--navy);
+    border-radius: 12px;
+    color: var(--navy);
+    background: var(--pink);
+    font: 700 12px var(--body-font);
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .floating-mobile-menu-panel a:nth-child(2n),
+  .floating-mobile-menu-panel button {
+    background: var(--yellow);
+  }
+
+  .floating-mobile-menu-panel a:hover,
+  .floating-mobile-menu-panel button:hover {
+    background: var(--green);
+  }
+
+  .floating-mobile-menu-hint {
+    position: absolute;
+    right: 58px;
+    bottom: 3px;
+    width: 190px;
+    margin: 0;
+    padding: 10px 30px 10px 12px;
+    border: 2px solid var(--navy);
+    border-radius: 12px;
+    box-shadow: 3px 3px 0 var(--navy);
+    color: var(--navy);
+    background: var(--yellow);
+    font: 700 11px/1.3 var(--body-font);
+  }
+
+  .floating-mobile-menu-hint button {
+    position: absolute;
+    top: 5px;
+    right: 7px;
+    border: 0;
+    color: var(--navy);
+    background: transparent;
+    font-size: 18px;
+    cursor: pointer;
   }
 
   .hero-section {
@@ -1149,6 +1286,65 @@
   color: var(--berry);
 }
 
+.feedback-toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(390px, calc(100vw - 32px));
+  padding: 16px 18px;
+  border: 2px solid var(--navy);
+  border-radius: 16px;
+  box-shadow: 6px 6px 0 var(--navy);
+  color: var(--navy);
+  font-family: var(--body-font);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+  animation: feedback-toast-in-out 4.8s ease forwards;
+}
+
+.feedback-toast-success {
+  background: var(--green);
+}
+
+.feedback-toast-error {
+  background: var(--pink);
+}
+
+.feedback-toast-mark {
+  display: grid;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 2px solid var(--navy);
+  border-radius: 50%;
+  background: var(--yellow);
+  font-size: 17px;
+}
+
+@keyframes feedback-toast-in-out {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+
+  10%,
+  82% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+
 .feedback-form .hero-button {
   align-self: flex-start;
   margin-top: 14px;
@@ -1366,5 +1562,9 @@
     align-items: flex-start;
     flex-direction: column;
   }
-}
 
+  .feedback-toast {
+    right: 16px;
+    bottom: 16px;
+  }
+}

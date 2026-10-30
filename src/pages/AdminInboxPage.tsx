@@ -57,11 +57,13 @@ function AdminInboxPage() {
     }
   }
 
+  const unreadMessageCount = messages.filter((message) => message.status === 'unread').length
+
   if (isLoading || !isAuthorized) return null
 
   return (
     <div className="admin-layout">
-      <AdminSidebar activeMenu="Contact inbox" onSignOut={handleSignOut} />
+      <AdminSidebar activeMenu="Contact inbox" onSignOut={handleSignOut} unreadMessageCount={unreadMessageCount} />
       <main className="admin-main">
         <div className="admin-content admin-inbox-content">
           <div className="admin-heading-row">

@@ -1,8 +1,9 @@
 import ProductListing from './ProductListing'
 import muffin from '../assets/muffin.png'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
 import { submitContactMessage } from '../lib/supabase'
+import FeedbackToast from './FeedbackToast'
 
 type MainSectionsProps = {
   onContact: () => void
@@ -11,6 +12,14 @@ type MainSectionsProps = {
 function MainSections({ onContact }: MainSectionsProps) {
   const [isSending, setIsSending] = useState(false)
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+  const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+
+  useEffect(() => {
+    if (!toast) return
+
+    const timeout = window.setTimeout(() => setToast(null), 4800)
+    return () => window.clearTimeout(timeout)
+  }, [toast])
 
   const handleFeedbackSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -26,9 +35,13 @@ function MainSections({ onContact }: MainSectionsProps) {
         message: String(formData.get('message') ?? '').trim(),
       })
       form.reset()
-      setFeedback({ type: 'success', message: 'Your little note is on its way. Thank you!' })
+      const successMessage = 'Your little note is on its way. Thank you!'
+      setFeedback({ type: 'success', message: successMessage })
+      setToast({ type: 'success', message: successMessage })
     } catch {
-      setFeedback({ type: 'error', message: 'Your note could not be sent. Please try again in a moment.' })
+      const errorMessage = 'Your note could not be sent. Please try again in a moment.'
+      setFeedback({ type: 'error', message: errorMessage })
+      setToast({ type: 'error', message: errorMessage })
     } finally {
       setIsSending(false)
     }
@@ -36,6 +49,7 @@ function MainSections({ onContact }: MainSectionsProps) {
 
   return (
     <>
+      {toast && <FeedbackToast type={toast.type} message={toast.message} />}
       <section className="content-section shop-section" id="shop">
         <div className="section-heading">
           <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> GOOD THINGS, HANDMADE</p>
