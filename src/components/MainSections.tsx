@@ -2,7 +2,7 @@ import ProductListing from './ProductListing'
 import muffin from '../assets/muffin.png'
 import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
-import { submitContactMessage } from '../lib/supabase'
+import { getProducts, submitContactMessage, type Product } from '../lib/supabase'
 import FeedbackToast from './FeedbackToast'
 
 type MainSectionsProps = {
@@ -13,6 +13,7 @@ function MainSections({ onContact }: MainSectionsProps) {
   const [isSending, setIsSending] = useState(false)
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
   const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+  const [products, setProducts] = useState<Product[]>([])
 
   useEffect(() => {
     if (!toast) return
@@ -20,6 +21,10 @@ function MainSections({ onContact }: MainSectionsProps) {
     const timeout = window.setTimeout(() => setToast(null), 4800)
     return () => window.clearTimeout(timeout)
   }, [toast])
+
+  useEffect(() => {
+    getProducts().then(setProducts).catch(() => undefined)
+  }, [])
 
   const handleFeedbackSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -55,12 +60,7 @@ function MainSections({ onContact }: MainSectionsProps) {
           <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> GOOD THINGS, HANDMADE</p>
           <h2>THE TINY<br />SHOP.</h2>
         </div>
-        <ProductListing products={[
-          { name: 'Sunny Daisy Bag', description: 'Hand-crocheted tote', price: '$48', color: 'pink' },
-          { name: 'Berry Soft Bucket', description: 'Cloudy cotton yarn', price: '$36', color: 'yellow' },
-          { name: 'Cozy Cup Sleeve', description: 'For slow mornings', price: '$18', color: 'green' },
-          { name: 'Blooming Coasters', description: 'Set of four', price: '$28', color: 'coral' },
-        ]} onContact={onContact} />
+        <ProductListing products={products} onContact={onContact} />
         <div className="shop-summary">
           <div className="summary-label"><span className="eyebrow-dot" aria-hidden="true" /><span>YOU LIKE IT?</span><strong>VIEW MORE AVAILABLE LISTINGS</strong></div>
           <p>More handmade pieces are waiting to be discovered.</p>

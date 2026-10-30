@@ -25,7 +25,7 @@ const menuGroups: { label: string; items: MenuItem[] }[] = [
   {
     label: 'Make & teach',
     items: [
-      { label: 'Pattern library', icon: '✦' },
+      { label: 'Product catalog', icon: '✦', href: '/admin/products' },
       { label: 'Inventory', icon: '♟', badge: '5' },
       { label: 'Maker time', icon: '◔' },
     ],
