@@ -12,7 +12,7 @@ type MenuPosition = {
 
 const positionStorageKey = 'hinimo-floating-menu-position'
 const hintStorageKey = 'hinimo-floating-menu-hint-seen'
-const indicatorSize = 48
+const indicatorSize = 40
 const edgeGap = 16
 
 function getDefaultPosition(): MenuPosition {
@@ -94,11 +94,13 @@ function FloatingMobileMenu({ onContact, onHome }: FloatingMobileMenuProps) {
     action()
   }
 
+  const menuSide = position.left + indicatorSize / 2 < window.innerWidth / 2 ? 'left' : 'right'
+
   return (
-    <div className={`floating-mobile-menu${isOpen ? ' is-open' : ''}`} style={{ left: position.left, top: position.top }}>
+    <div className={`floating-mobile-menu floating-mobile-menu-${menuSide}${isOpen ? ' is-open' : ''}`} style={{ left: position.left, top: position.top }}>
       {showHint && !isOpen && (
         <p className="floating-mobile-menu-hint" role="status">
-          Tap this arrow to open the menu
+          Tap this menu to open navigation
           <button type="button" onClick={() => setShowHint(false)} aria-label="Dismiss menu hint">×</button>
         </p>
       )}
@@ -122,7 +124,7 @@ function FloatingMobileMenu({ onContact, onHome }: FloatingMobileMenuProps) {
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
       >
-        <span aria-hidden="true">{isOpen ? '←' : '→'}</span>
+        <span className="floating-mobile-menu-bars" aria-hidden="true"><i /><i /><i /></span>
       </button>
     </div>
   )

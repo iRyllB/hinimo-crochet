@@ -717,16 +717,17 @@
     left: 0;
     top: 0;
     display: grid;
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     place-items: center;
     padding: 0;
     border: 2px solid var(--navy);
-    border-radius: 50%;
-    box-shadow: 3px 3px 0 var(--navy);
+    border-radius: 12px;
+    box-shadow: 2px 2px 0 rgb(23 21 21 / 55%);
     color: var(--navy);
-    background: var(--orange);
-    font: 700 24px var(--body-font);
+    background: rgb(255 255 255 / 62%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     cursor: grab;
     touch-action: none;
     user-select: none;
@@ -736,10 +737,22 @@
     cursor: grabbing;
   }
 
+  .floating-mobile-menu-bars {
+    display: grid;
+    gap: 4px;
+    width: 18px;
+  }
+
+  .floating-mobile-menu-bars i {
+    display: block;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+  }
+
   .floating-mobile-menu-panel {
     position: absolute;
-    right: 0;
-    bottom: 60px;
+    bottom: 52px;
     display: grid;
     width: 190px;
     gap: 7px;
@@ -748,6 +761,14 @@
     border-radius: 18px;
     box-shadow: 5px 5px 0 var(--navy);
     background: var(--cream);
+  }
+
+  .floating-mobile-menu-left .floating-mobile-menu-panel {
+    left: 0;
+  }
+
+  .floating-mobile-menu-right .floating-mobile-menu-panel {
+    right: 0;
   }
 
   .floating-mobile-menu-panel a,
@@ -777,7 +798,6 @@
 
   .floating-mobile-menu-hint {
     position: absolute;
-    right: 58px;
     bottom: 3px;
     width: 190px;
     margin: 0;
@@ -788,6 +808,14 @@
     color: var(--navy);
     background: var(--yellow);
     font: 700 11px/1.3 var(--body-font);
+  }
+
+  .floating-mobile-menu-left .floating-mobile-menu-hint {
+    left: 52px;
+  }
+
+  .floating-mobile-menu-right .floating-mobile-menu-hint {
+    right: 52px;
   }
 
   .floating-mobile-menu-hint button {
