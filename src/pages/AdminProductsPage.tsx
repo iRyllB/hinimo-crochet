@@ -1,12 +1,20 @@
 import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
 import AdminSidebar from '../components/AdminSidebar'
+import FeedbackToast from '../components/FeedbackToast'
 import { AdminAccessPolicy } from '../domain/SiteRouter'
 import { createProduct, deleteProduct, getContactMessages, getProducts, type Product, updateProduct, uploadProductImage } from '../lib/supabase'
 
 const accessPolicy = new AdminAccessPolicy()
 type ProductForm = Pick<Product, 'name' | 'description' | 'price' | 'color' | 'image_url'>
+type Toast = { type: 'success' | 'error'; message: string }
+
 const emptyForm: ProductForm = { name: '', description: '', price: 0, color: 'pink', image_url: null }
+const productMessages = {
+  added: 'Product added successfully.',
+  updated: 'Product updated successfully.',
+  deleted: 'Product deleted successfully.',
+} as const
 
 function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([])
@@ -17,6 +25,14 @@ function AdminProductsPage() {
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [unreadMessageCount, setUnreadMessageCount] = useState(0)
   const [error, setError] = useState('')
+  const [toast, setToast] = useState<Toast | null>(null)
+
+  useEffect(() => {
+    if (!toast) return
+
+    const timeout = window.setTimeout(() => setToast(null), 4800)
+    return () => window.clearTimeout(timeout)
+  }, [toast])
 
   useEffect(() => {
     accessPolicy.canAccess().then((authorized) => {
@@ -56,6 +72,7 @@ function AdminProductsPage() {
     event.preventDefault()
     setError('')
     setIsSaving(true)
+    const isEditing = Boolean(editingId)
     try {
       const savedProduct = editingId
         ? await updateProduct(editingId, form)
@@ -63,6 +80,7 @@ function AdminProductsPage() {
       setProducts((current) => editingId ? current.map((product) => product.id === editingId ? savedProduct : product) : [...current, savedProduct])
       setForm(emptyForm)
       setEditingId(null)
+      setToast({ type: 'success', message: isEditing ? productMessages.updated : productMessages.added })
     } catch {
       setError('The product could not be saved. Check your Supabase policies.')
     } finally {
@@ -79,6 +97,7 @@ function AdminProductsPage() {
         setEditingId(null)
         setForm(emptyForm)
       }
+      setToast({ type: 'success', message: productMessages.deleted })
     } catch {
       setError('The product could not be deleted.')
     }
@@ -100,6 +119,7 @@ function AdminProductsPage() {
 
   return (
     <div className="admin-layout">
+      {toast && <FeedbackToast type={toast.type} message={toast.message} />}
       <AdminSidebar activeMenu="Product catalog" onSignOut={handleSignOut} unreadMessageCount={unreadMessageCount} />
       <main className="admin-main">
         <div className="admin-content admin-catalog-content">
