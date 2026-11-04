@@ -14,6 +14,7 @@ function MainSections({ onContact }: MainSectionsProps) {
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
   const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
   const [products, setProducts] = useState<Product[]>([])
+  const [showAllProducts, setShowAllProducts] = useState(false)
 
   useEffect(() => {
     if (!toast) return
@@ -25,6 +26,8 @@ function MainSections({ onContact }: MainSectionsProps) {
   useEffect(() => {
     getProducts().then(setProducts).catch(() => undefined)
   }, [])
+
+  const visibleProducts = showAllProducts ? products : products.slice(0, 4)
 
   const handleFeedbackSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -60,11 +63,21 @@ function MainSections({ onContact }: MainSectionsProps) {
           <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> GOOD THINGS, HANDMADE</p>
           <h2>THE TINY<br />SHOP.</h2>
         </div>
-        <ProductListing products={products} onContact={onContact} />
+        <ProductListing products={visibleProducts} onContact={onContact} />
+        {products.length > 4 && (
+          <button
+            className={`shop-more-button${showAllProducts ? ' shop-less-button' : ''}`}
+            type="button"
+            onClick={() => setShowAllProducts((current) => !current)}
+          >
+            <span className="shop-more-arrow" aria-hidden="true" />
+            <span>{showAllProducts ? 'Less' : 'More'}</span>
+          </button>
+        )}
         <div className="shop-summary">
-          <div className="summary-label"><span className="eyebrow-dot" aria-hidden="true" /><span>YOU LIKE IT?</span><strong>VIEW MORE AVAILABLE LISTINGS</strong></div>
-          <p>More handmade pieces are waiting to be discovered.</p>
-          <a className="summary-button" href="/listings" target="_blank" rel="noreferrer">VIEW MORE <span aria-hidden="true">→</span></a>
+          <div className="summary-label"><span className="eyebrow-dot" aria-hidden="true" /><span>CURIOUS ABOUT A PIECE?</span><strong>MY PRODUCTS ARE AVAILABLE THROUGH INQUIRY</strong></div>
+          <p>Send me a note to ask about availability, details, or a custom piece.</p>
+          <button className="summary-button" type="button" onClick={onContact}>CONTACT ME <span aria-hidden="true">→</span></button>
         </div>
       </section>
 

@@ -438,6 +438,60 @@
   margin-top: 35px;
 }
 
+.shop-more-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 30px auto 0;
+  padding: 0;
+  border: 0;
+  color: var(--navy);
+  background: transparent;
+  font-family: var(--body-font);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.shop-more-arrow {
+  position: relative;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 2px solid var(--navy);
+  border-radius: 50%;
+  background: var(--yellow);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.shop-more-arrow::after {
+  position: absolute;
+  top: 14px;
+  left: 15px;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--navy);
+  border-bottom: 2px solid var(--navy);
+  content: '';
+  transform: rotate(45deg);
+}
+
+.shop-less-button .shop-more-arrow::after {
+  top: 18px;
+  transform: rotate(225deg);
+}
+
+.shop-more-button:hover .shop-more-arrow {
+  transform: translateY(2px);
+  box-shadow: 2px 2px 0 var(--navy);
+}
+
+.shop-less-button:hover .shop-more-arrow {
+  transform: translateY(-2px);
+}
+
 .hero-art-image {
   display: block;
   width: 100%;
@@ -1124,39 +1178,6 @@
   box-shadow: 1px 1px 0 var(--navy);
 }
 
-.listings-heading {
-  padding-bottom: 40px;
-}
-
-.listings-heading h1 {
-  margin: 18px 0;
-  color: var(--navy);
-  font-family: var(--display-font);
-  font-size: clamp(62px, 9vw, 112px);
-  line-height: 0.8;
-  letter-spacing: -3px;
-}
-
-.listings-heading h1 em {
-  color: var(--orange);
-  font-style: normal;
-}
-
-.listings-heading > p:last-child {
-  max-width: 470px;
-  margin: 0;
-  font-size: 18px;
-  line-height: 1.6;
-}
-
-.listings-section {
-  padding-top: 40px;
-}
-
-.listings-section .product-grid {
-  row-gap: 48px;
-}
-
 .shop-summary {
   display: grid;
   grid-template-columns: 1.1fr 1.5fr auto;
@@ -1212,7 +1233,7 @@
   font-family: var(--body-font);
   font-size: 12px;
   font-weight: 700;
-  text-decoration: none;
+  cursor: pointer;
 }
 
 .summary-button:hover {

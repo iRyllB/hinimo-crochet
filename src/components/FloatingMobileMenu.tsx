@@ -129,7 +129,6 @@ function FloatingMobileMenu({ onContact, onHome }: FloatingMobileMenuProps) {
           <a href="/#shop" onClick={() => setIsOpen(false)}>Shop</a>
           <a href="/#about" onClick={() => setIsOpen(false)}>About</a>
           <a href="/#contact" onClick={() => setIsOpen(false)}>Feedback</a>
-          <a href="/listings" onClick={() => setIsOpen(false)}>Full Catalog</a>
           <button type="button" onClick={() => handleNavigation(onContact)}>Contact Me</button>
         </nav>
       )}

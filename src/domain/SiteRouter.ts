@@ -1,4 +1,4 @@
-export type SiteRoute = 'main' | 'admin-login' | 'admin-dashboard' | 'admin-inbox' | 'admin-products' | 'listings'
+export type SiteRoute = 'main' | 'admin-login' | 'admin-dashboard' | 'admin-inbox' | 'admin-products'
 
 export class SiteRouter {
   resolve(pathname: string): SiteRoute {
@@ -7,7 +7,6 @@ export class SiteRouter {
     if (path.startsWith('/admin/inbox')) return 'admin-inbox'
     if (path.startsWith('/admin/products')) return 'admin-products'
     if (path.startsWith('/admin/login') || path === '/admin') return 'admin-login'
-    if (path.startsWith('/listings')) return 'listings'
     return 'main'
   }
 }
