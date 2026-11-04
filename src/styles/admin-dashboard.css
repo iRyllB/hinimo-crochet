@@ -474,6 +474,44 @@
   max-width: 1100px;
 }
 
+.admin-inbox-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.admin-inbox-controls label {
+  display: grid;
+  gap: 6px;
+  font: 9px var(--body-font);
+  font-weight: 700;
+}
+
+.admin-inbox-search {
+  flex: 1;
+}
+
+.admin-inbox-controls input,
+.admin-inbox-controls select {
+  min-height: 36px;
+  padding: 8px 10px;
+  border: 1px solid var(--navy);
+  border-radius: 8px;
+  color: var(--navy);
+  background: #fffdf5;
+  font: 12px var(--body-font);
+}
+
+.admin-inbox-section + .admin-inbox-section {
+  margin-top: 30px;
+}
+
+.admin-inbox-section > h2 {
+  margin: 0 0 12px;
+  font: 700 20px var(--display-font);
+}
+
 .admin-message-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -507,6 +545,13 @@
   gap: 10px;
 }
 
+.admin-inbox-message-status {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 7px;
+}
+
 .admin-inbox-message h2 {
   min-width: 0;
   margin: 0;
@@ -518,12 +563,36 @@
 }
 
 .admin-message-status {
-  flex: 0 0 auto;
   padding: 4px 7px;
   border: 1px solid var(--navy);
   border-radius: 10px;
   background: var(--coral);
   font: 9px var(--body-font);
+}
+
+.admin-message-star {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--navy);
+  border-radius: 50%;
+  color: var(--navy);
+  background: transparent;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.admin-message-star:hover,
+.admin-message-star.is-starred {
+  background: var(--yellow);
+}
+
+.admin-message-star:hover {
+  transform: translate(1px, 1px);
 }
 
 .admin-inbox-message > p {
@@ -562,6 +631,24 @@
 .admin-inbox-message-footer button:hover {
   transform: translate(1px, 1px);
   box-shadow: 1px 1px 0 var(--navy);
+}
+
+.admin-inbox-message-footer .admin-inbox-mark-read {
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--berry);
+  background: transparent;
+  font-weight: 400;
+  text-decoration: underline;
+  transition: color 180ms ease;
+}
+
+.admin-inbox-message-footer .admin-inbox-mark-read:hover {
+  transform: none;
+  box-shadow: none;
+  color: var(--navy);
 }
 
 .admin-inbox-message-actions {
@@ -950,6 +1037,11 @@
 
   .admin-message-list {
     grid-template-columns: 1fr;
+  }
+
+  .admin-inbox-controls {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .admin-product-form {
