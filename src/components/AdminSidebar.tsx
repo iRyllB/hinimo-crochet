@@ -78,14 +78,7 @@ function AdminSidebar({ activeMenu, onSignOut, unreadMessageCount }: AdminSideba
         ))}
       </nav>
 
-      <div className="admin-profile">
-        <div className="admin-avatar">H</div>
-        <div>
-          <strong>Ms. Missy</strong>
-          <span>Owner</span>
-        </div>
-        <button type="button" onClick={onSignOut} aria-label="Sign out">⋮</button>
-      </div>
+      <button className="admin-sidebar-logout" type="button" onClick={onSignOut}>LOG OUT</button>
     </aside>
   )
 }

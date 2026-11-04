@@ -124,44 +124,24 @@
   text-transform: uppercase;
 }
 
-.admin-profile {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 16px 8px 0;
-  border-top: 1px solid var(--navy);
-}
-
-.admin-avatar {
-  display: grid;
-  width: 30px;
-  height: 30px;
-  place-items: center;
-  border: 1px solid var(--navy);
-  border-radius: 50%;
-  background: var(--green);
-  font-size: 12px;
-}
-
-.admin-profile div:nth-child(2) {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 2px;
-  font-family: var(--body-font);
-  font-size: 10px;
-}
-
-.admin-profile span {
-  color: rgb(23 21 21 / 58%);
-  font-size: 9px;
-}
-
-.admin-profile button {
-  border: 0;
-  background: transparent;
-  font-size: 19px;
+.admin-sidebar-logout {
+  width: 100%;
+  margin-top: 18px;
+  padding: 10px;
+  border: 2px solid var(--navy);
+  border-radius: 7px;
+  color: var(--navy);
+  background: var(--pink);
+  font: 700 10px var(--body-font);
+  letter-spacing: 0.4px;
   cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.admin-sidebar-logout:hover {
+  transform: translate(2px, 2px);
+  background: var(--orange);
+  box-shadow: 2px 2px 0 var(--navy);
 }
 
 .admin-main {
@@ -941,9 +921,7 @@
     display: none;
   }
 
-  .admin-profile {
-    display: none;
-  }
+
 
   .admin-topbar {
     padding: 0 18px;
