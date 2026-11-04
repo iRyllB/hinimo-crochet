@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import hinimoHeader from '../assets/hinimo header.png'
+import FloatingMobileMenu from './FloatingMobileMenu'
+import ReturnToTopButton from './ReturnToTopButton'
 
 const navLinks = ['Home', 'Shop', 'About', 'Feedback']
 
@@ -62,6 +64,8 @@ function Header({ onContact, onHome }: HeaderProps) {
           </div>
         </nav>
       </div>
+      <FloatingMobileMenu onContact={onContact} onHome={onHome} />
+      <ReturnToTopButton />
     </header>
   )
 }

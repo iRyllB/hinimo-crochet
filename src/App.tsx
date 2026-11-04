@@ -1,13 +1,17 @@
 import './App.css'
 import AdminPage from './pages/AdminPage'
-import ListingsPage from './pages/ListingsPage'
+import AdminLoginPage from './pages/AdminLoginPage'
+import AdminInboxPage from './pages/AdminInboxPage'
+import AdminProductsPage from './pages/AdminProductsPage'
 import MainPage from './pages/MainPage'
 import { SiteRouter } from './domain/SiteRouter'
 
 function App() {
   const route = new SiteRouter().resolve(window.location.pathname)
-  if (route === 'listings') return <ListingsPage />
-  return route === 'admin' ? <AdminPage /> : <MainPage />
+  if (route === 'admin-login') return <AdminLoginPage />
+  if (route === 'admin-inbox') return <AdminInboxPage />
+  if (route === 'admin-products') return <AdminProductsPage />
+  return route === 'admin-dashboard' ? <AdminPage /> : <MainPage />
 }
 
 export default App

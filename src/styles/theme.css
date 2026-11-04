@@ -1,0 +1,29 @@
+.site {
+  --navy: #171515;
+  --pink: #ff98b5;
+  --berry: #bf2e5b;
+  --coral: #f7d0a7;
+  --orange: #ff5b27;
+  --yellow: #ffdf75;
+  --cream: #fff9e9;
+  --tan: #e8ab72;
+  --green: #6b925e;
+  --display-font: 'Arial Rounded MT Bold', 'Trebuchet MS', sans-serif;
+  --body-font: 'Trebuchet MS', Arial, sans-serif;
+}
+
+.site {
+  min-height: 100svh;
+  background: var(--cream);
+}
+
+.soft-reveal {
+  opacity: 0.82;
+  transform: translateY(8px);
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+
+.soft-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

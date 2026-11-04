@@ -1,0 +1,162 @@
+import { useEffect, useMemo, useState } from 'react'
+import AdminSidebar from '../components/AdminSidebar'
+import { AdminAccessPolicy } from '../domain/SiteRouter'
+import { deleteContactMessage, getContactMessages, updateContactMessageStatus, type ContactMessage } from '../lib/supabase'
+import AdminMessageOverlay from '../components/AdminMessageOverlay'
+
+const accessPolicy = new AdminAccessPolicy()
+const starredMessagesStorageKey = 'hinimo-admin-starred-messages'
+type MessageSort = 'newest' | 'oldest'
+
+function AdminInboxPage() {
+  const [messages, setMessages] = useState<ContactMessage[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [isAuthorized, setIsAuthorized] = useState(false)
+  const [error, setError] = useState('')
+  const [selectedMessage, setSelectedMessage] = useState<ContactMessage | null>(null)
+  const [deletingMessageId, setDeletingMessageId] = useState<string | null>(null)
+  const [search, setSearch] = useState('')
+  const [sort, setSort] = useState<MessageSort>('newest')
+  const [starredMessageIds, setStarredMessageIds] = useState<string[]>(() => {
+    try {
+      const stored = window.localStorage.getItem(starredMessagesStorageKey)
+      const parsed = stored ? JSON.parse(stored) : []
+      return Array.isArray(parsed) && parsed.every((id) => typeof id === 'string') ? parsed : []
+    } catch {
+      return []
+    }
+  })
+
+  useEffect(() => {
+    accessPolicy.canAccess().then((authorized) => {
+      if (!authorized) {
+        window.location.href = '/admin/login'
+        return
+      }
+      setIsAuthorized(true)
+      return getContactMessages().then(setMessages)
+    }).catch(() => setError('Messages could not be loaded. Check your Supabase table and admin access policies.'))
+      .finally(() => setIsLoading(false))
+  }, [])
+
+  const handleSignOut = async () => {
+    await accessPolicy.signOut()
+    window.location.href = '/admin/login'
+  }
+
+  const markAsRead = async (message: ContactMessage) => {
+    try {
+      await updateContactMessageStatus(message.id, 'read')
+      setMessages((current) => current.map((item) => item.id === message.id ? { ...item, status: 'read' } : item))
+      setSelectedMessage((current) => current?.id === message.id ? { ...current, status: 'read' } : current)
+    } catch {
+      setError('The message could not be updated.')
+    }
+  }
+
+  const deleteMessage = async (message: ContactMessage) => {
+    if (!window.confirm(`Delete the message from ${message.name}? This cannot be undone.`)) return
+
+    setError('')
+    setDeletingMessageId(message.id)
+    try {
+      await deleteContactMessage(message.id)
+      setMessages((current) => current.filter((item) => item.id !== message.id))
+      setStarredMessageIds((current) => current.filter((id) => id !== message.id))
+      setSelectedMessage((current) => current?.id === message.id ? null : current)
+    } catch {
+      setError('The message could not be deleted. Check your Supabase delete policy.')
+    } finally {
+      setDeletingMessageId(null)
+    }
+  }
+
+  const toggleStarred = (message: ContactMessage) => {
+    setStarredMessageIds((current) => {
+      const next = current.includes(message.id)
+        ? current.filter((id) => id !== message.id)
+        : [...current, message.id]
+      window.localStorage.setItem(starredMessagesStorageKey, JSON.stringify(next))
+      return next
+    })
+  }
+
+  const filteredMessages = useMemo(() => {
+    const query = search.trim().toLowerCase()
+    return messages
+      .filter((message) => !query || [message.message, message.name, message.email].some((value) => value.toLowerCase().includes(query)))
+      .sort((first, second) => {
+        const difference = new Date(first.created_at).getTime() - new Date(second.created_at).getTime()
+        return sort === 'newest' ? -difference : difference
+      })
+  }, [messages, search, sort])
+
+  const renderMessage = (message: ContactMessage) => (
+    <article className={`admin-inbox-message${message.status === 'unread' ? ' is-unread' : ''}`} key={message.id}>
+      <div className="admin-inbox-message-heading">
+        <h2>{message.message.length > 42 ? `${message.message.slice(0, 42)}...` : message.message}</h2>
+        <div className="admin-inbox-message-status">
+          <span className="admin-message-status">{message.status === 'unread' ? 'NEW' : 'READ'}</span>
+          <button
+            className={`admin-message-star${starredMessageIds.includes(message.id) ? ' is-starred' : ''}`}
+            type="button"
+            onClick={() => toggleStarred(message)}
+            aria-label={starredMessageIds.includes(message.id) ? `Remove ${message.name} from starred` : `Star message from ${message.name}`}
+            aria-pressed={starredMessageIds.includes(message.id)}
+          >
+            ★
+          </button>
+        </div>
+      </div>
+      <p>From {message.name} · <a href={`mailto:${message.email}`}>{message.email}</a></p>
+      <div className="admin-inbox-message-footer">
+        <span>{new Date(message.created_at).toLocaleString()}</span>
+        <div className="admin-inbox-message-actions">
+          {message.status === 'unread' && <button className="admin-inbox-mark-read" type="button" onClick={() => markAsRead(message)}>MARK AS READ</button>}
+          <button type="button" onClick={() => setSelectedMessage(message)}>OPEN →</button>
+          <button className="admin-delete-button" type="button" onClick={() => deleteMessage(message)} disabled={deletingMessageId === message.id}>
+            {deletingMessageId === message.id ? 'DELETING...' : 'DELETE'}
+          </button>
+        </div>
+      </div>
+    </article>
+  )
+
+  const starredMessages = filteredMessages.filter((message) => starredMessageIds.includes(message.id))
+  const unreadMessageCount = messages.filter((message) => message.status === 'unread').length
+
+  if (isLoading || !isAuthorized) return null
+
+  return (
+    <div className="admin-layout">
+      <AdminSidebar activeMenu="Contact inbox" onSignOut={handleSignOut} unreadMessageCount={unreadMessageCount} />
+      <main className="admin-main">
+        <div className="admin-content admin-inbox-content">
+          <div className="admin-heading-row">
+            <div><p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> SAY HI BACK</p><h1>CONTACT<br /><em>INBOX.</em></h1></div>
+          </div>
+          <div className="admin-inbox-controls">
+            <label className="admin-inbox-search">SEARCH MESSAGES<input type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Message, name, or email" /></label>
+            <label className="admin-inbox-sort">SORT BY<select value={sort} onChange={(event) => setSort(event.target.value as MessageSort)}><option value="newest">Newest to Oldest</option><option value="oldest">Oldest to Newest</option></select></label>
+          </div>
+          {isLoading && <p className="admin-feedback">LOADING NOTES...</p>}
+          {error && <p className="admin-feedback admin-feedback-error" role="alert">{error}</p>}
+          {!isLoading && !error && messages.length === 0 && <p className="admin-feedback">No notes yet. New messages will appear here.</p>}
+          {!isLoading && !error && messages.length > 0 && <>
+            <section className="admin-inbox-section" aria-labelledby="starred-messages-heading">
+              <h2 id="starred-messages-heading">STARRED</h2>
+              {starredMessages.length > 0 ? <div className="admin-message-list">{starredMessages.map(renderMessage)}</div> : <p className="admin-feedback">No starred messages yet.</p>}
+            </section>
+            <section className="admin-inbox-section" aria-labelledby="all-messages-heading">
+              <h2 id="all-messages-heading">ALL MESSAGES</h2>
+              {filteredMessages.length > 0 ? <div className="admin-message-list">{filteredMessages.map(renderMessage)}</div> : <p className="admin-feedback">No messages match your search.</p>}
+            </section>
+          </>}
+        </div>
+      </main>
+      {selectedMessage && <AdminMessageOverlay message={selectedMessage} onClose={() => setSelectedMessage(null)} onMarkAsRead={() => markAsRead(selectedMessage)} onDelete={() => deleteMessage(selectedMessage)} isDeleting={deletingMessageId === selectedMessage.id} />}
+    </div>
+  )
+}
+
+export default AdminInboxPage

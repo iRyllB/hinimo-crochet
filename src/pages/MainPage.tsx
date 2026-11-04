@@ -37,7 +37,7 @@ function MainPage() {
               <h1>CROCHET<br />WITH COLOR.</h1>
               <p className="hero-description">A handmade crochet portfolio and creative catalog. Browse the work, then reach out to discuss availability or a custom piece.</p>
               <div className="hero-actions">
-                <a className="hero-button hero-button-primary" href="/listings">MY ITEMS <span aria-hidden="true">→</span></a>
+                <a className="hero-button hero-button-primary" href="#shop">MY ITEMS <span aria-hidden="true">→</span></a>
               </div>
             </div>
             <HeroArtwork />
