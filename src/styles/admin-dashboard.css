@@ -683,6 +683,15 @@
   gap: 12px;
 }
 
+.admin-catalog-entry {
+  display: grid;
+  gap: 12px;
+}
+
+.admin-product-form-inline {
+  margin: 0;
+}
+
 .admin-catalog-item {
   display: grid;
   grid-template-columns: 82px minmax(0, 1fr) auto;
