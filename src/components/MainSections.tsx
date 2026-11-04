@@ -64,7 +64,7 @@ function MainSections({ onContact }: MainSectionsProps) {
         <div className="shop-summary">
           <div className="summary-label"><span className="eyebrow-dot" aria-hidden="true" /><span>YOU LIKE IT?</span><strong>VIEW MORE AVAILABLE LISTINGS</strong></div>
           <p>More handmade pieces are waiting to be discovered.</p>
-          <a className="summary-button" href="/listings">VIEW MORE <span aria-hidden="true">→</span></a>
+          <a className="summary-button" href="/listings" target="_blank" rel="noreferrer">VIEW MORE <span aria-hidden="true">→</span></a>
         </div>
       </section>
 
