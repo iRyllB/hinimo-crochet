@@ -180,6 +180,125 @@
   font-size: 14px;
 }
 
+.admin-calculator-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 73px;
+  padding: 0 38px;
+  border-bottom: 2px solid var(--navy);
+  background: #fffdf5;
+  font: 10px var(--body-font);
+}
+
+.admin-calculator-topbar > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 204px;
+  min-height: 30px;
+  border: 1px solid var(--navy);
+  border-radius: 20px;
+  font-size: 9px;
+}
+
+.admin-calculator-topbar b {
+  margin-left: 12px;
+  font-size: 14px;
+}
+
+.admin-overview-grid {
+  margin-bottom: 18px;
+}
+
+.admin-overview-card {
+  display: grid;
+  min-height: 145px;
+  align-content: space-between;
+  box-shadow: 4px 4px 0 var(--navy);
+  overflow: hidden;
+  border-top-width: 7px;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.admin-overview-card:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--navy);
+}
+
+.admin-overview-products {
+  border-top-color: var(--orange);
+  background: #ffc49e;
+}
+
+.admin-overview-messages {
+  border-top-color: var(--pink);
+  background: var(--pink);
+}
+
+.admin-overview-current {
+  border-top-color: var(--yellow);
+  background: var(--yellow);
+}
+
+.admin-overview-finished {
+  border-top-color: var(--green);
+  background: #b7cf8e;
+}
+
+.admin-overview-card strong {
+  margin-top: 8px;
+}
+
+.admin-overview-card p {
+  max-width: 100%;
+  min-height: 28px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-overview-card a {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 6px 9px;
+  border: 1px solid var(--navy);
+  border-radius: 12px;
+  color: var(--navy);
+  box-shadow: 2px 2px 0 var(--navy);
+  font: 700 8px var(--body-font);
+  text-decoration: none;
+  transition: transform 180ms ease, background-color 180ms ease;
+}
+
+.admin-overview-card a:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--navy);
+}
+
+.admin-overview-products a:hover {
+  background: var(--orange);
+}
+
+.admin-overview-messages a:hover {
+  background: #e87599;
+}
+
+.admin-overview-current a:hover {
+  background: #f2c94c;
+}
+
+.admin-overview-finished a:hover {
+  background: var(--green);
+}
+
+.admin-dashboard-highlight {
+  margin-top: 18px;
+}
+
 .admin-content {
   width: min(100% - 76px, 1240px);
   margin: 0 auto;
@@ -204,6 +323,360 @@
 .admin-heading-row h1 em {
   color: var(--orange);
   font-style: normal;
+}
+
+.admin-calculator-content {
+  padding-top: 34px;
+}
+
+.admin-calculator-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.admin-calculator-panel {
+  padding: 16px;
+  border: 2px solid var(--navy);
+  border-radius: 12px;
+  background: #fffdf5;
+}
+
+.admin-calculator-panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.admin-calculator-panel-heading > span {
+  font: 700 20px var(--display-font);
+  letter-spacing: -1px;
+}
+
+.admin-calculator-panel-heading > span p {
+  margin: 5px 0 0;
+  color: rgb(23 21 21 / 62%);
+  font: 10px var(--body-font);
+  letter-spacing: 0;
+}
+
+.admin-calculator-panel-heading h2 {
+  margin: 4px 0 0;
+  font: 700 23px var(--display-font);
+  letter-spacing: -1px;
+}
+
+.admin-calculator-panel-heading > small {
+  color: rgb(23 21 21 / 62%);
+  font-size: 9px;
+}
+
+.admin-calculator-section-label {
+  margin: 16px 0 9px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgb(23 21 21 / 24%);
+  color: rgb(23 21 21 / 62%);
+  font: 700 9px var(--body-font);
+  letter-spacing: 0.6px;
+}
+
+.admin-calculator-panel label {
+  display: block;
+  margin-bottom: 10px;
+  font: 9px var(--body-font);
+  letter-spacing: 0.3px;
+}
+
+.admin-required-mark {
+  color: #d94b55;
+  font-weight: 700;
+}
+
+.admin-optional-mark {
+  color: #d94b55;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.admin-calculator-panel input,
+.admin-calculator-panel select {
+  display: block;
+  width: 100%;
+  min-height: 34px;
+  margin-top: 5px;
+  padding: 7px 9px;
+  border: 1px solid var(--navy);
+  border-radius: 5px;
+  color: var(--navy);
+  background: var(--cream);
+  font: 11px var(--body-font);
+}
+
+.admin-calculator-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.admin-calculator-panel .admin-login-submit {
+  margin-top: 4px;
+  padding: 9px 14px;
+}
+
+.admin-saved-projects {
+  min-height: 340px;
+}
+
+.admin-saved-project {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 0;
+  border-top: 1px solid rgb(23 21 21 / 22%);
+  width: 100%;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 0;
+  color: var(--navy);
+  background: transparent;
+  text-align: left;
+}
+
+.admin-saved-project span {
+  display: grid;
+  gap: 4px;
+}
+
+.admin-saved-project strong {
+  font: 12px var(--body-font);
+}
+
+.admin-saved-project small {
+  color: rgb(23 21 21 / 65%);
+  font: 9px var(--body-font);
+}
+
+.admin-saved-project > b {
+  font: 16px var(--body-font);
+}
+
+.admin-saved-project-open {
+  padding: 4px 7px;
+  border: 1px solid var(--navy);
+  border-radius: 10px;
+  color: var(--navy);
+  background: var(--yellow);
+  font: 700 8px var(--body-font);
+  cursor: pointer;
+}
+
+.admin-saved-project-open:hover {
+  background: var(--pink);
+}
+
+.admin-project-dialog {
+  width: min(100%, 620px);
+}
+
+.admin-project-dialog-price {
+  color: var(--orange);
+  font: 700 22px var(--body-font);
+}
+
+.admin-project-dialog-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.admin-project-dialog-actions > .admin-login-submit {
+  margin-top: 19px;
+}
+
+.admin-project-status-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-project-danger-button,
+.admin-project-done-button {
+  min-height: 50px;
+  padding: 12px 18px;
+  border: 2px solid var(--navy);
+  border-radius: 24px;
+  box-shadow: 3px 3px 0 var(--navy);
+  font: 700 10px var(--body-font);
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.admin-project-status-actions button {
+  margin-top: 19px;
+}
+
+.admin-project-danger-button {
+  color: var(--cream);
+  background: #d94b55;
+}
+
+.admin-project-done-button {
+  color: var(--navy);
+  background: var(--green);
+}
+
+.admin-project-danger-button:hover,
+.admin-project-done-button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--navy);
+}
+
+.admin-project-danger-button:hover {
+  background: #c83d48;
+}
+
+.admin-project-done-button:hover {
+  background: #83aa70;
+}
+
+.admin-archive-export-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-archive-delete-button {
+  margin-top: 20px;
+}
+
+.admin-archive-list {
+  display: grid;
+  gap: 10px;
+}
+
+.admin-archive-project {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 18px;
+  padding: 16px;
+  border: 2px solid var(--navy);
+  border-radius: 12px;
+  background: #fffdf5;
+}
+
+.admin-archive-project h2 {
+  margin: 0 0 5px;
+  font: 700 21px var(--display-font);
+}
+
+.admin-archive-project p {
+  margin: 0;
+  color: rgb(23 21 21 / 65%);
+  font: 10px var(--body-font);
+}
+
+.admin-archive-project > strong {
+  font: 700 18px var(--body-font);
+}
+
+.admin-archive-project .admin-message-button {
+  margin-top: 0;
+}
+
+.admin-project-client {
+  margin: 8px 0 0;
+  color: var(--berry);
+  font: 12px var(--body-font);
+}
+
+.admin-project-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 26px 0;
+}
+
+.admin-project-detail-grid span {
+  display: grid;
+  gap: 5px;
+  padding: 12px;
+  border: 1px solid var(--navy);
+  border-radius: 8px;
+  background: var(--pink);
+}
+
+.admin-project-detail-grid small {
+  font: 9px var(--body-font);
+}
+
+.admin-project-detail-grid b {
+  font: 700 16px var(--body-font);
+}
+
+.admin-calculator-empty {
+  margin-top: 60px;
+  color: rgb(23 21 21 / 58%);
+  font: 11px var(--body-font);
+}
+
+.admin-calculator-summary {
+  display: grid;
+  grid-template-columns: 1.1fr 0.8fr 0.9fr 1.5fr;
+  gap: 18px;
+  margin-top: 12px;
+  padding: 17px;
+  border: 2px solid var(--navy);
+  border-radius: 12px;
+  background: #ffe4ae;
+}
+
+.admin-calculator-summary > div {
+  display: grid;
+  align-content: center;
+  gap: 5px;
+}
+
+.admin-calculator-summary span,
+.admin-calculator-breakdown small {
+  font: 9px var(--body-font);
+  letter-spacing: 0.3px;
+}
+
+.admin-calculator-summary strong {
+  font: 22px var(--body-font);
+}
+
+.admin-calculator-profit {
+  color: var(--green);
+}
+
+.admin-calculator-breakdown {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 12px !important;
+  padding-left: 16px;
+  border-left: 1px solid rgb(23 21 21 / 28%);
+}
+
+.admin-project-detail-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+.admin-calculator-final-price {
+  grid-column: span 2;
+  padding: 12px 14px;
+  border: 2px solid var(--navy);
+  border-radius: 9px;
+  background: var(--orange);
+}
+
+.admin-calculator-final-price strong {
+  font-size: 30px;
 }
 
 .admin-add-button {
@@ -840,6 +1313,54 @@
   animation: admin-dialog-in 180ms ease-out;
 }
 
+.admin-reusable-modal {
+  max-height: calc(100svh - 48px);
+}
+
+.admin-reusable-modal > h2 {
+  margin: 18px 0 8px;
+  font: 700 34px var(--display-font);
+}
+
+.admin-modal-copy {
+  max-width: 430px;
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+.admin-modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.admin-modal-form {
+  max-height: min(500px, 55svh);
+  overflow-y: auto;
+  margin: 18px 0;
+  padding-right: 5px;
+}
+
+.admin-modal-form label {
+  display: block;
+  margin-bottom: 10px;
+  font: 9px var(--body-font);
+  letter-spacing: 0.3px;
+}
+
+.admin-modal-form input {
+  display: block;
+  width: 100%;
+  min-height: 34px;
+  margin-top: 5px;
+  padding: 7px 9px;
+  border: 1px solid var(--navy);
+  border-radius: 5px;
+  color: var(--navy);
+  background: var(--cream);
+  font: 11px var(--body-font);
+}
+
 .admin-message-dialog-close {
   position: absolute;
   top: 14px;
@@ -974,6 +1495,19 @@
   .admin-panels {
     grid-template-columns: 1fr;
   }
+
+  .admin-calculator-grid,
+  .admin-calculator-summary {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-calculator-breakdown {
+    grid-column: 1 / -1;
+    padding-top: 12px;
+    padding-left: 0;
+    border-top: 1px solid rgb(23 21 21 / 28%);
+    border-left: 0;
+  }
 }
 
 @media (max-width: 640px) {
@@ -1014,6 +1548,14 @@
     padding: 0 18px;
   }
 
+  .admin-calculator-topbar {
+    padding: 0 18px;
+  }
+
+  .admin-calculator-topbar > span {
+    display: none;
+  }
+
   .admin-content {
     width: min(100% - 28px, 520px);
     padding-top: 25px;
@@ -1029,6 +1571,24 @@
 
   .admin-add-button {
     margin-bottom: 18px;
+  }
+
+  .admin-calculator-grid,
+  .admin-calculator-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-calculator-breakdown {
+    grid-column: auto;
+  }
+
+  .admin-archive-project {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .admin-calculator-final-price {
+    grid-column: auto;
   }
 
   .admin-stat-grid {

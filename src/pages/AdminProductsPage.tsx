@@ -125,7 +125,6 @@ function AdminProductsPage() {
         <div className="admin-content admin-catalog-content">
           <div className="admin-heading-row">
             <div><p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> DIGITAL MAKES</p><h1>PRODUCT<br /><em>CATALOG.</em></h1></div>
-            <button className="admin-add-button" type="button" onClick={() => { setEditingId(null); setForm(emptyForm) }}>+ ADD PRODUCT</button>
           </div>
           {error && <p className="admin-feedback admin-feedback-error" role="alert">{error}</p>}
           {!editingId && productForm(false)}
