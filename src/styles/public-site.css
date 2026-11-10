@@ -1603,22 +1603,36 @@
 }
 
 .email-chooser {
-  margin-top: 24px;
-  padding: 22px;
+  position: relative;
+  width: min(100%, 400px);
+  padding: 32px;
   border: 2px solid var(--navy);
-  border-radius: 16px;
-  background: var(--pink);
+  border-radius: 20px;
+  background: var(--cream);
+  box-shadow: 6px 6px 0 var(--orange);
 }
 
 .email-chooser h3 {
-  margin: 8px 0;
+  margin: 14px 0 10px;
   font-family: var(--display-font);
-  font-size: 34px;
+  font-size: clamp(36px, 7vw, 52px);
   line-height: 0.9;
 }
 
 .email-chooser p:not(.eyebrow) {
+  max-width: 300px;
   margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+.email-chooser-overlay {
+  position: fixed;
+  z-index: 31;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(23 21 21 / 48%);
 }
 
 .email-chooser-actions {
@@ -1635,17 +1649,6 @@
   background: var(--navy);
   font-weight: 700;
   text-decoration: none;
-}
-
-.email-chooser-cancel {
-  margin-top: 14px;
-  padding: 0;
-  border: 0;
-  color: var(--navy);
-  background: transparent;
-  font: inherit;
-  text-decoration: underline;
-  cursor: pointer;
 }
 
 .social-links a:hover {

@@ -53,8 +53,17 @@ function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
           <button type="button" onClick={showEmailChooser} aria-label="Email">✉</button>
         </div>
         <button className="hero-button hero-button-primary" type="button" onClick={showEmailChooser}>SEND AN INQUIRY <span aria-hidden="true">→</span></button>
-        {isEmailChooserOpen && (
-          <div className="email-chooser" role="dialog" aria-modal="true" aria-labelledby="email-chooser-title">
+      </section>
+      {isEmailChooserOpen && (
+        <div className="email-chooser-overlay" role="presentation" onClick={() => setIsEmailChooserOpen(false)}>
+          <section
+            className="email-chooser"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="email-chooser-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button className="modal-close" type="button" onClick={() => setIsEmailChooserOpen(false)} aria-label="Close email provider chooser">×</button>
             <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> CHOOSE YOUR EMAIL</p>
             <h3 id="email-chooser-title">OPEN WITH</h3>
             <p>Select an email service to start your inquiry.</p>
@@ -62,10 +71,9 @@ function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
               <a className="email-provider-button" href={getComposeUrl('gmail')} target="_blank" rel="noreferrer" onClick={onClose}>Gmail</a>
               <a className="email-provider-button" href={getComposeUrl('outlook')} target="_blank" rel="noreferrer" onClick={onClose}>Microsoft Outlook</a>
             </div>
-            <button className="email-chooser-cancel" type="button" onClick={() => setIsEmailChooserOpen(false)}>Cancel</button>
-          </div>
-        )}
-      </section>
+          </section>
+        </div>
+      )}
     </div>
   )
 }
