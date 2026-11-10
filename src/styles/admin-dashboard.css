@@ -207,54 +207,92 @@
   font-size: 14px;
 }
 
-.admin-feature-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+.admin-overview-grid {
+  margin-bottom: 18px;
 }
 
-.admin-feature-card {
+.admin-overview-card {
   display: grid;
-  min-height: 180px;
+  min-height: 145px;
   align-content: space-between;
-  padding: 18px;
-  border: 2px solid var(--navy);
-  border-radius: 12px;
   box-shadow: 4px 4px 0 var(--navy);
-  color: var(--navy);
-  text-decoration: none;
+  overflow: hidden;
+  border-top-width: 7px;
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
-.admin-feature-card:hover {
+.admin-overview-card:hover {
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0 var(--navy);
 }
 
-.admin-feature-card-orange { background: var(--orange); }
-.admin-feature-card-pink { background: var(--pink); }
-.admin-feature-card-yellow { background: var(--yellow); }
-.admin-feature-card-green { background: #93a77b; }
-
-.admin-feature-card span {
-  font: 9px var(--body-font);
-  letter-spacing: 0.4px;
+.admin-overview-products {
+  border-top-color: var(--orange);
+  background: #ffc49e;
 }
 
-.admin-feature-card strong {
-  margin: 10px 0 0;
-  font: 42px var(--body-font);
+.admin-overview-messages {
+  border-top-color: var(--pink);
+  background: var(--pink);
 }
 
-.admin-feature-card p {
-  max-width: 250px;
-  margin: 0;
-  font: 11px var(--body-font);
+.admin-overview-current {
+  border-top-color: var(--yellow);
+  background: var(--yellow);
 }
 
-.admin-feature-card b {
-  margin-top: 16px;
-  font: 700 10px var(--body-font);
+.admin-overview-finished {
+  border-top-color: var(--green);
+  background: #b7cf8e;
+}
+
+.admin-overview-card strong {
+  margin-top: 8px;
+}
+
+.admin-overview-card p {
+  max-width: 100%;
+  min-height: 28px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-overview-card a {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 6px 9px;
+  border: 1px solid var(--navy);
+  border-radius: 12px;
+  color: var(--navy);
+  box-shadow: 2px 2px 0 var(--navy);
+  font: 700 8px var(--body-font);
+  text-decoration: none;
+  transition: transform 180ms ease, background-color 180ms ease;
+}
+
+.admin-overview-card a:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--navy);
+}
+
+.admin-overview-products a:hover {
+  background: var(--orange);
+}
+
+.admin-overview-messages a:hover {
+  background: #e87599;
+}
+
+.admin-overview-current a:hover {
+  background: #f2c94c;
+}
+
+.admin-overview-finished a:hover {
+  background: var(--green);
 }
 
 .admin-dashboard-highlight {
@@ -1461,10 +1499,6 @@
   .admin-calculator-grid,
   .admin-calculator-summary {
     grid-template-columns: 1fr 1fr;
-  }
-
-  .admin-feature-grid {
-    grid-template-columns: 1fr;
   }
 
   .admin-calculator-breakdown {
