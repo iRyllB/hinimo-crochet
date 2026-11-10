@@ -339,7 +339,6 @@
   color: var(--navy);
   background: transparent;
   text-align: left;
-  cursor: pointer;
 }
 
 .admin-saved-project span {
@@ -360,16 +359,57 @@
   font: 16px var(--body-font);
 }
 
-.admin-saved-project > small {
+.admin-saved-project-open {
   padding: 4px 7px;
   border: 1px solid var(--navy);
   border-radius: 10px;
   color: var(--navy);
-  font: 8px var(--body-font);
+  background: var(--yellow);
+  font: 700 8px var(--body-font);
+  cursor: pointer;
 }
 
-.admin-saved-project:hover {
+.admin-saved-project-open:hover {
   background: var(--pink);
+}
+
+.admin-project-dialog {
+  width: min(100%, 620px);
+}
+
+.admin-project-dialog-price {
+  color: var(--orange);
+  font: 700 22px var(--body-font);
+}
+
+.admin-project-client {
+  margin: 8px 0 0;
+  color: var(--berry);
+  font: 12px var(--body-font);
+}
+
+.admin-project-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 26px 0;
+}
+
+.admin-project-detail-grid span {
+  display: grid;
+  gap: 5px;
+  padding: 12px;
+  border: 1px solid var(--navy);
+  border-radius: 8px;
+  background: var(--pink);
+}
+
+.admin-project-detail-grid small {
+  font: 9px var(--body-font);
+}
+
+.admin-project-detail-grid b {
+  font: 700 16px var(--body-font);
 }
 
 .admin-calculator-empty {
@@ -415,6 +455,10 @@
   gap: 5px 12px !important;
   padding-left: 16px;
   border-left: 1px solid rgb(23 21 21 / 28%);
+}
+
+.admin-project-detail-grid {
+  grid-template-columns: 1fr 1fr;
 }
 
 .admin-calculator-final-price {

@@ -8,6 +8,8 @@ const savedProjectsKey = 'hinimo-worth-calculator-projects-v2'
 
 type CalculatorForm = {
   projectName: string
+  clientName: string
+  clientEmail: string
   yarnCost: number
   yarnUsed: number
   stuffingCost: number
@@ -40,6 +42,8 @@ type SavedProject = CalculatorForm & {
 
 const defaultForm: CalculatorForm = {
   projectName: 'New crochet project',
+  clientName: '',
+  clientEmail: '',
   yarnCost: 0,
   yarnUsed: 0,
   stuffingCost: 0,
@@ -55,6 +59,19 @@ const defaultForm: CalculatorForm = {
 }
 
 const money = (value: number) => `₱${value.toFixed(2)}`
+
+function calculateWorth(form: CalculatorForm): Calculation {
+  const materials = form.yarnCost + form.stuffingCost + form.accessoriesCost + form.packagingCost
+  const labor = (form.hours + form.minutes / 60) * form.laborRate * form.difficulty
+  const directCost = materials + labor
+  const productionSubtotal = directCost / (1 - form.overhead / 100)
+  const overhead = productionSubtotal - directCost
+  const profit = directCost * (form.profitMargin / 100)
+  const netPrice = productionSubtotal + profit
+  const feeRate = Math.min(Math.max(form.marketplaceFee, 0), 99.99) / 100
+  const finalPrice = netPrice / (1 - feeRate)
+  return { materials, labor, overhead, profit, netPrice, platformFee: finalPrice - netPrice, finalPrice }
+}
 
 function readSavedProjects(): SavedProject[] {
   try {
@@ -73,6 +90,7 @@ function AdminCalculatorPage() {
   const [unreadMessageCount, setUnreadMessageCount] = useState(0)
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [isCheckingAccess, setIsCheckingAccess] = useState(true)
+  const [selectedProject, setSelectedProject] = useState<SavedProject | null>(null)
 
   useEffect(() => {
     accessPolicy.canAccess().then((authorized) => {
@@ -87,19 +105,7 @@ function AdminCalculatorPage() {
     }).finally(() => setIsCheckingAccess(false))
   }, [])
 
-  const calculation = useMemo<Calculation>(() => {
-    const materials = form.yarnCost + form.stuffingCost + form.accessoriesCost + form.packagingCost
-    const labor = (form.hours + form.minutes / 60) * form.laborRate * form.difficulty
-    const directCost = materials + labor
-    const productionSubtotal = directCost / (1 - form.overhead / 100)
-    const overhead = productionSubtotal - directCost
-    const profit = directCost * (form.profitMargin / 100)
-    const netPrice = productionSubtotal + profit
-    const feeRate = Math.min(Math.max(form.marketplaceFee, 0), 99.99) / 100
-    const finalPrice = netPrice / (1 - feeRate)
-
-    return { materials, labor, overhead, profit, netPrice, platformFee: finalPrice - netPrice, finalPrice }
-  }, [form])
+  const calculation = useMemo(() => calculateWorth(form), [form])
 
   const updateForm = <K extends keyof CalculatorForm>(field: K, value: CalculatorForm[K]) => {
     setForm((current) => ({ ...current, [field]: value }))
@@ -140,6 +146,10 @@ function AdminCalculatorPage() {
             <section className="admin-calculator-panel">
               <div className="admin-calculator-panel-heading"><span>PROJECT INPUTS</span><p>Price your crochet work fairly.</p></div>
               <label>PROJECT NAME<input value={form.projectName} onChange={(event) => updateForm('projectName', event.target.value)} /></label>
+              <div className="admin-calculator-field-row">
+                <label>CLIENT NAME (OPTIONAL)<input value={form.clientName} onChange={(event) => updateForm('clientName', event.target.value)} /></label>
+                <label>CLIENT EMAIL (OPTIONAL)<input type="email" value={form.clientEmail} onChange={(event) => updateForm('clientEmail', event.target.value)} /></label>
+              </div>
               <div className="admin-calculator-section-label">MATERIALS</div>
               <div className="admin-calculator-field-row">
                 <label>YARN COST (PHP)<input type="number" min="0" step="0.01" value={form.yarnCost} onChange={(event) => updateForm('yarnCost', Number(event.target.value))} /></label>
@@ -167,14 +177,14 @@ function AdminCalculatorPage() {
               <button className="admin-login-submit" type="button" onClick={saveProject}>SAVE PROJECT <span>→</span></button>
             </section>
             <section className="admin-calculator-panel admin-saved-projects">
-              <div className="admin-calculator-panel-heading"><span><i /> SAVED PROJECTS<h2>RECENT QUOTES</h2></span><small>{projects.length} saved</small></div>
+              <div className="admin-calculator-panel-heading"><span><i /> SAVED PROJECTS</span><small>{projects.length} saved</small></div>
               {projects.length === 0 && <p className="admin-calculator-empty">Saved projects will appear here.</p>}
               {projects.map((project) => (
-                <button className="admin-saved-project" type="button" key={project.id} onClick={() => setForm(project)}>
+                <div className="admin-saved-project" key={project.id}>
                   <span><strong>{project.projectName}</strong><small>{project.hours}h {project.minutes}m · {project.yarnUsed}g yarn</small></span>
                   <b>{money(project.finalPrice)}</b>
-                  <small>OPEN →</small>
-                </button>
+                  <button className="admin-saved-project-open" type="button" onClick={() => setSelectedProject(project)}>OPEN PROJECT <span>→</span></button>
+                </div>
               ))}
             </section>
           </div>
@@ -188,6 +198,25 @@ function AdminCalculatorPage() {
           </section>
         </div>
       </main>
+      {selectedProject && (
+        <div className="admin-message-overlay" role="presentation" onClick={() => setSelectedProject(null)}>
+          <section className="admin-message-dialog admin-project-dialog" role="dialog" aria-modal="true" aria-labelledby="saved-project-title" onClick={(event) => event.stopPropagation()}>
+            <button className="admin-message-dialog-close" type="button" onClick={() => setSelectedProject(null)} aria-label="Close project details">×</button>
+            <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> SAVED PROJECT</p>
+            <div className="admin-message-dialog-heading"><h2 id="saved-project-title">{selectedProject.projectName}</h2><strong className="admin-project-dialog-price">{money(selectedProject.finalPrice)}</strong></div>
+            {(selectedProject.clientName || selectedProject.clientEmail) && <p className="admin-project-client">{selectedProject.clientName || 'Client'}{selectedProject.clientEmail && ` · ${selectedProject.clientEmail}`}</p>}
+            <div className="admin-project-detail-grid">
+              <span><small>MATERIALS</small><b>{money(calculateWorth(selectedProject).materials)}</b></span>
+              <span><small>LABOR</small><b>{money(calculateWorth(selectedProject).labor)}</b></span>
+              <span><small>OVERHEAD</small><b>{money(calculateWorth(selectedProject).overhead)}</b></span>
+              <span><small>NET PROFIT</small><b>{money(calculateWorth(selectedProject).profit)}</b></span>
+              <span><small>PLATFORM FEES</small><b>{money(calculateWorth(selectedProject).platformFee)}</b></span>
+              <span><small>TIME</small><b>{selectedProject.hours}h {selectedProject.minutes}m</b></span>
+            </div>
+            <button className="admin-login-submit" type="button" onClick={() => { setForm({ ...defaultForm, ...selectedProject }); setSelectedProject(null) }}>EDIT PROJECT <span>→</span></button>
+          </section>
+        </div>
+      )}
     </div>
   )
 }
