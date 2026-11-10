@@ -37,7 +37,7 @@ const menuGroups: { label: string; items: MenuItem[] }[] = [
   {
     label: 'Studio',
     items: [
-      { label: 'Worth calculator', icon: '▤' },
+      { label: 'Worth calculator', icon: '▤', href: '/admin/calculator' },
       { label: 'Reports', icon: '⌁' },
       { label: 'Settings', icon: '⚙' },
     ],
