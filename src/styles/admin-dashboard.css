@@ -1107,6 +1107,54 @@
   animation: admin-dialog-in 180ms ease-out;
 }
 
+.admin-reusable-modal {
+  max-height: calc(100svh - 48px);
+}
+
+.admin-reusable-modal > h2 {
+  margin: 18px 0 8px;
+  font: 700 34px var(--display-font);
+}
+
+.admin-modal-copy {
+  max-width: 430px;
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+.admin-modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.admin-modal-form {
+  max-height: min(500px, 55svh);
+  overflow-y: auto;
+  margin: 18px 0;
+  padding-right: 5px;
+}
+
+.admin-modal-form label {
+  display: block;
+  margin-bottom: 10px;
+  font: 9px var(--body-font);
+  letter-spacing: 0.3px;
+}
+
+.admin-modal-form input {
+  display: block;
+  width: 100%;
+  min-height: 34px;
+  margin-top: 5px;
+  padding: 7px 9px;
+  border: 1px solid var(--navy);
+  border-radius: 5px;
+  color: var(--navy);
+  background: var(--cream);
+  font: 11px var(--body-font);
+}
+
 .admin-message-dialog-close {
   position: absolute;
   top: 14px;

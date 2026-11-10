@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import AdminSidebar from '../components/AdminSidebar'
 import { AdminAccessPolicy } from '../domain/SiteRouter'
 import { getContactMessages } from '../lib/supabase'
+import AdminModal from '../components/AdminModal'
+import FeedbackToast from '../components/FeedbackToast'
 
 const accessPolicy = new AdminAccessPolicy()
 const savedProjectsKey = 'hinimo-worth-calculator-projects-v2'
@@ -91,6 +93,16 @@ function AdminCalculatorPage() {
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [isCheckingAccess, setIsCheckingAccess] = useState(true)
   const [selectedProject, setSelectedProject] = useState<SavedProject | null>(null)
+  const [editingProject, setEditingProject] = useState<SavedProject | null>(null)
+  const [pendingEditProject, setPendingEditProject] = useState<SavedProject | null>(null)
+  const [pendingAction, setPendingAction] = useState<'save' | 'edit' | null>(null)
+  const [toast, setToast] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!toast) return
+    const timeout = window.setTimeout(() => setToast(null), 4200)
+    return () => window.clearTimeout(timeout)
+  }, [toast])
 
   useEffect(() => {
     accessPolicy.canAccess().then((authorized) => {
@@ -124,6 +136,19 @@ function AdminCalculatorPage() {
       savedAt: new Date().toISOString(),
     }
     saveProjects([project, ...projects].slice(0, 8))
+    setPendingAction(null)
+    setToast('Project saved successfully.')
+  }
+
+  const updateSavedProject = () => {
+    if (!pendingEditProject) return
+    const updatedProject = { ...pendingEditProject, finalPrice: calculateWorth(pendingEditProject).finalPrice, savedAt: new Date().toISOString() }
+    saveProjects(projects.map((project) => project.id === updatedProject.id ? updatedProject : project))
+    setForm(updatedProject)
+    setEditingProject(null)
+    setPendingEditProject(null)
+    setPendingAction(null)
+    setToast('Project updated successfully.')
   }
 
   const handleSignOut = async () => {
@@ -174,7 +199,7 @@ function AdminCalculatorPage() {
                 <label>PROFIT MARGIN %<input type="number" min="0" step="0.1" value={form.profitMargin} onChange={(event) => updateForm('profitMargin', Number(event.target.value))} /></label>
               </div>
               <label>MARKETPLACE FEE %<input type="number" min="0" max="99.99" step="0.1" value={form.marketplaceFee} onChange={(event) => updateForm('marketplaceFee', Number(event.target.value))} /></label>
-              <button className="admin-login-submit" type="button" onClick={saveProject}>SAVE PROJECT <span>→</span></button>
+              <button className="admin-login-submit" type="button" onClick={() => setPendingAction('save')}>SAVE PROJECT <span>→</span></button>
             </section>
             <section className="admin-calculator-panel admin-saved-projects">
               <div className="admin-calculator-panel-heading"><span><i /> SAVED PROJECTS</span><small>{projects.length} saved</small></div>
@@ -198,12 +223,10 @@ function AdminCalculatorPage() {
           </section>
         </div>
       </main>
+      {toast && <FeedbackToast type="success" message={toast} />}
       {selectedProject && (
-        <div className="admin-message-overlay" role="presentation" onClick={() => setSelectedProject(null)}>
-          <section className="admin-message-dialog admin-project-dialog" role="dialog" aria-modal="true" aria-labelledby="saved-project-title" onClick={(event) => event.stopPropagation()}>
-            <button className="admin-message-dialog-close" type="button" onClick={() => setSelectedProject(null)} aria-label="Close project details">×</button>
-            <p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> SAVED PROJECT</p>
-            <div className="admin-message-dialog-heading"><h2 id="saved-project-title">{selectedProject.projectName}</h2><strong className="admin-project-dialog-price">{money(selectedProject.finalPrice)}</strong></div>
+        <AdminModal title={selectedProject.projectName} eyebrow="SAVED PROJECT" onClose={() => setSelectedProject(null)}>
+            <div className="admin-message-dialog-heading"><strong className="admin-project-dialog-price">{money(selectedProject.finalPrice)}</strong></div>
             {(selectedProject.clientName || selectedProject.clientEmail) && <p className="admin-project-client">{selectedProject.clientName || 'Client'}{selectedProject.clientEmail && ` · ${selectedProject.clientEmail}`}</p>}
             <div className="admin-project-detail-grid">
               <span><small>MATERIALS</small><b>{money(calculateWorth(selectedProject).materials)}</b></span>
@@ -213,9 +236,51 @@ function AdminCalculatorPage() {
               <span><small>PLATFORM FEES</small><b>{money(calculateWorth(selectedProject).platformFee)}</b></span>
               <span><small>TIME</small><b>{selectedProject.hours}h {selectedProject.minutes}m</b></span>
             </div>
-            <button className="admin-login-submit" type="button" onClick={() => { setForm({ ...defaultForm, ...selectedProject }); setSelectedProject(null) }}>EDIT PROJECT <span>→</span></button>
-          </section>
-        </div>
+            <button className="admin-login-submit" type="button" onClick={() => { setEditingProject({ ...defaultForm, ...selectedProject }); setSelectedProject(null) }}>EDIT PROJECT <span>→</span></button>
+        </AdminModal>
+      )}
+      {pendingAction && (
+        <AdminModal title={pendingAction === 'save' ? 'Save this project?' : 'Save your changes?'} eyebrow="CONFIRM ACTION" onClose={() => setPendingAction(null)}>
+          <p className="admin-modal-copy">{pendingAction === 'save' ? 'This quotation will be added to your saved projects.' : 'The saved project will be updated with the values from the edit form.'}</p>
+          <div className="admin-modal-actions">
+            <button className="admin-login-submit" type="button" onClick={pendingAction === 'save' ? saveProject : updateSavedProject}>CONFIRM <span>→</span></button>
+            <button className="admin-message-read-button" type="button" onClick={() => setPendingAction(null)}>CANCEL</button>
+          </div>
+        </AdminModal>
+      )}
+      {editingProject && !pendingAction && (
+        <AdminModal title="Edit project" eyebrow="PROJECT INPUTS" onClose={() => setEditingProject(null)}>
+          <div className="admin-modal-form">
+            <label>PROJECT NAME<input value={editingProject.projectName} onChange={(event) => setEditingProject({ ...editingProject, projectName: event.target.value })} /></label>
+            <div className="admin-calculator-field-row">
+              <label>CLIENT NAME<input value={editingProject.clientName} onChange={(event) => setEditingProject({ ...editingProject, clientName: event.target.value })} /></label>
+              <label>CLIENT EMAIL<input type="email" value={editingProject.clientEmail} onChange={(event) => setEditingProject({ ...editingProject, clientEmail: event.target.value })} /></label>
+            </div>
+            <div className="admin-calculator-field-row">
+              <label>YARN COST<input type="number" min="0" value={editingProject.yarnCost} onChange={(event) => setEditingProject({ ...editingProject, yarnCost: Number(event.target.value) })} /></label>
+              <label>YARN USED<input type="number" min="0" value={editingProject.yarnUsed} onChange={(event) => setEditingProject({ ...editingProject, yarnUsed: Number(event.target.value) })} /></label>
+            </div>
+            <div className="admin-calculator-field-row">
+              <label>STUFFING<input type="number" min="0" value={editingProject.stuffingCost} onChange={(event) => setEditingProject({ ...editingProject, stuffingCost: Number(event.target.value) })} /></label>
+              <label>ACCESSORIES<input type="number" min="0" value={editingProject.accessoriesCost} onChange={(event) => setEditingProject({ ...editingProject, accessoriesCost: Number(event.target.value) })} /></label>
+            </div>
+            <label>PACKAGING<input type="number" min="0" value={editingProject.packagingCost} onChange={(event) => setEditingProject({ ...editingProject, packagingCost: Number(event.target.value) })} /></label>
+            <div className="admin-calculator-field-row">
+              <label>HOURS<input type="number" min="0" value={editingProject.hours} onChange={(event) => setEditingProject({ ...editingProject, hours: Number(event.target.value) })} /></label>
+              <label>MINUTES<input type="number" min="0" max="59" value={editingProject.minutes} onChange={(event) => setEditingProject({ ...editingProject, minutes: Number(event.target.value) })} /></label>
+            </div>
+            <div className="admin-calculator-field-row">
+              <label>RATE / HOUR<input type="number" min="0" value={editingProject.laborRate} onChange={(event) => setEditingProject({ ...editingProject, laborRate: Number(event.target.value) })} /></label>
+              <label>DIFFICULTY<input type="number" min="0.1" step="0.05" value={editingProject.difficulty} onChange={(event) => setEditingProject({ ...editingProject, difficulty: Number(event.target.value) })} /></label>
+            </div>
+            <div className="admin-calculator-field-row">
+              <label>OVERHEAD %<input type="number" min="0" max="99" value={editingProject.overhead} onChange={(event) => setEditingProject({ ...editingProject, overhead: Number(event.target.value) })} /></label>
+              <label>PROFIT MARGIN %<input type="number" min="0" value={editingProject.profitMargin} onChange={(event) => setEditingProject({ ...editingProject, profitMargin: Number(event.target.value) })} /></label>
+            </div>
+            <label>MARKETPLACE FEE %<input type="number" min="0" max="99.99" value={editingProject.marketplaceFee} onChange={(event) => setEditingProject({ ...editingProject, marketplaceFee: Number(event.target.value) })} /></label>
+          </div>
+          <button className="admin-login-submit" type="button" onClick={() => { setPendingEditProject(editingProject); setEditingProject(null); setPendingAction('edit') }}>REVIEW CHANGES <span>→</span></button>
+        </AdminModal>
       )}
     </div>
   )
