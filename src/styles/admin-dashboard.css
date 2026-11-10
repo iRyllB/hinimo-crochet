@@ -280,6 +280,15 @@
   font-size: 9px;
 }
 
+.admin-calculator-section-label {
+  margin: 16px 0 9px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgb(23 21 21 / 24%);
+  color: rgb(23 21 21 / 62%);
+  font: 700 9px var(--body-font);
+  letter-spacing: 0.6px;
+}
+
 .admin-calculator-panel label {
   display: block;
   margin-bottom: 10px;
@@ -323,6 +332,14 @@
   gap: 10px;
   padding: 13px 0;
   border-top: 1px solid rgb(23 21 21 / 22%);
+  width: 100%;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 0;
+  color: var(--navy);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
 }
 
 .admin-saved-project span {
@@ -343,14 +360,16 @@
   font: 16px var(--body-font);
 }
 
-.admin-saved-project button {
+.admin-saved-project > small {
   padding: 4px 7px;
   border: 1px solid var(--navy);
   border-radius: 10px;
   color: var(--navy);
-  background: transparent;
   font: 8px var(--body-font);
-  cursor: pointer;
+}
+
+.admin-saved-project:hover {
+  background: var(--pink);
 }
 
 .admin-calculator-empty {
@@ -396,6 +415,18 @@
   gap: 5px 12px !important;
   padding-left: 16px;
   border-left: 1px solid rgb(23 21 21 / 28%);
+}
+
+.admin-calculator-final-price {
+  grid-column: span 2;
+  padding: 12px 14px;
+  border: 2px solid var(--navy);
+  border-radius: 9px;
+  background: var(--orange);
+}
+
+.admin-calculator-final-price strong {
+  font-size: 30px;
 }
 
 .admin-add-button {
@@ -1250,6 +1281,10 @@
   }
 
   .admin-calculator-breakdown {
+    grid-column: auto;
+  }
+
+  .admin-calculator-final-price {
     grid-column: auto;
   }
 
