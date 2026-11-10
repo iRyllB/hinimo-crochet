@@ -1553,6 +1553,18 @@
   font-weight: 700;
 }
 
+.contact-email-link {
+  width: fit-content;
+  padding: 0;
+  border: 0;
+  color: var(--navy);
+  background: transparent;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
 .social-links {
   display: flex;
   gap: 10px;
@@ -1572,6 +1584,68 @@
   font-size: 18px;
   font-weight: 700;
   text-decoration: none;
+}
+
+.social-links button {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  padding: 0;
+  border: 2px solid var(--navy);
+  border-radius: 50%;
+  color: var(--navy);
+  background: var(--pink);
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.email-chooser {
+  margin-top: 24px;
+  padding: 22px;
+  border: 2px solid var(--navy);
+  border-radius: 16px;
+  background: var(--pink);
+}
+
+.email-chooser h3 {
+  margin: 8px 0;
+  font-family: var(--display-font);
+  font-size: 34px;
+  line-height: 0.9;
+}
+
+.email-chooser p:not(.eyebrow) {
+  margin: 0 0 16px;
+}
+
+.email-chooser-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.email-provider-button {
+  padding: 11px 16px;
+  border: 2px solid var(--navy);
+  border-radius: 999px;
+  color: var(--cream);
+  background: var(--navy);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.email-chooser-cancel {
+  margin-top: 14px;
+  padding: 0;
+  border: 0;
+  color: var(--navy);
+  background: transparent;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .social-links a:hover {
