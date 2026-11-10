@@ -9,7 +9,7 @@ export type CalculatorForm = {
   yarnUsed: number
   stuffingCost: number
   accessoriesCost: number
-  packagingCost: number
+  packagingCost: number   
   hours: number
   minutes: number
   laborRate: number

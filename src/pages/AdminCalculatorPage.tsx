@@ -254,8 +254,10 @@ function AdminCalculatorPage() {
             </div>
             <div className="admin-project-dialog-actions">
               <button className="admin-login-submit" type="button" onClick={() => { setEditingProject({ ...defaultForm, ...selectedProject }); setSelectedProject(null) }}>EDIT PROJECT <span>→</span></button>
-              <button className="admin-project-danger-button" type="button" onClick={() => setPendingAction('delete')}>DELETE</button>
-              <button className="admin-project-done-button" type="button" onClick={() => setPendingAction('done')}>DONE</button>
+              <div className="admin-project-status-actions">
+                <button className="admin-project-danger-button" type="button" onClick={() => setPendingAction('delete')}>DELETE</button>
+                <button className="admin-project-done-button" type="button" onClick={() => setPendingAction('done')}>DONE</button>
+              </div>
             </div>
         </AdminModal>
       )}
