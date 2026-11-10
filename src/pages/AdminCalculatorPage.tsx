@@ -4,7 +4,7 @@ import { AdminAccessPolicy } from '../domain/SiteRouter'
 import { getContactMessages } from '../lib/supabase'
 import AdminModal from '../components/AdminModal'
 import FeedbackToast from '../components/FeedbackToast'
-import { savedProjectsKey, archivedProjectsKey, type CalculatorForm, type SavedProject, readArchivedProjects, readSavedProjects, writeProjects } from '../lib/projects'
+import { savedProjectsKey, archivedProjectsKey, type CalculatorForm, type SavedProject, readArchivedProjects, readSavedProjects, readArchivedProjectsUnreadCount, writeArchivedProjectsUnreadCount, writeProjects } from '../lib/projects'
 
 const accessPolicy = new AdminAccessPolicy()
 type Calculation = {
@@ -53,7 +53,7 @@ function calculateWorth(form: CalculatorForm): Calculation {
 function AdminCalculatorPage() {
   const [form, setForm] = useState<CalculatorForm>(defaultForm)
   const [projects, setProjects] = useState<SavedProject[]>(readSavedProjects)
-  const [archivedProjectCount, setArchivedProjectCount] = useState(() => readArchivedProjects().length)
+  const [archivedProjectCount, setArchivedProjectCount] = useState(readArchivedProjectsUnreadCount)
   const [unreadMessageCount, setUnreadMessageCount] = useState(0)
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [isCheckingAccess, setIsCheckingAccess] = useState(true)
@@ -180,7 +180,9 @@ function AdminCalculatorPage() {
       }
     })()
     writeProjects(archivedProjectsKey, [{ ...selectedProject, savedAt: new Date().toISOString() }, ...archivedProjects])
-    setArchivedProjectCount(archivedProjects.length + 1)
+    const nextUnreadCount = readArchivedProjectsUnreadCount() + 1
+    writeArchivedProjectsUnreadCount(nextUnreadCount)
+    setArchivedProjectCount(nextUnreadCount)
     saveProjects(projects.filter((project) => project.id !== selectedProject.id))
     setSelectedProject(null)
     setPendingAction(null)

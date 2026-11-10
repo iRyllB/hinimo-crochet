@@ -3,7 +3,7 @@ import AdminSidebar from '../components/AdminSidebar'
 import AdminModal from '../components/AdminModal'
 import { AdminAccessPolicy } from '../domain/SiteRouter'
 import { getContactMessages } from '../lib/supabase'
-import { archivedProjectsKey, readArchivedProjects, type SavedProject, writeProjects } from '../lib/projects'
+import { archivedProjectsKey, readArchivedProjects, type SavedProject, writeArchivedProjectsUnreadCount, writeProjects } from '../lib/projects'
 import FeedbackToast from '../components/FeedbackToast'
 
 type ProjectSort = 'newest' | 'oldest'
@@ -21,6 +21,7 @@ function AdminArchivesPage() {
   const accessPolicy = useMemo(() => new AdminAccessPolicy(), [])
 
   useEffect(() => {
+    writeArchivedProjectsUnreadCount(0)
     if (!toast) return
     const timeout = window.setTimeout(() => setToast(null), 4200)
     return () => window.clearTimeout(timeout)
@@ -87,7 +88,7 @@ function AdminArchivesPage() {
 
   return (
     <div className="admin-layout">
-      <AdminSidebar activeMenu="Project archives" onSignOut={handleSignOut} unreadMessageCount={unreadMessageCount} archivedProjectCount={projects.length} />
+      <AdminSidebar activeMenu="Project archives" onSignOut={handleSignOut} unreadMessageCount={unreadMessageCount} archivedProjectCount={0} />
       <main className="admin-main">
         <div className="admin-content admin-inbox-content">
           <div className="admin-heading-row">

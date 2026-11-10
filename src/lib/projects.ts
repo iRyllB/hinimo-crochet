@@ -1,5 +1,6 @@
 export const savedProjectsKey = 'hinimo-worth-calculator-projects-v2'
 export const archivedProjectsKey = 'hinimo-worth-calculator-archives-v1'
+export const archivedProjectsUnreadKey = 'hinimo-worth-calculator-archives-unread-v1'
 
 export type CalculatorForm = {
   projectName: string
@@ -41,4 +42,13 @@ export const readArchivedProjects = () => readProjects(archivedProjectsKey)
 
 export function writeProjects(key: string, projects: SavedProject[]) {
   window.localStorage.setItem(key, JSON.stringify(projects))
+}
+
+export function readArchivedProjectsUnreadCount() {
+  const count = Number(window.localStorage.getItem(archivedProjectsUnreadKey) ?? 0)
+  return Number.isFinite(count) && count > 0 ? count : 0
+}
+
+export function writeArchivedProjectsUnreadCount(count: number) {
+  window.localStorage.setItem(archivedProjectsUnreadKey, String(Math.max(0, count)))
 }
