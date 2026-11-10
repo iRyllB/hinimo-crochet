@@ -53,6 +53,7 @@ function calculateWorth(form: CalculatorForm): Calculation {
 function AdminCalculatorPage() {
   const [form, setForm] = useState<CalculatorForm>(defaultForm)
   const [projects, setProjects] = useState<SavedProject[]>(readSavedProjects)
+  const [archivedProjectCount, setArchivedProjectCount] = useState(() => readArchivedProjects().length)
   const [unreadMessageCount, setUnreadMessageCount] = useState(0)
   const [isAuthorized, setIsAuthorized] = useState(false)
   const [isCheckingAccess, setIsCheckingAccess] = useState(true)
@@ -96,10 +97,23 @@ function AdminCalculatorPage() {
     setToast({ type: 'error', message })
   }
 
+  const hasRequiredMaterials = (project: CalculatorForm) => (
+    project.yarnCost > 0
+    && project.yarnUsed > 0
+    && project.stuffingCost > 0
+    && project.accessoriesCost > 0
+    && project.packagingCost > 0
+  )
+
   const saveProject = () => {
     const projectName = form.projectName.trim()
     if (!projectName) {
       notifyError('Project name is required.')
+      setPendingAction(null)
+      return
+    }
+    if (!hasRequiredMaterials(form)) {
+      notifyError('Enter a value greater than zero for every required material field.')
       setPendingAction(null)
       return
     }
@@ -125,6 +139,11 @@ function AdminCalculatorPage() {
     const projectName = pendingEditProject.projectName.trim()
     if (!projectName) {
       notifyError('Project name is required.')
+      setPendingAction(null)
+      return
+    }
+    if (!hasRequiredMaterials(pendingEditProject)) {
+      notifyError('Enter a value greater than zero for every required material field.')
       setPendingAction(null)
       return
     }
@@ -161,6 +180,7 @@ function AdminCalculatorPage() {
       }
     })()
     writeProjects(archivedProjectsKey, [{ ...selectedProject, savedAt: new Date().toISOString() }, ...archivedProjects])
+    setArchivedProjectCount(archivedProjects.length + 1)
     saveProjects(projects.filter((project) => project.id !== selectedProject.id))
     setSelectedProject(null)
     setPendingAction(null)
@@ -176,9 +196,8 @@ function AdminCalculatorPage() {
 
   return (
     <div className="admin-layout">
-      <AdminSidebar activeMenu="Worth calculator" onSignOut={handleSignOut} unreadMessageCount={unreadMessageCount} />
+      <AdminSidebar activeMenu="Worth calculator" onSignOut={handleSignOut} unreadMessageCount={unreadMessageCount} archivedProjectCount={archivedProjectCount} />
       <main className="admin-main">
-        <div className="admin-calculator-topbar">Worth Calculator <span>⌕ Search anything... <b>↗</b></span></div>
         <div className="admin-content admin-calculator-content">
           <div className="admin-heading-row">
             <div><p className="eyebrow"><span className="eyebrow-dot" aria-hidden="true" /> KNOW YOUR WORTH</p><h1>WORTH<br /><em>CALCULATOR.</em></h1></div>
@@ -186,21 +205,21 @@ function AdminCalculatorPage() {
           <div className="admin-calculator-grid">
             <section className="admin-calculator-panel">
               <div className="admin-calculator-panel-heading"><span>PROJECT INPUTS</span><p>Price your crochet work fairly.</p></div>
-              <label>PROJECT NAME<input value={form.projectName} onChange={(event) => updateForm('projectName', event.target.value)} /></label>
+              <label>PROJECT NAME <span className="admin-required-mark">*</span><input required value={form.projectName} onChange={(event) => updateForm('projectName', event.target.value)} /></label>
               <div className="admin-calculator-field-row">
-                <label>CLIENT NAME (OPTIONAL)<input value={form.clientName} onChange={(event) => updateForm('clientName', event.target.value)} /></label>
-                <label>CLIENT EMAIL (OPTIONAL)<input type="email" value={form.clientEmail} onChange={(event) => updateForm('clientEmail', event.target.value)} /></label>
+                <label>CLIENT NAME <span className="admin-optional-mark">(Optional)</span><input value={form.clientName} onChange={(event) => updateForm('clientName', event.target.value)} /></label>
+                <label>CLIENT EMAIL <span className="admin-optional-mark">(Optional)</span><input type="email" value={form.clientEmail} onChange={(event) => updateForm('clientEmail', event.target.value)} /></label>
               </div>
               <div className="admin-calculator-section-label">MATERIALS</div>
               <div className="admin-calculator-field-row">
-                <label>YARN COST (PHP)<input type="number" min="0" step="0.01" value={form.yarnCost} onChange={(event) => updateForm('yarnCost', Number(event.target.value))} /></label>
-                <label>YARN USED (G / SKEINS)<input type="number" min="0" step="0.01" value={form.yarnUsed} onChange={(event) => updateForm('yarnUsed', Number(event.target.value))} /></label>
+                <label>YARN COST (PHP) <span className="admin-required-mark">*</span><input required type="number" min="0.01" step="0.01" value={form.yarnCost} onChange={(event) => updateForm('yarnCost', Number(event.target.value))} /></label>
+                <label>YARN USED (G / SKEINS) <span className="admin-required-mark">*</span><input required type="number" min="0.01" step="0.01" value={form.yarnUsed} onChange={(event) => updateForm('yarnUsed', Number(event.target.value))} /></label>
               </div>
               <div className="admin-calculator-field-row">
-                <label>STUFFING / POLYFILL<input type="number" min="0" step="0.01" value={form.stuffingCost} onChange={(event) => updateForm('stuffingCost', Number(event.target.value))} /></label>
-                <label>ACCESSORIES<input type="number" min="0" step="0.01" value={form.accessoriesCost} onChange={(event) => updateForm('accessoriesCost', Number(event.target.value))} /></label>
+                <label>STUFFING / POLYFILL <span className="admin-required-mark">*</span><input required type="number" min="0.01" step="0.01" value={form.stuffingCost} onChange={(event) => updateForm('stuffingCost', Number(event.target.value))} /></label>
+                <label>ACCESSORIES <span className="admin-required-mark">*</span><input required type="number" min="0.01" step="0.01" value={form.accessoriesCost} onChange={(event) => updateForm('accessoriesCost', Number(event.target.value))} /></label>
               </div>
-              <label>PACKAGING COST (PHP)<input type="number" min="0" step="0.01" value={form.packagingCost} onChange={(event) => updateForm('packagingCost', Number(event.target.value))} /></label>
+              <label>PACKAGING COST (PHP) <span className="admin-required-mark">*</span><input required type="number" min="0.01" step="0.01" value={form.packagingCost} onChange={(event) => updateForm('packagingCost', Number(event.target.value))} /></label>
               <div className="admin-calculator-section-label">LABOR & RULES</div>
               <div className="admin-calculator-field-row">
                 <label>HOURS<input type="number" min="0" step="1" value={form.hours} onChange={(event) => updateForm('hours', Number(event.target.value))} /></label>

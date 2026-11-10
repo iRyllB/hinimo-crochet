@@ -296,6 +296,18 @@
   letter-spacing: 0.3px;
 }
 
+.admin-required-mark {
+  color: #d94b55;
+  font-weight: 700;
+}
+
+.admin-optional-mark {
+  color: #d94b55;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: none;
+}
+
 .admin-calculator-panel input,
 .admin-calculator-panel select {
   display: block;
@@ -437,6 +449,16 @@
 
 .admin-project-done-button:hover {
   background: #83aa70;
+}
+
+.admin-archive-export-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-archive-delete-button {
+  margin-top: 20px;
 }
 
 .admin-archive-list {

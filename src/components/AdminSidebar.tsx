@@ -4,6 +4,7 @@ type AdminSidebarProps = {
   activeMenu: string
   onSignOut: () => void
   unreadMessageCount: number
+  archivedProjectCount?: number
 }
 
 type MenuItem = {
@@ -45,7 +46,7 @@ const menuGroups: { label: string; items: MenuItem[] }[] = [
   },
 ]
 
-function AdminSidebar({ activeMenu, onSignOut, unreadMessageCount }: AdminSidebarProps) {
+function AdminSidebar({ activeMenu, onSignOut, unreadMessageCount, archivedProjectCount = 0 }: AdminSidebarProps) {
   return (
     <aside className="admin-sidebar">
       <a className="admin-brand" href="/admin/dashboard" aria-label="Hinimo admin dashboard">
@@ -67,7 +68,9 @@ function AdminSidebar({ activeMenu, onSignOut, unreadMessageCount }: AdminSideba
                     {item.label}
                     {item.label === 'Contact inbox'
                       ? unreadMessageCount > 0 && <b>{unreadMessageCount}</b>
-                      : item.badge && <b>{item.badge}</b>}
+                      : item.label === 'Project archives'
+                        ? archivedProjectCount > 0 && <b>{archivedProjectCount}</b>
+                        : item.badge && <b>{item.badge}</b>}
                   </a>
                 : <button className="admin-menu-item" type="button" key={item.label} onClick={() => undefined}>
                     <span aria-hidden="true">{item.icon}</span>
