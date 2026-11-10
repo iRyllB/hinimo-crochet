@@ -1447,7 +1447,8 @@
 }
 
 .feedback-toast-error {
-  background: var(--pink);
+  color: var(--cream);
+  background: #d94b55;
 }
 
 .feedback-toast-mark {

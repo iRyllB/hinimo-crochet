@@ -4,28 +4,9 @@ import { AdminAccessPolicy } from '../domain/SiteRouter'
 import { getContactMessages } from '../lib/supabase'
 import AdminModal from '../components/AdminModal'
 import FeedbackToast from '../components/FeedbackToast'
+import { savedProjectsKey, archivedProjectsKey, type CalculatorForm, type SavedProject, readArchivedProjects, readSavedProjects, writeProjects } from '../lib/projects'
 
 const accessPolicy = new AdminAccessPolicy()
-const savedProjectsKey = 'hinimo-worth-calculator-projects-v2'
-
-type CalculatorForm = {
-  projectName: string
-  clientName: string
-  clientEmail: string
-  yarnCost: number
-  yarnUsed: number
-  stuffingCost: number
-  accessoriesCost: number
-  packagingCost: number
-  hours: number
-  minutes: number
-  laborRate: number
-  difficulty: number
-  overhead: number
-  profitMargin: number
-  marketplaceFee: number
-}
-
 type Calculation = {
   materials: number
   labor: number
@@ -34,12 +15,6 @@ type Calculation = {
   netPrice: number
   platformFee: number
   finalPrice: number
-}
-
-type SavedProject = CalculatorForm & {
-  id: string
-  finalPrice: number
-  savedAt: string
 }
 
 const defaultForm: CalculatorForm = {
@@ -75,17 +50,6 @@ function calculateWorth(form: CalculatorForm): Calculation {
   return { materials, labor, overhead, profit, netPrice, platformFee: finalPrice - netPrice, finalPrice }
 }
 
-function readSavedProjects(): SavedProject[] {
-  try {
-    const saved = window.localStorage.getItem(savedProjectsKey)
-    if (!saved) return []
-    const projects = JSON.parse(saved) as SavedProject[]
-    return Array.isArray(projects) ? projects : []
-  } catch {
-    return []
-  }
-}
-
 function AdminCalculatorPage() {
   const [form, setForm] = useState<CalculatorForm>(defaultForm)
   const [projects, setProjects] = useState<SavedProject[]>(readSavedProjects)
@@ -95,8 +59,8 @@ function AdminCalculatorPage() {
   const [selectedProject, setSelectedProject] = useState<SavedProject | null>(null)
   const [editingProject, setEditingProject] = useState<SavedProject | null>(null)
   const [pendingEditProject, setPendingEditProject] = useState<SavedProject | null>(null)
-  const [pendingAction, setPendingAction] = useState<'save' | 'edit' | null>(null)
-  const [toast, setToast] = useState<string | null>(null)
+  const [pendingAction, setPendingAction] = useState<'save' | 'edit' | 'delete' | 'done' | null>(null)
+  const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
 
   useEffect(() => {
     if (!toast) return
@@ -125,30 +89,82 @@ function AdminCalculatorPage() {
 
   const saveProjects = (nextProjects: SavedProject[]) => {
     setProjects(nextProjects)
-    window.localStorage.setItem(savedProjectsKey, JSON.stringify(nextProjects))
+    writeProjects(savedProjectsKey, nextProjects)
+  }
+
+  const notifyError = (message: string) => {
+    setToast({ type: 'error', message })
   }
 
   const saveProject = () => {
+    const projectName = form.projectName.trim()
+    if (!projectName) {
+      notifyError('Project name is required.')
+      setPendingAction(null)
+      return
+    }
+    if ([...projects, ...readArchivedProjects()].some((project) => project.projectName.trim().toLowerCase() === projectName.toLowerCase())) {
+      notifyError('A project with this name already exists.')
+      setPendingAction(null)
+      return
+    }
     const project: SavedProject = {
       ...form,
+      projectName,
       id: crypto.randomUUID(),
       finalPrice: calculation.finalPrice,
       savedAt: new Date().toISOString(),
     }
     saveProjects([project, ...projects].slice(0, 8))
     setPendingAction(null)
-    setToast('Project saved successfully.')
+    setToast({ type: 'success', message: 'Project saved successfully.' })
   }
 
   const updateSavedProject = () => {
     if (!pendingEditProject) return
-    const updatedProject = { ...pendingEditProject, finalPrice: calculateWorth(pendingEditProject).finalPrice, savedAt: new Date().toISOString() }
+    const projectName = pendingEditProject.projectName.trim()
+    if (!projectName) {
+      notifyError('Project name is required.')
+      setPendingAction(null)
+      return
+    }
+    if ([...projects, ...readArchivedProjects()].some((project) => project.id !== pendingEditProject.id && project.projectName.trim().toLowerCase() === projectName.toLowerCase())) {
+      notifyError('A project with this name already exists.')
+      setPendingAction(null)
+      return
+    }
+    const updatedProject = { ...pendingEditProject, projectName, finalPrice: calculateWorth(pendingEditProject).finalPrice, savedAt: new Date().toISOString() }
     saveProjects(projects.map((project) => project.id === updatedProject.id ? updatedProject : project))
     setForm(updatedProject)
     setEditingProject(null)
     setPendingEditProject(null)
     setPendingAction(null)
-    setToast('Project updated successfully.')
+    setToast({ type: 'success', message: 'Project updated successfully.' })
+  }
+
+  const deleteProject = () => {
+    if (!selectedProject) return
+    saveProjects(projects.filter((project) => project.id !== selectedProject.id))
+    setSelectedProject(null)
+    setPendingAction(null)
+    setToast({ type: 'success', message: 'Project deleted successfully.' })
+  }
+
+  const completeProject = () => {
+    if (!selectedProject) return
+    const archivedProjects = (() => {
+      try {
+        const saved = window.localStorage.getItem(archivedProjectsKey)
+        return saved ? JSON.parse(saved) as SavedProject[] : []
+      } catch {
+        return []
+      }
+    })()
+    writeProjects(archivedProjectsKey, [{ ...selectedProject, savedAt: new Date().toISOString() }, ...archivedProjects])
+    saveProjects(projects.filter((project) => project.id !== selectedProject.id))
+    setSelectedProject(null)
+    setPendingAction(null)
+    setToast({ type: 'success', message: 'Project added to Archive' })
   }
 
   const handleSignOut = async () => {
@@ -223,7 +239,7 @@ function AdminCalculatorPage() {
           </section>
         </div>
       </main>
-      {toast && <FeedbackToast type="success" message={toast} />}
+      {toast && <FeedbackToast type={toast.type} message={toast.message} />}
       {selectedProject && (
         <AdminModal title={selectedProject.projectName} eyebrow="SAVED PROJECT" onClose={() => setSelectedProject(null)}>
             <div className="admin-message-dialog-heading"><strong className="admin-project-dialog-price">{money(selectedProject.finalPrice)}</strong></div>
@@ -236,14 +252,23 @@ function AdminCalculatorPage() {
               <span><small>PLATFORM FEES</small><b>{money(calculateWorth(selectedProject).platformFee)}</b></span>
               <span><small>TIME</small><b>{selectedProject.hours}h {selectedProject.minutes}m</b></span>
             </div>
-            <button className="admin-login-submit" type="button" onClick={() => { setEditingProject({ ...defaultForm, ...selectedProject }); setSelectedProject(null) }}>EDIT PROJECT <span>→</span></button>
+            <div className="admin-project-dialog-actions">
+              <button className="admin-login-submit" type="button" onClick={() => { setEditingProject({ ...defaultForm, ...selectedProject }); setSelectedProject(null) }}>EDIT PROJECT <span>→</span></button>
+              <button className="admin-project-danger-button" type="button" onClick={() => setPendingAction('delete')}>DELETE</button>
+              <button className="admin-project-done-button" type="button" onClick={() => setPendingAction('done')}>DONE</button>
+            </div>
         </AdminModal>
       )}
       {pendingAction && (
-        <AdminModal title={pendingAction === 'save' ? 'Save this project?' : 'Save your changes?'} eyebrow="CONFIRM ACTION" onClose={() => setPendingAction(null)}>
-          <p className="admin-modal-copy">{pendingAction === 'save' ? 'This quotation will be added to your saved projects.' : 'The saved project will be updated with the values from the edit form.'}</p>
+        <AdminModal title={pendingAction === 'save' ? 'Save this project?' : pendingAction === 'edit' ? 'Save your changes?' : pendingAction === 'delete' ? 'Delete this project?' : 'Mark project as done?'} eyebrow="CONFIRM ACTION" onClose={() => setPendingAction(null)}>
+          <p className="admin-modal-copy">
+            {pendingAction === 'save' && 'This quotation will be added to your saved projects.'}
+            {pendingAction === 'edit' && 'The saved project will be updated with the values from the edit form.'}
+            {pendingAction === 'delete' && 'This project will be permanently removed from your saved projects.'}
+            {pendingAction === 'done' && 'This project will move to Project Archives.'}
+          </p>
           <div className="admin-modal-actions">
-            <button className="admin-login-submit" type="button" onClick={pendingAction === 'save' ? saveProject : updateSavedProject}>CONFIRM <span>→</span></button>
+            <button className={`admin-login-submit${pendingAction === 'delete' ? ' admin-project-danger-button' : ''}`} type="button" onClick={pendingAction === 'save' ? saveProject : pendingAction === 'edit' ? updateSavedProject : pendingAction === 'delete' ? deleteProject : completeProject}>CONFIRM <span>→</span></button>
             <button className="admin-message-read-button" type="button" onClick={() => setPendingAction(null)}>CANCEL</button>
           </div>
         </AdminModal>

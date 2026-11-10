@@ -382,6 +382,69 @@
   font: 700 22px var(--body-font);
 }
 
+.admin-project-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-project-danger-button,
+.admin-project-done-button {
+  min-height: 42px;
+  padding: 9px 14px;
+  border: 2px solid var(--navy);
+  border-radius: 16px;
+  box-shadow: 2px 2px 0 var(--navy);
+  font: 700 10px var(--body-font);
+  cursor: pointer;
+}
+
+.admin-project-danger-button {
+  color: var(--cream);
+  background: var(--berry);
+}
+
+.admin-project-done-button {
+  color: var(--navy);
+  background: var(--yellow);
+}
+
+.admin-archive-list {
+  display: grid;
+  gap: 10px;
+}
+
+.admin-archive-project {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 18px;
+  padding: 16px;
+  border: 2px solid var(--navy);
+  border-radius: 12px;
+  background: #fffdf5;
+}
+
+.admin-archive-project h2 {
+  margin: 0 0 5px;
+  font: 700 21px var(--display-font);
+}
+
+.admin-archive-project p {
+  margin: 0;
+  color: rgb(23 21 21 / 65%);
+  font: 10px var(--body-font);
+}
+
+.admin-archive-project > strong {
+  font: 700 18px var(--body-font);
+}
+
+.admin-archive-project .admin-message-button {
+  margin-top: 0;
+}
+
 .admin-project-client {
   margin: 8px 0 0;
   color: var(--berry);
@@ -1374,6 +1437,11 @@
 
   .admin-calculator-breakdown {
     grid-column: auto;
+  }
+
+  .admin-archive-project {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 
   .admin-calculator-final-price {
