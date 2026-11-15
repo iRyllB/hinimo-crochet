@@ -18,10 +18,17 @@
 
 .admin-sidebar {
   display: flex;
-  flex: 0 0 245px;
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  width: 245px;
   flex-direction: column;
-  min-height: 100svh;
+  height: 100svh;
+  max-height: 100svh;
   padding: 24px 15px 16px;
+  box-sizing: border-box;
+  overflow-y: auto;
   border-right: 2px solid var(--navy);
   background: #fff9e9;
 }
@@ -147,6 +154,7 @@
 .admin-main {
   flex: 1;
   min-width: 0;
+  margin-left: 245px;
 }
 
 .admin-topbar {
@@ -1481,7 +1489,11 @@
 
 @media (max-width: 900px) {
   .admin-sidebar {
-    flex-basis: 205px;
+    width: 205px;
+  }
+
+  .admin-main {
+    margin-left: 205px;
   }
 
   .admin-content {
@@ -1533,9 +1545,17 @@
   }
 
   .admin-sidebar {
-    min-height: auto;
+    position: static;
+    width: auto;
+    height: auto;
+    max-height: none;
+    overflow-y: visible;
     border-right: 0;
     border-bottom: 2px solid var(--navy);
+  }
+
+  .admin-main {
+    margin-left: 0;
   }
 
   .admin-menu {
