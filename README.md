@@ -1,5 +1,21 @@
 # React + TypeScript + Vite
 
+## Contact form protection
+
+The public “Leave a note” form uses Cloudflare Turnstile and a Supabase Edge Function.
+Turnstile is a third-party service; its public site key belongs in `VITE_TURNSTILE_SITE_KEY`,
+while the secret key must never be exposed to the browser.
+
+Deployment steps:
+
+1. Create a Turnstile widget for the site and add its site key to `.env.local` as
+   `VITE_TURNSTILE_SITE_KEY`.
+2. Deploy `supabase/functions/submit-contact-message`.
+3. Set the Edge Function secrets `TURNSTILE_SECRET_KEY` and
+   `SUPABASE_SERVICE_ROLE_KEY`. Set `ALLOWED_ORIGIN` to the production site origin.
+4. Apply `supabase/revoke-public-contact-inserts.sql` so bots cannot bypass the Edge Function
+   and insert directly into `contact_messages`.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

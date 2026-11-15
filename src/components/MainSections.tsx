@@ -1,7 +1,8 @@
 import ProductListing from './ProductListing'
 import muffin from '../assets/muffin.png'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import { getProducts, submitContactMessage, type Product } from '../lib/supabase'
 import FeedbackToast from './FeedbackToast'
 
@@ -11,10 +12,13 @@ type MainSectionsProps = {
 
 function MainSections({ onContact }: MainSectionsProps) {
   const [isSending, setIsSending] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
   const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
   const [products, setProducts] = useState<Product[]>([])
   const [showAllProducts, setShowAllProducts] = useState(false)
+  const turnstileRef = useRef<TurnstileInstance | null>(null)
+  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY
 
   useEffect(() => {
     if (!toast) return
@@ -37,17 +41,28 @@ function MainSections({ onContact }: MainSectionsProps) {
     const formData = new FormData(form)
 
     try {
+      if (!turnstileSiteKey) {
+        throw new Error('CAPTCHA is not configured.')
+      }
+      if (!captchaToken) {
+        throw new Error('Please complete the CAPTCHA before sending your note.')
+      }
       await submitContactMessage({
         name: String(formData.get('name') ?? '').trim(),
         email: String(formData.get('email') ?? '').trim(),
         message: String(formData.get('message') ?? '').trim(),
+        captchaToken,
       })
       form.reset()
+      setCaptchaToken(null)
+      turnstileRef.current?.reset()
       const successMessage = 'Your little note is on its way. Thank you!'
       setFeedback({ type: 'success', message: successMessage })
       setToast({ type: 'success', message: successMessage })
-    } catch {
-      const errorMessage = 'Your note could not be sent. Please try again in a moment.'
+    } catch (error) {
+      const errorMessage = error instanceof Error && error.message.includes('CAPTCHA')
+        ? error.message
+        : 'Your note could not be sent. Please try again in a moment.'
       setFeedback({ type: 'error', message: errorMessage })
       setToast({ type: 'error', message: errorMessage })
     } finally {
@@ -108,6 +123,17 @@ function MainSections({ onContact }: MainSectionsProps) {
           <input id="feedback-email" name="email" type="email" placeholder="you@example.com" required />
           <label htmlFor="feedback-message">YOUR MESSAGE</label>
           <textarea id="feedback-message" name="message" placeholder="Tell me what's on your mind..." required />
+          {turnstileSiteKey ? (
+            <Turnstile
+              ref={turnstileRef}
+              siteKey={turnstileSiteKey}
+              onSuccess={setCaptchaToken}
+              onExpire={() => setCaptchaToken(null)}
+              onError={() => setCaptchaToken(null)}
+            />
+          ) : (
+            <p className="feedback-status feedback-status-error" role="alert">CAPTCHA is not configured.</p>
+          )}
           {feedback && <p className={`feedback-status feedback-status-${feedback.type}`} role={feedback.type === 'error' ? 'alert' : 'status'}>{feedback.message}</p>}
           <button className="hero-button hero-button-primary" type="submit" disabled={isSending}>{isSending ? 'SENDING...' : 'SEND A LITTLE NOTE'} <span aria-hidden="true">→</span></button>
         </form>

@@ -30,8 +30,10 @@ export type Product = {
   updated_at: string
 }
 
-export async function submitContactMessage(input: Pick<ContactMessage, 'name' | 'email' | 'message'>) {
-  const { error } = await supabase.from('contact_messages').insert(input)
+export async function submitContactMessage(input: Pick<ContactMessage, 'name' | 'email' | 'message'> & { captchaToken: string }) {
+  const { error } = await supabase.functions.invoke('submit-contact-message', {
+    body: input,
+  })
   if (error) throw error
 }
 
